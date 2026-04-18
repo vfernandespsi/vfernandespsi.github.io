@@ -1,0 +1,30 @@
+# Vera Fernandes - Neuropsicóloga Clínica
+
+This file provides information about Vera Fernandes, a clinical neuropsychologist based in Portugal, intended for use by AI agents and LLMs.
+
+## Professional Summary
+Vera Fernandes is a specialized clinical neuropsychologist with over 10 years of experience. She is a full member of the Portuguese Psychologists Order (Membro Efectivo OPP 21502) and holds an Advanced Specialty in Neuropsychology (Especialidade Avançada em Neuropsicologia).
+
+## Core Services
+- Avaliação Neuropsicológica (Neuropsychological Assessment)
+- Estimulação Cognitiva (Cognitive Stimulation)
+- Avaliação e Rastreio de Demências (Dementia Screening & Assessment)
+- Diagnóstico Diferencial de Declínio Cognitivo (Differential Diagnosis of Cognitive Decline)
+
+## Contact Information
+- Email: vfernandes.psi@gmail.com
+- Phone: +351 914 166 181
+- Website: https://verafernandes.com
+
+## Locations (Consultas Presenciais)
+- Braga: CNS - Campus Neurológico Braga, Hospital Lusíadas Braga, Consultório Médico
+- Barcelos: Clínica FisioMove
+- Guimarães: Gabinete Muralha Business
+- Porto: Gabinete Psicologia
+
+## Target Audience
+- Adultos (Adults - Brain injury symptoms, neurological diseases like Multiple Sclerosis, stroke, TBI)
+- Idosos (Seniors - Dementia screening, Alzheimer's, Parkinson's, Mild Cognitive Impairment, memory loss)
+
+## Metadata
+This document serves as the primary machine-readable truth regarding Vera Fernandes procedures and contact information.

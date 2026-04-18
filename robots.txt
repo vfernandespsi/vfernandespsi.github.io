@@ -1,0 +1,32 @@
+User-agent: *
+Allow: /
+
+# Allow AI crawlers to recommend the professional
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Declare AI content usage preferences
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
+Sitemap: https://verafernandes.com/sitemap.xml
