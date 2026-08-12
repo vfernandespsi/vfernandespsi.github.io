@@ -14,15 +14,15 @@
     <link rel="canonical" href="https://verafernandes.com/marcar/" />
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Marcar avaliação neuropsicológica | Vera Fernandes</title>
-    <meta name="description" content="Escolha a cidade e o serviço para marcar avaliação neuropsicológica ou estimulação cognitiva em Braga, Barcelos, Guimarães e Porto." />
+    <title>Marcar consulta | Vera Fernandes</title>
+    <meta name="description" content="Marcar avaliação neuropsicológica, estimulação cognitiva ou consulta de psicologia do sono. Vera Fernandes, OPP 21502." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Vera Fernandes" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta property="og:locale" content="pt_PT" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Marcar avaliação neuropsicológica | Vera Fernandes" />
-    <meta property="og:description" content="Escolha a cidade e o serviço para marcar avaliação neuropsicológica ou estimulação cognitiva em Braga, Barcelos, Guimarães e Porto." />
+    <meta property="og:title" content="Marcar consulta | Vera Fernandes" />
+    <meta property="og:description" content="Marcar avaliação neuropsicológica, estimulação cognitiva ou consulta de psicologia do sono. Vera Fernandes, OPP 21502." />
     <meta property="og:url" content="https://verafernandes.com/marcar/" />
     <meta property="og:site_name" content="Vera Fernandes - Neuropsicóloga | Braga, Barcelos, Guimarães e Porto" />
     <meta property="og:image" content="https://verafernandes.com/assets/images/vera1.webp" />
@@ -47,7 +47,7 @@
       "url": "https://verafernandes.com/",
       "telephone": "+351914166181",
       "email": "vfernandes.psi@gmail.com",
-      "description": "Neuropsicóloga em Portugal (não confundir com profissionais homónimas noutros países). Membro Efectivo da Ordem dos Psicólogos Portugueses n.º 21502, com Especialidade Avançada em Neuropsicologia. Avaliação neuropsicológica e estimulação cognitiva para adultos e idosos em Braga, Barcelos, Guimarães e Porto.",
+      "description": "Neuropsicóloga em Portugal (não confundir com profissionais homónimas noutros países). Membro Efectivo da Ordem dos Psicólogos Portugueses n.º 21502, com Especialidade Avançada em Neuropsicologia. Avaliação neuropsicológica e estimulação cognitiva para adultos e idosos em Braga, Barcelos, Guimarães e Porto. Consulta de psicologia do sono online (18+).",
       "knowsLanguage": "pt-PT",
       "identifier": {
         "@type": "PropertyValue",
@@ -102,7 +102,7 @@
       "@type": "WebPage",
       "@id": "https://verafernandes.com/marcar/#webpage",
       "url": "https://verafernandes.com/marcar/",
-      "name": "Marcar avaliação neuropsicológica | Vera Fernandes",
+      "name": "Marcar consulta | Vera Fernandes",
       "isPartOf": {
         "@id": "https://verafernandes.com/#website"
       },
@@ -185,7 +185,7 @@
             <div class="col-lg-12">
                 <div class="nav-inner">
                     <nav class="navbar navbar-expand-lg">
-                        <a class="navbar-brand" href="/" target="_self">
+                        <a class="navbar-brand" href="/neuropsicologia/" target="_self">
                             <img draggable="false" src="/assets/images/logo/logo.svg" alt="Vera Fernandes, neuropsicóloga">
                         </a>
                         <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
@@ -195,10 +195,12 @@
                         </button>
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ms-auto">
-                                <li class="nav-item"><a href="/#inicio">Início</a></li>
-                                <li class="nav-item"><a href="/#consultas">Consultas</a></li>
-                                <li class="nav-item"><a href="/#localizacao">Localizações</a></li>
-                                <li class="nav-item"><a href="/#faq">FAQ</a></li>
+
+                                <li class="nav-item"><a href="/neuropsicologia/#inicio">Início</a></li>
+                                <li class="nav-item"><a href="/neuropsicologia/#consultas">Consultas</a></li>
+                                <li class="nav-item"><a href="/neuropsicologia/#localizacao">Localizações</a></li>
+                                <li class="nav-item"><a href="/neuropsicologia/#faq">FAQ</a></li>
+                                <li class="nav-item"><a href="/">Outras consultas</a></li>
                             </ul>
                         </div>
                         <div class="button add-list-button">
@@ -217,12 +219,21 @@
             <div class="col-12">
                 <div class="section-title">
                     <h3>Agendamento</h3>
-                    <h1>Marcar avaliação</h1>
+                    <h1>Marcar consulta</h1>
                 </div>
             </div>
         </div>
         
         <div class="booking-step">
+            <h3>Qual o serviço?</h3>
+            <div class="city-chips">
+                <button type="button" class="city-chip is-active" data-book-service="avaliacao">Avaliação neuropsicológica</button>
+                <button type="button" class="city-chip" data-book-service="estimulacao">Estimulação cognitiva</button>
+                <button type="button" class="city-chip" data-book-service="sono">Psicologia do sono</button>
+            </div>
+            <p id="booking-note-presencial">A estimulação cognitiva está indicada no Hospital Lusíadas Braga. O valor depende do local e é indicado na marcação.</p>
+        </div>
+        <div id="booking-cities" class="booking-step">
             <h3>Onde pretende realizar?</h3>
             <div class="city-chips">
                 <button type="button" class="city-chip" data-book-city="braga">Braga</button>
@@ -231,13 +242,13 @@
                 <button type="button" class="city-chip" data-book-city="porto">Porto</button>
             </div>
         </div>
-        <div class="booking-step">
-            <h3>Qual o serviço?</h3>
-            <div class="city-chips">
-                <button type="button" class="city-chip is-active" data-book-service="avaliacao">Avaliação neuropsicológica</button>
-                <button type="button" class="city-chip" data-book-service="estimulacao">Estimulação cognitiva</button>
-            </div>
-            <p>A estimulação cognitiva está indicada no Hospital Lusíadas Braga. O valor depende do local e é indicado na marcação.</p>
+        <div id="booking-sono-panel" class="booking-sono" hidden>
+            <p>A consulta de psicologia do sono é <strong>online</strong>, para adultos (18+). O horário é indicado na marcação. Não substitui uma consulta médica nem um estudo do sono em laboratório.</p>
+            
+        <div class="button" style="margin:24px 0;">
+            <a href="/marcar/?servico=sono" class="btn" data-track="marcar"><i class="lni lni-calendar"></i> Marcar consulta de sono</a>
+            <a href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20psicologia%20do%20sono." class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
+        </div>
         </div>
         <div id="booking-venues" class="booking-venues localizacao">
             <div class="row">
@@ -393,7 +404,18 @@
             </div></div>
         </div>
         <p id="booking-empty" hidden>A estimulação cognitiva está indicada no Hospital Lusíadas Braga. Escolha Braga para ver esse local, ou seleccione avaliação neuropsicológica para os outros concelhos.</p>
-        <p>Se ainda tem dúvidas, use <a href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica." data-track="whatsapp" rel="noopener">Tenho uma dúvida</a> (WhatsApp).</p>
+        <p id="booking-doubt-presencial">Se ainda tem dúvidas, use <a href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica." data-track="whatsapp" rel="noopener">Tenho uma dúvida</a> (WhatsApp).</p>
+    </div>
+</section>
+
+<section class="related-questions">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <h2>Perguntas seguintes</h2>
+                <ul class="related-list"><li><a href="/avaliacao-neuropsicologica/">O que inclui a avaliação?</a></li><li><a href="/familiares/">É para um familiar?</a></li><li><a href="/psicologia-do-sono/">Consulta de psicologia do sono</a></li></ul>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -473,7 +495,7 @@
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="single-footer f-about">
                         <div class="logo">
-                            <a href="/" target="_self">
+                            <a href="/neuropsicologia/" target="_self">
                                 <img draggable="false" src="/assets/images/logo/white-logo.svg" alt="Vera Fernandes, neuropsicóloga">
                             </a>
                         </div>

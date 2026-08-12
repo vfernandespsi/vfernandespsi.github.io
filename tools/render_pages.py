@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://verafernandes.com"
 WA = "https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica."
+WA_SONO = "https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20psicologia%20do%20sono."
 
 VENUES = [
     {
@@ -182,7 +183,7 @@ def professional_graph():
         "url": f"{SITE}/",
         "telephone": "+351914166181",
         "email": "vfernandes.psi@gmail.com",
-        "description": "Neuropsicóloga em Portugal (não confundir com profissionais homónimas noutros países). Membro Efectivo da Ordem dos Psicólogos Portugueses n.º 21502, com Especialidade Avançada em Neuropsicologia. Avaliação neuropsicológica e estimulação cognitiva para adultos e idosos em Braga, Barcelos, Guimarães e Porto.",
+        "description": "Neuropsicóloga em Portugal (não confundir com profissionais homónimas noutros países). Membro Efectivo da Ordem dos Psicólogos Portugueses n.º 21502, com Especialidade Avançada em Neuropsicologia. Avaliação neuropsicológica e estimulação cognitiva para adultos e idosos em Braga, Barcelos, Guimarães e Porto. Consulta de psicologia do sono online (18+).",
         "knowsLanguage": "pt-PT",
         "identifier": {
             "@type": "PropertyValue",
@@ -262,7 +263,43 @@ def jsonld(url, name, crumbs, faqs=None):
     )
 
 
-def page(path, title, description, canonical, crumbs, body, faqs=None):
+def related_html(items):
+    if not items:
+        return ""
+    lis = "".join(f'<li><a href="{href}">{label}</a></li>' for label, href in items)
+    return f'''
+<section class="related-questions">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <h2>Perguntas seguintes</h2>
+                <ul class="related-list">{lis}</ul>
+            </div>
+        </div>
+    </div>
+</section>'''
+
+
+def page(path, title, description, canonical, crumbs, body, faqs=None, related=None, lane="neuro"):
+    is_sono = lane == "sono"
+    html_class = "no-js page-inner page-sono" if is_sono else "no-js page-inner"
+    home = "/psicologia-do-sono/" if is_sono else "/neuropsicologia/"
+    wa = WA_SONO if is_sono else WA
+    cta_label = "Marcar consulta de sono" if is_sono else "Marcar avaliação"
+    cta_href = "/marcar/?servico=sono" if is_sono else "/marcar/"
+    nav = (
+        '''
+                                <li class="nav-item"><a href="/psicologia-do-sono/">Início</a></li>
+                                <li class="nav-item"><a href="/psicologia-do-sono/#faq">FAQ</a></li>
+                                <li class="nav-item"><a href="/">Outras consultas</a></li>'''
+        if is_sono
+        else '''
+                                <li class="nav-item"><a href="/neuropsicologia/#inicio">Início</a></li>
+                                <li class="nav-item"><a href="/neuropsicologia/#consultas">Consultas</a></li>
+                                <li class="nav-item"><a href="/neuropsicologia/#localizacao">Localizações</a></li>
+                                <li class="nav-item"><a href="/neuropsicologia/#faq">FAQ</a></li>
+                                <li class="nav-item"><a href="/">Outras consultas</a></li>'''
+    )
     faq_block = ""
     if faqs:
         faq_block = f'''
@@ -279,13 +316,13 @@ def page(path, title, description, canonical, crumbs, body, faqs=None):
             {faq_html(faqs)}
         </div>
         <div class="button" style="margin-top:30px;text-align:center;">
-            <a href="/marcar/" class="btn" data-track="marcar"><i class="lni lni-calendar"></i> Marcar avaliação</a>
-            <a href="{WA}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
+            <a href="{cta_href}" class="btn" data-track="marcar"><i class="lni lni-calendar"></i> {cta_label}</a>
+            <a href="{wa}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
         </div>
     </div>
 </section>'''
     html = f'''<!DOCTYPE html>
-<html class="no-js page-inner" lang="pt-pt">
+<html class="{html_class}" lang="pt-pt">
 <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PXV8NTKC6D"></script>
     <script>
@@ -332,7 +369,7 @@ def page(path, title, description, canonical, crumbs, body, faqs=None):
             <div class="col-lg-12">
                 <div class="nav-inner">
                     <nav class="navbar navbar-expand-lg">
-                        <a class="navbar-brand" href="/" target="_self">
+                        <a class="navbar-brand" href="{home}" target="_self">
                             <img draggable="false" src="/assets/images/logo/logo.svg" alt="Vera Fernandes, neuropsicóloga">
                         </a>
                         <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
@@ -342,14 +379,11 @@ def page(path, title, description, canonical, crumbs, body, faqs=None):
                         </button>
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ms-auto">
-                                <li class="nav-item"><a href="/#inicio">Início</a></li>
-                                <li class="nav-item"><a href="/#consultas">Consultas</a></li>
-                                <li class="nav-item"><a href="/#localizacao">Localizações</a></li>
-                                <li class="nav-item"><a href="/#faq">FAQ</a></li>
+{nav}
                             </ul>
                         </div>
                         <div class="button add-list-button">
-                            <a href="/marcar/" class="btn" data-track="marcar" data-track-location="nav">Marcar avaliação</a>
+                            <a href="{cta_href}" class="btn" data-track="marcar" data-track-location="nav">{cta_label}</a>
                         </div>
                     </nav>
                 </div>
@@ -358,6 +392,7 @@ def page(path, title, description, canonical, crumbs, body, faqs=None):
     </div>
 </header>
 {body}
+{related_html(related)}
 {faq_block}
 <footer class="footer">
     <div class="footer-top">
@@ -366,7 +401,7 @@ def page(path, title, description, canonical, crumbs, body, faqs=None):
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="single-footer f-about">
                         <div class="logo">
-                            <a href="/" target="_self">
+                            <a href="{home}" target="_self">
                                 <img draggable="false" src="/assets/images/logo/white-logo.svg" alt="Vera Fernandes, neuropsicóloga">
                             </a>
                         </div>
@@ -407,8 +442,8 @@ def page(path, title, description, canonical, crumbs, body, faqs=None):
 </footer>
 <a href="#inicio" class="scroll-top" target="_self"><i class="lni lni-chevron-up"></i></a>
 <div class="mobile-cta-bar">
-    <a href="/marcar/" data-track="marcar" data-track-location="mobile-bar">Marcar avaliação</a>
-    <a class="cta-secondary" href="{WA}" data-track="whatsapp" data-track-location="mobile-bar" rel="noopener">Tenho uma dúvida</a>
+    <a href="{cta_href}" data-track="marcar" data-track-location="mobile-bar">{cta_label}</a>
+    <a class="cta-secondary" href="{wa}" data-track="whatsapp" data-track-location="mobile-bar" rel="noopener">Tenho uma dúvida</a>
 </div>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/wow.min.js"></script>
@@ -444,7 +479,13 @@ def section(title, kicker, html, hid="inicio"):
 </section>'''
 
 
-def cta():
+def cta(sono=False):
+    if sono:
+        return f'''
+        <div class="button" style="margin:24px 0;">
+            <a href="/marcar/?servico=sono" class="btn" data-track="marcar"><i class="lni lni-calendar"></i> Marcar consulta de sono</a>
+            <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
+        </div>'''
     return f'''
         <div class="button" style="margin:24px 0;">
             <a href="/marcar/" class="btn" data-track="marcar"><i class="lni lni-calendar"></i> Marcar avaliação</a>
@@ -474,6 +515,11 @@ COMMON_FAQS = [
 
 def city_page(slug, label):
     cards = "".join(venue_card(v) for v in VENUES if v["city"] == slug)
+    others = [
+        (lab, f"/avaliacao-neuropsicologica/{s}/")
+        for s, lab in [("braga", "Braga"), ("barcelos", "Barcelos"), ("guimaraes", "Guimarães"), ("porto", "Porto")]
+        if s != slug
+    ]
     body = section(
         f"Avaliação neuropsicológica em {label}",
         "Localização",
@@ -489,7 +535,7 @@ def city_page(slug, label):
         </div>
         <div class="row" style="margin-top:24px;">
             <div class="col-lg-8 offset-lg-2">
-                <p>Também disponível em <a href="/avaliacao-neuropsicologica/braga/">Braga</a>, <a href="/avaliacao-neuropsicologica/barcelos/">Barcelos</a>, <a href="/avaliacao-neuropsicologica/guimaraes/">Guimarães</a> e <a href="/avaliacao-neuropsicologica/porto/">Porto</a>.</p>
+                <p>Também disponível em {", ".join(f'<a href="{href}">{lab}</a>' for lab, href in others)}.</p>
             </div>
         </div>""",
     )
@@ -508,13 +554,19 @@ def city_page(slug, label):
         + [
             (
                 f"Onde marcar em {label}?",
-                f"Os locais e horários em {label} estão nesta página. A marcação faz-se pelo telefone do local ou em /marcar/.",
+                f"Os locais e horários em {label} estão nesta página. A marcação faz-se pelo telefone do local ou na página de agendamento.",
             )
+        ],
+        related=[
+            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
+            ("Posso marcar para um familiar?", "/familiares/"),
+            *[(f"Avaliação em {lab}?", href) for lab, href in others[:2]],
+            ("Como marcar?", "/marcar/"),
         ],
     )
 
 
-def problem_page(slug, title, h1, lead, when, solution, extra_faq):
+def problem_page(slug, title, h1, lead, when, solution, extra_faq, related):
     body = section(
         h1,
         None,
@@ -526,9 +578,10 @@ def problem_page(slug, title, h1, lead, when, solution, extra_faq):
                 <p>{when}</p>
                 <h2>O que a avaliação neuropsicológica pode acrescentar</h2>
                 <p>{solution}</p>
+                <h2>Próximo passo</h2>
+                <p>Se esta descrição se aproxima da situação, o passo seguinte é perceber <a href="/avaliacao-neuropsicologica/">o que inclui a avaliação</a> e, se fizer sentido, <a href="/marcar/">marcar</a>. A triagem na página de neuropsicologia ajuda a decidir se a avaliação poderá ser indicada. Isto não é um diagnóstico.</p>
                 <p>Vera Fernandes é neuropsicóloga em Portugal, OPP 21502, com avaliação em Braga, Barcelos, Guimarães e Porto. Não se trata da profissional homónima noutros países.</p>
                 {cta()}
-                <p><a href="/avaliacao-neuropsicologica/">Saber o que inclui a avaliação</a> · <a href="/#triagem">Perceber se esta avaliação é indicada</a></p>
             </div>
         </div>""",
     )
@@ -540,6 +593,7 @@ def problem_page(slug, title, h1, lead, when, solution, extra_faq):
         [("Início", f"{SITE}/"), (h1, f"{SITE}/{slug}/")],
         body,
         COMMON_FAQS + extra_faq,
+        related=related,
     )
 
 
@@ -591,6 +645,13 @@ def main():
         </div></div>""",
         ),
         avaliacao_faqs,
+        related=[
+            ("Onde realizar em Braga?", "/avaliacao-neuropsicologica/braga/"),
+            ("É para um familiar?", "/familiares/"),
+            ("O que é a estimulação cognitiva?", "/estimulacao-cognitiva/"),
+            ("Falhas de memória são só idade?", "/memoria-e-envelhecimento/"),
+            ("Como marcar?", "/marcar/"),
+        ],
     )
 
     page(
@@ -624,6 +685,12 @@ def main():
                 "Muitas vezes sim, para definir objectivos. Pode esclarecer na marcação.",
             ),
         ],
+        related=[
+            ("Preciso de avaliação primeiro?", "/avaliacao-neuropsicologica/"),
+            ("E depois de um AVC?", "/avc/"),
+            ("Onde em Braga?", "/avaliacao-neuropsicologica/braga/"),
+            ("Como marcar?", "/marcar/"),
+        ],
     )
 
     page(
@@ -656,6 +723,12 @@ def main():
                 "O relatório serve para levar ao médico?",
                 "Sim. O relatório descreve o funcionamento cognitivo e é entregue até 4 dias úteis.",
             ),
+        ],
+        related=[
+            ("O que acontece no dia da avaliação?", "/avaliacao-neuropsicologica/"),
+            ("Memória e envelhecimento", "/memoria-e-envelhecimento/"),
+            ("Onde realizar?", "/avaliacao-neuropsicologica/braga/"),
+            ("Como marcar?", "/marcar/"),
         ],
     )
 
@@ -692,20 +765,34 @@ def main():
                 "Sim. Os perfis institucionais em Portugal correspondem a esta profissional.",
             ),
         ],
+        related=[
+            ("O que é a avaliação neuropsicológica?", "/avaliacao-neuropsicologica/"),
+            ("Onde atende?", "/neuropsicologia/#localizacao"),
+            ("Como marcar?", "/marcar/"),
+        ],
     )
 
     cards = "".join(venue_card(v, booking=True) for v in VENUES)
     page(
         "marcar",
-        "Marcar avaliação neuropsicológica | Vera Fernandes",
-        "Escolha a cidade e o serviço para marcar avaliação neuropsicológica ou estimulação cognitiva em Braga, Barcelos, Guimarães e Porto.",
+        "Marcar consulta | Vera Fernandes",
+        "Marcar avaliação neuropsicológica, estimulação cognitiva ou consulta de psicologia do sono. Vera Fernandes, OPP 21502.",
         f"{SITE}/marcar/",
         [("Início", f"{SITE}/"), ("Marcar", f"{SITE}/marcar/")],
         section(
-            "Marcar avaliação",
+            "Marcar consulta",
             "Agendamento",
             f'''
         <div class="booking-step">
+            <h3>Qual o serviço?</h3>
+            <div class="city-chips">
+                <button type="button" class="city-chip is-active" data-book-service="avaliacao">Avaliação neuropsicológica</button>
+                <button type="button" class="city-chip" data-book-service="estimulacao">Estimulação cognitiva</button>
+                <button type="button" class="city-chip" data-book-service="sono">Psicologia do sono</button>
+            </div>
+            <p id="booking-note-presencial">A estimulação cognitiva está indicada no Hospital Lusíadas Braga. O valor depende do local e é indicado na marcação.</p>
+        </div>
+        <div id="booking-cities" class="booking-step">
             <h3>Onde pretende realizar?</h3>
             <div class="city-chips">
                 <button type="button" class="city-chip" data-book-city="braga">Braga</button>
@@ -714,21 +801,22 @@ def main():
                 <button type="button" class="city-chip" data-book-city="porto">Porto</button>
             </div>
         </div>
-        <div class="booking-step">
-            <h3>Qual o serviço?</h3>
-            <div class="city-chips">
-                <button type="button" class="city-chip is-active" data-book-service="avaliacao">Avaliação neuropsicológica</button>
-                <button type="button" class="city-chip" data-book-service="estimulacao">Estimulação cognitiva</button>
-            </div>
-            <p>A estimulação cognitiva está indicada no Hospital Lusíadas Braga. O valor depende do local e é indicado na marcação.</p>
+        <div id="booking-sono-panel" class="booking-sono" hidden>
+            <p>A consulta de psicologia do sono é <strong>online</strong>, para adultos (18+). O horário é indicado na marcação. Não substitui uma consulta médica nem um estudo do sono em laboratório.</p>
+            {cta(sono=True)}
         </div>
         <div id="booking-venues" class="booking-venues localizacao">
             <div class="row">{cards}</div>
         </div>
         <p id="booking-empty" hidden>A estimulação cognitiva está indicada no Hospital Lusíadas Braga. Escolha Braga para ver esse local, ou seleccione avaliação neuropsicológica para os outros concelhos.</p>
-        <p>Se ainda tem dúvidas, use <a href="{WA}" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a> (WhatsApp).</p>''',
+        <p id="booking-doubt-presencial">Se ainda tem dúvidas, use <a href="{WA}" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a> (WhatsApp).</p>'''
         ),
         COMMON_FAQS,
+        related=[
+            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
+            ("É para um familiar?", "/familiares/"),
+            ("Consulta de psicologia do sono", "/psicologia-do-sono/"),
+        ],
     )
 
     for slug, label in [
@@ -750,7 +838,17 @@ def main():
             (
                 "O esquecimento aos 65 anos é sempre demência?",
                 "Não. A avaliação descreve o funcionamento cognitivo. O diagnóstico médico, quando indicado, cabe ao médico.",
-            )
+            ),
+            (
+                "Um familiar pode marcar?",
+                "Sim. Muitas marcações são feitas por um filho ou uma filha.",
+            ),
+        ],
+        related=[
+            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
+            ("É para um familiar?", "/familiares/"),
+            ("Quando a dúvida é maior", "/demencia/"),
+            ("Como marcar?", "/marcar/"),
         ],
     )
     problem_page(
@@ -764,7 +862,17 @@ def main():
             (
                 "A avaliação diagnostica demência?",
                 "Não. É um exame complementar. O diagnóstico médico, quando existir, é da responsabilidade do médico.",
-            )
+            ),
+            (
+                "Posso marcar para o meu pai ou a minha mãe?",
+                "Sim. Um familiar pode pedir informação e marcar.",
+            ),
+        ],
+        related=[
+            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
+            ("Informação para familiares", "/familiares/"),
+            ("Doença de Alzheimer", "/alzheimer/"),
+            ("Como marcar?", "/marcar/"),
         ],
     )
     problem_page(
@@ -778,7 +886,17 @@ def main():
             (
                 "Serve para confirmar Alzheimer?",
                 "A avaliação caracteriza o funcionamento cognitivo e auxilia o médico. Não substitui a consulta médica.",
-            )
+            ),
+            (
+                "Há relatório?",
+                "Sim. O relatório é entregue até 4 dias úteis.",
+            ),
+        ],
+        related=[
+            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
+            ("Informação para familiares", "/familiares/"),
+            ("Avaliação e demência", "/demencia/"),
+            ("Como marcar?", "/marcar/"),
         ],
     )
     problem_page(
@@ -792,7 +910,17 @@ def main():
             (
                 "A estimulação está disponível depois do AVC?",
                 "Quando indicada, a estimulação cognitiva está listada no Hospital Lusíadas Braga.",
-            )
+            ),
+            (
+                "Quanto tempo demora a avaliação?",
+                "Cerca de 2 horas, numa única deslocação.",
+            ),
+        ],
+        related=[
+            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
+            ("Estimulação cognitiva", "/estimulacao-cognitiva/"),
+            ("Lesão cerebral ou TCE", "/lesao-cerebral/"),
+            ("Como marcar?", "/marcar/"),
         ],
     )
     problem_page(
@@ -806,7 +934,16 @@ def main():
             (
                 "Preciso de encaminhamento de neurologia?",
                 "Não é obrigatório. Muitas avaliações são pedidas pelo médico, e também se pode marcar por iniciativa própria.",
-            )
+            ),
+            (
+                "Um familiar pode marcar?",
+                "Sim. Um familiar pode pedir informação e marcar.",
+            ),
+        ],
+        related=[
+            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
+            ("Informação para familiares", "/familiares/"),
+            ("Como marcar?", "/marcar/"),
         ],
     )
     problem_page(
@@ -820,7 +957,17 @@ def main():
             (
                 "É para adultos?",
                 "O agendamento está disponível para adultos e idosos, com mais de 18 anos.",
-            )
+            ),
+            (
+                "Há estimulação depois da lesão?",
+                "Quando indicada, a estimulação cognitiva está listada no Hospital Lusíadas Braga.",
+            ),
+        ],
+        related=[
+            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
+            ("Depois de um AVC", "/avc/"),
+            ("Estimulação cognitiva", "/estimulacao-cognitiva/"),
+            ("Como marcar?", "/marcar/"),
         ],
     )
     problem_page(
@@ -836,10 +983,100 @@ def main():
                 "A avaliação neuropsicológica cobre várias funções cognitivas e inclui interpretação clínica e relatório.",
             )
         ],
+        related=[
+            ("O que inclui a avaliação neuropsicológica?", "/avaliacao-neuropsicologica/"),
+            ("Onde em Braga?", "/avaliacao-neuropsicologica/braga/"),
+            ("Como marcar?", "/marcar/"),
+        ],
+    )
+
+    page(
+        "psicologia-do-sono",
+        "Consulta de psicologia do sono | Vera Fernandes",
+        "Consulta de psicologia do sono online para adultos (18+). Vera Fernandes, neuropsicóloga, OPP 21502. Horário indicado na marcação.",
+        f"{SITE}/psicologia-do-sono/",
+        [("Início", f"{SITE}/"), ("Psicologia do sono", f"{SITE}/psicologia-do-sono/")],
+        section(
+            "Consulta de psicologia do sono",
+            "Online · 18+",
+            f"""
+        <div class="row"><div class="col-lg-8 offset-lg-2">
+            <p>A consulta de psicologia do sono destina-se a adultos (18+) com dificuldades de sono. Realiza-se <strong>online</strong>. O horário é indicado na marcação.</p>
+            <h2>Para quem é</h2>
+            <p>Para a própria pessoa que não está a conseguir dormir, ou que acorda sem recuperação. Não é uma avaliação neuropsicológica nem um exame de laboratório do sono.</p>
+            <h2>O que acontece</h2>
+            <p>É uma consulta de psicologia, com acompanhamento ao longo de várias sessões quando isso fizer sentido. A frequência define-se em conjunto. Não se prometem resultados clínicos nem prazos de melhoria.</p>
+            <h2>O que não é</h2>
+            <p>Não substitui pneumologia, neurologia ou um estudo do sono quando há sinais que exigem avaliação médica (por exemplo pausas respiratórias ou sonolência súbita intensa). Nesses casos o passo correcto é um médico.</p>
+            <h2>Quem realiza</h2>
+            <p>Vera Fernandes, neuropsicóloga em Portugal, OPP 21502. Não se trata de profissionais homónimas noutros países.</p>
+            {cta(sono=True)}
+        </div></div>""",
+        ),
+        [
+            (
+                "A consulta é presencial?",
+                "Não. A consulta de psicologia do sono é online.",
+            ),
+            (
+                "É a partir de que idade?",
+                "Para adultos, com 18 ou mais anos.",
+            ),
+            (
+                "Qual é o horário?",
+                "O horário é indicado no momento da marcação.",
+            ),
+            (
+                "Substitui um estudo do sono?",
+                "Não. Se houver sinais que justifiquem avaliação médica, o passo correcto é um médico.",
+            ),
+        ],
+        related=[
+            ("Como marcar a consulta de sono?", "/marcar/?servico=sono"),
+            ("Não sei se é memória ou sono", "/sono-e-memoria/"),
+            ("Outras consultas", "/"),
+        ],
+        lane="sono",
+    )
+
+    page(
+        "sono-e-memoria",
+        "Sono e memória | Vera Fernandes",
+        "Se a dúvida é entre dificuldades de sono e queixas de memória, esta página ajuda a escolher o caminho. Vera Fernandes, OPP 21502.",
+        f"{SITE}/sono-e-memoria/",
+        [("Início", f"{SITE}/"), ("Sono e memória", f"{SITE}/sono-e-memoria/")],
+        section(
+            "Sono e memória",
+            "Escolher o caminho",
+            f"""
+        <div class="row"><div class="col-lg-8 offset-lg-2">
+            <p>Sono mau e falhas de memória podem aparecer juntos. São, neste site, dois serviços diferentes. Escolha o que descreve melhor a situação principal.</p>
+            <h2>A queixa principal é o sono</h2>
+            <p>Não está a conseguir dormir, ou acorda sem recuperação, e procura uma consulta de psicologia do sono. É online, para adultos (18+).</p>
+            <p><a href="/psicologia-do-sono/" class="btn">Psicologia do sono</a></p>
+            <h2>A queixa principal é a memória ou a cognição</h2>
+            <p>Esquecimentos, atenção, linguagem ou autonomia no dia-a-dia, para si ou para um familiar. O caminho é a avaliação neuropsicológica, presencial, em Braga, Barcelos, Guimarães ou Porto.</p>
+            <p><a href="/neuropsicologia/" class="btn">Memória e cognição</a></p>
+            <p>Vera Fernandes, neuropsicóloga em Portugal, OPP 21502.</p>
+        </div></div>""",
+        ),
+        [
+            (
+                "Posso fazer os dois?",
+                "São consultas diferentes. Comece pela queixa principal. Se mais tarde a outra também fizer sentido, pode marcar essa em separado.",
+            )
+        ],
+        related=[
+            ("Consulta de psicologia do sono", "/psicologia-do-sono/"),
+            ("Avaliação neuropsicológica", "/avaliacao-neuropsicologica/"),
+        ],
     )
 
     urls = [
         f"{SITE}/",
+        f"{SITE}/neuropsicologia/",
+        f"{SITE}/psicologia-do-sono/",
+        f"{SITE}/sono-e-memoria/",
         f"{SITE}/avaliacao-neuropsicologica/",
         f"{SITE}/avaliacao-neuropsicologica/braga/",
         f"{SITE}/avaliacao-neuropsicologica/barcelos/",

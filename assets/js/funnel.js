@@ -93,14 +93,61 @@
     var venues = document.querySelectorAll("[data-book-venue]");
     var venuesWrap = document.getElementById("booking-venues");
     var emptyNote = document.getElementById("booking-empty");
-    if (!cityButtons.length || !venues.length) {
+    var citiesWrap = document.getElementById("booking-cities");
+    var sonoPanel = document.getElementById("booking-sono-panel");
+    var notePresencial = document.getElementById("booking-note-presencial");
+    var doubtPresencial = document.getElementById("booking-doubt-presencial");
+    if (!serviceButtons.length || !venues.length) {
       return;
     }
 
     var selectedCity = "";
     var selectedService = "avaliacao";
+    var params = new URLSearchParams(window.location.search);
+    var fromQuery = params.get("servico");
+    if (fromQuery === "sono" || fromQuery === "estimulacao" || fromQuery === "avaliacao") {
+      selectedService = fromQuery;
+    }
+
+    function isSono() {
+      return selectedService === "sono";
+    }
+
+    function syncServiceChips() {
+      serviceButtons.forEach(function (item) {
+        item.classList.toggle(
+          "is-active",
+          item.getAttribute("data-book-service") === selectedService
+        );
+      });
+    }
 
     function render() {
+      var sono = isSono();
+      if (citiesWrap) {
+        citiesWrap.hidden = sono;
+      }
+      if (sonoPanel) {
+        sonoPanel.hidden = !sono;
+      }
+      if (notePresencial) {
+        notePresencial.hidden = sono;
+      }
+      if (doubtPresencial) {
+        doubtPresencial.hidden = sono;
+      }
+      if (sono) {
+        venues.forEach(function (venue) {
+          venue.hidden = true;
+        });
+        if (venuesWrap) {
+          venuesWrap.hidden = true;
+        }
+        if (emptyNote) {
+          emptyNote.hidden = true;
+        }
+        return;
+      }
       var visible = 0;
       venues.forEach(function (venue) {
         var cityOk = !selectedCity || venue.getAttribute("data-city") === selectedCity;
@@ -134,13 +181,14 @@
     serviceButtons.forEach(function (button) {
       button.addEventListener("click", function () {
         selectedService = button.getAttribute("data-book-service");
-        serviceButtons.forEach(function (item) {
-          item.classList.toggle("is-active", item === button);
-        });
+        syncServiceChips();
         track("servico", { service: selectedService });
         render();
       });
     });
+
+    syncServiceChips();
+    render();
   }
 
   initCityFilter();

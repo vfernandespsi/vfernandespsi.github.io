@@ -305,3 +305,162 @@
 section[id] {
   scroll-margin-top: 90px;
 }
+
+.related-questions {
+  padding: 10px 0 50px;
+}
+
+.related-questions h2 {
+  color: #081828;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.related-list li {
+  margin: 0 0 10px;
+}
+
+.related-list a {
+  color: #C39A98;
+  font-weight: 600;
+}
+
+.related-list a:hover {
+  color: #081828;
+}
+
+.booking-sono {
+  max-width: 720px;
+  margin: 8px 0 24px;
+  padding: 24px 0 0;
+  border-top: 1px solid #eee;
+}
+
+.booking-sono p {
+  color: #081828;
+  line-height: 1.7;
+}
+
+.booking-sono[hidden],
+#booking-cities[hidden],
+#booking-note-presencial[hidden],
+#booking-doubt-presencial[hidden] {
+  display: none !important;
+}
+
+html.page-chooser .header.navbar-area.sticky {
+  background: #fff;
+}
+
+.door-chooser {
+  padding-top: 90px;
+}
+
+.door-chooser .row {
+  min-height: calc(100vh - 220px);
+}
+
+.door-panel {
+  min-height: 420px;
+  padding: 72px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.door-panel h1 {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #fff;
+  margin: 0 0 16px;
+}
+
+.door-panel p {
+  color: #fff;
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+  max-width: 28em;
+}
+
+.door-panel--neuro {
+  background: #C39A98;
+}
+
+.door-panel--sono {
+  background: #081828;
+}
+
+.door-panel .btn {
+  background: #fff;
+  color: #081828;
+  border: 0;
+}
+
+.door-panel .btn:hover {
+  background: #081828;
+  color: #fff;
+}
+
+.door-panel--sono .btn {
+  background: #C39A98;
+  color: #fff;
+}
+
+.door-panel--sono .btn:hover {
+  background: #fff;
+  color: #081828;
+}
+
+.door-identity {
+  padding: 36px 20px 48px;
+  text-align: center;
+  background: #fff;
+}
+
+.door-identity p {
+  color: #081828;
+  margin: 0 0 12px;
+}
+
+.door-unsure a {
+  color: #C39A98;
+  font-weight: 600;
+}
+
+.door-unsure a:hover {
+  color: #081828;
+}
+
+@media (max-width: 991px) {
+  .door-panel {
+    min-height: 360px;
+    padding: 56px 28px;
+  }
+
+  .door-panel h1 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 767px) {
+  html.page-chooser body {
+    padding-bottom: 0;
+  }
+
+  .door-chooser {
+    padding-top: 70px;
+  }
+
+  .door-chooser .row {
+    min-height: 0;
+  }
+}

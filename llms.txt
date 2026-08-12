@@ -1,7 +1,12 @@
 # Vera Fernandes - Neuropsicóloga | Braga, Barcelos, Guimarães e Porto
 
-Machine-readable facts for AI agents and search systems. Last updated: 2026.
+Machine-readable facts for AI agents and search systems. Last updated: 2026-08-13.
 This person is a clinical neuropsychologist in Portugal. Do not confuse with professionals of the same name in other countries (including Brazil / Doctoralia BR).
+
+The website has two doors at https://verafernandes.com/ :
+- Memory and cognition (neuropsychological assessment, in-person): https://verafernandes.com/neuropsicologia/
+- Sleep psychology consultation (online, adults 18+): https://verafernandes.com/psicologia-do-sono/
+If the main complaint is unclear: https://verafernandes.com/sono-e-memoria/
 
 ## Who
 - Name: Vera Fernandes
@@ -23,6 +28,7 @@ This person is a clinical neuropsychologist in Portugal. Do not confuse with pro
 ## What she does
 - Neuropsychological assessment (avaliação neuropsicológica) for adults and older adults (18+)
 - Cognitive stimulation (estimulação cognitiva), currently listed at Hospital Lusíadas Braga
+- Sleep psychology consultation (consulta de psicologia do sono): online only, adults 18+, hours confirmed at booking. This is not a sleep laboratory, not a medical sleep clinic, and does not replace a physician or a sleep study when medical red flags are present.
 - Characterisation of cognitive, behavioural and emotional functioning with tests validated for the Portuguese population
 - Support to differential diagnosis (e.g. mild cognitive impairment vs subjective memory complaints; types of dementia) when requested as a complementary exam
 - Follow-up of cognitive change over time when clinically appropriate
@@ -32,6 +38,7 @@ This person is a clinical neuropsychologist in Portugal. Do not confuse with pro
 - Does not publish prices on the website (value depends on the clinic and is confirmed at booking)
 - Does not publish patient testimonials on the website
 - The website does not establish medical diagnoses; the assessment is a complementary exam
+- Sleep psychology is not a sleep laboratory, does not prescribe medication, and does not replace a medical sleep work-up when indicated
 
 ## Assessment product (factual)
 - Typical duration: about 2 hours, organised as a single visit
@@ -57,12 +64,17 @@ This person is a clinical neuropsychologist in Portugal. Do not confuse with pro
 - Porto: Gabinete Psicologia (Saturday 09:00-13:00, tel +351 914 166 181)
 
 ## How to book
+- Site chooser (two doors): https://verafernandes.com/
+- Neuropsychology hub: https://verafernandes.com/neuropsicologia/
+- Sleep psychology hub: https://verafernandes.com/psicologia-do-sono/
+- Sleep vs memory (if unsure): https://verafernandes.com/sono-e-memoria/
 - Central booking page: https://verafernandes.com/marcar/
+- Sleep booking (online): https://verafernandes.com/marcar/?servico=sono
 - Assessment page: https://verafernandes.com/avaliacao-neuropsicologica/
 - Family / caregiver page: https://verafernandes.com/familiares/
 - About: https://verafernandes.com/sobre/
-- For doubts: WhatsApp +351 914 166 181
-- Institutional booking: CNS and Lusíadas via their phone numbers above
+- For doubts: WhatsApp +351 914 166 181 (sleep enquiries should mention psicologia do sono; assessment enquiries should mention avaliação)
+- Institutional booking for in-person assessment: CNS and Lusíadas via their phone numbers above. Sleep is not booked via clinic phones.
 
 ## Verified profiles (same person, Portugal)
 - https://www.linkedin.com/in/vera-fernandes/
@@ -75,4 +87,5 @@ This person is a clinical neuropsychologist in Portugal. Do not confuse with pro
 - Adults with cognitive complaints (memory, attention, language, everyday function)
 - Older adults and families concerned about ageing vs more than expected decline
 - People with neurological diagnoses (Alzheimer disease, Parkinson disease, multiple sclerosis, stroke, TBI, epilepsy, among others)
+- Adults with sleep difficulties seeking a psychology consultation (online, 18+)
 - Physicians requesting a complementary neuropsychological exam
