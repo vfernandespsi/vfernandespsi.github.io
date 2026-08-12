@@ -9,11 +9,23 @@ Author: GrayGrids
 
     window.onload = function () {
         window.setTimeout(fadeout, 1);
+        var header_navbar = document.querySelector(".navbar-area");
+        var logo = document.querySelector('.navbar-brand img');
+        if (header_navbar && !document.querySelector('.inicio')) {
+            header_navbar.classList.add("sticky");
+            if (logo) {
+                logo.src = '/assets/images/logo/logo.svg';
+            }
+        }
     }
 
     function fadeout() {
-        document.querySelector('.preloader').style.opacity = '0';
-        document.querySelector('.preloader').style.display = 'none';
+        var preloader = document.querySelector('.preloader');
+        if (!preloader) {
+            return;
+        }
+        preloader.style.opacity = '0';
+        preloader.style.display = 'none';
     }
 
     /*=====================================
@@ -21,23 +33,31 @@ Author: GrayGrids
     ======================================= */
     window.onscroll = function () {
         var header_navbar = document.querySelector(".navbar-area");
+        if (!header_navbar) {
+            return;
+        }
         var sticky = header_navbar.offsetTop;
 
-        var logo = document.querySelector('.navbar-brand img')
-        if (window.scrollY > sticky) {
+        var logo = document.querySelector('.navbar-brand img');
+        if (window.scrollY > sticky || !document.querySelector('.inicio')) {
             header_navbar.classList.add("sticky");
-            logo.src = '/assets/images/logo/logo.svg';
+            if (logo) {
+                logo.src = '/assets/images/logo/logo.svg';
+            }
         } else {
             header_navbar.classList.remove("sticky");
-            logo.src = '/assets/images/logo/white-logo.svg';
+            if (logo) {
+                logo.src = '/assets/images/logo/white-logo.svg';
+            }
         }
 
-        // show or hide the back-top-top button
         var backToTo = document.querySelector(".scroll-top");
-        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-            backToTo.style.display = "flex";
-        } else {
-            backToTo.style.display = "none";
+        if (backToTo) {
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                backToTo.style.display = "flex";
+            } else {
+                backToTo.style.display = "none";
+            }
         }
     };
 
@@ -50,7 +70,13 @@ Author: GrayGrids
         for (var i = 0; i < sections.length; i++) {
             var currLink = sections[i];
             var val = currLink.getAttribute('href');
+            if (!val || val.charAt(0) !== '#') {
+                continue;
+            }
             var refElement = document.querySelector(val);
+            if (!refElement) {
+                continue;
+            }
             var scrollTopMinus = scrollPos + 73;
             if (refElement.offsetTop <= scrollTopMinus && (refElement.offsetTop + refElement.offsetHeight > scrollTopMinus)) {
                 document.querySelector('.page-scroll').classList.remove('active');
@@ -76,13 +102,13 @@ Author: GrayGrids
         i++;
     }
 
-/*
-    let delayInMilliseconds = 1000; //ms
-    setTimeout(function () {
-        document.querySelector(".popper").style.display = "flex!important";
-
-    }, delayInMilliseconds);
-*/
+    /*
+        let delayInMilliseconds = 1000; //ms
+        setTimeout(function () {
+            document.querySelector(".popper").style.display = "flex!important";
+    
+        }, delayInMilliseconds);
+    */
 
 
     // for menu scroll 
@@ -91,24 +117,25 @@ Author: GrayGrids
 
     pageLink.forEach(elem => {
         elem.addEventListener('click', e => {
-            e.preventDefault();
-
-            currentUrl = window.location.href;
-            lastdigits = currentUrl.substr(currentUrl.length - 4)
-
-            if (lastdigits != 'com/') {
-                window.location.href = elem.href
+            var href = elem.getAttribute('href') || '';
+            if (href.charAt(0) !== '#') {
+                return;
             }
-
-            document.querySelector(elem.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth',
-                offsetTop: 10 - 160,
+            var target = document.querySelector(href);
+            if (!target) {
+                return;
+            }
+            e.preventDefault();
+            target.scrollIntoView({
+                behavior: 'smooth'
             });
         });
     });
 
     // WOW active
-    new WOW().init();
+    if (typeof WOW === "function") {
+        new WOW().init();
+    }
 
     let filterButtons = document.querySelectorAll('.portfolio-btn-wrapper button');
     filterButtons.forEach(e =>
@@ -137,15 +164,16 @@ Author: GrayGrids
 
     //===== mobile-menu-btn
     let navbarOpen = document.querySelector(".mobile-menu-btn");
-    navbarOpen.addEventListener('click', function () {
-        navbarOpen.classList.add("show");
-    });
+    if (navbarOpen) {
+        navbarOpen.addEventListener('click', function () {
+            navbarOpen.classList.add("show");
+        });
+    }
     let navbarClose = document.querySelector(".navbar-collapse");
     document.addEventListener('click', function () {
-        if (navbarClose.classList.contains('show')) {
+        if (navbarClose && navbarClose.classList.contains('show')) {
             navbarClose.classList.remove('show');
         }
-
     });
 
 

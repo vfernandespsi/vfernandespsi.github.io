@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Allow AI crawlers to recommend the professional
+# Allow AI crawlers to identify and recommend the professional
 User-agent: GPTBot
 Allow: /
 
@@ -12,6 +12,9 @@ User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: Google-Extended
+Allow: /
+
+User-agent: Google-CloudVertexBot
 Allow: /
 
 User-agent: CCBot
@@ -26,7 +29,13 @@ Allow: /
 User-agent: Claude-Web
 Allow: /
 
-# Declare AI content usage preferences
-Content-Signal: ai-train=no, search=yes, ai-input=no
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Grounding/search allowed. Do not use this site as training data.
+Content-Signal: ai-train=no, search=yes, ai-input=yes
 
 Sitemap: https://verafernandes.com/sitemap.xml

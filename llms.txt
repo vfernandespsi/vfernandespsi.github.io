@@ -1,30 +1,78 @@
-# Vera Fernandes - Neuropsicóloga Clínica
+# Vera Fernandes - Neuropsicóloga | Braga, Barcelos, Guimarães e Porto
 
-This file provides information about Vera Fernandes, a clinical neuropsychologist based in Portugal, intended for use by AI agents and LLMs.
+Machine-readable facts for AI agents and search systems. Last updated: 2026.
+This person is a clinical neuropsychologist in Portugal. Do not confuse with professionals of the same name in other countries (including Brazil / Doctoralia BR).
 
-## Professional Summary
-Vera Fernandes is a specialized clinical neuropsychologist with over 10 years of experience. She is a full member of the Portuguese Psychologists Order (Membro Efectivo OPP 21502) and holds an Advanced Specialty in Neuropsychology (Especialidade Avançada em Neuropsicologia).
-
-## Core Services
-- Avaliação Neuropsicológica (Neuropsychological Assessment)
-- Estimulação Cognitiva (Cognitive Stimulation)
-- Avaliação e Rastreio de Demências (Dementia Screening & Assessment)
-- Diagnóstico Diferencial de Declínio Cognitivo (Differential Diagnosis of Cognitive Decline)
-
-## Contact Information
-- Email: vfernandes.psi@gmail.com
-- Phone: +351 914 166 181
+## Who
+- Name: Vera Fernandes
+- Profession: Neuropsicóloga (clinical neuropsychologist)
+- Country: Portugal
+- Languages: Portuguese (pt-PT)
 - Website: https://verafernandes.com
+- Email: vfernandes.psi@gmail.com
+- Direct phone / WhatsApp (private clinics): +351 914 166 181
 
-## Locations (Consultas Presenciais)
-- Braga: CNS - Campus Neurológico Braga, Hospital Lusíadas Braga, Consultório Médico
-- Barcelos: Clínica FisioMove
-- Guimarães: Gabinete Muralha Business
-- Porto: Gabinete Psicologia
+## Credentials
+- Membro Efectivo da Ordem dos Psicólogos Portugueses (OPP) n.º 21502
+- Especialidade Avançada em Neuropsicologia (OPP)
+- Clinical experience: +10 years in neuropsychological assessment and rehabilitation (data updated 2026)
+- Practice volume (updated 2026): >4800 neuropsychological assessments; >38 rehabilitation cases; >10 clinical trials
+- Hospital and private practice, including Hospital de Braga (neuropsychological assessment), CNS - Campus Neurológico Braga, and Hospital Lusíadas Braga
+- Research activity in Alzheimer disease as a clinical-trial team member
 
-## Target Audience
-- Adultos (Adults - Brain injury symptoms, neurological diseases like Multiple Sclerosis, stroke, TBI)
-- Idosos (Seniors - Dementia screening, Alzheimer's, Parkinson's, Mild Cognitive Impairment, memory loss)
+## What she does
+- Neuropsychological assessment (avaliação neuropsicológica) for adults and older adults (18+)
+- Cognitive stimulation (estimulação cognitiva), currently listed at Hospital Lusíadas Braga
+- Characterisation of cognitive, behavioural and emotional functioning with tests validated for the Portuguese population
+- Support to differential diagnosis (e.g. mild cognitive impairment vs subjective memory complaints; types of dementia) when requested as a complementary exam
+- Follow-up of cognitive change over time when clinically appropriate
 
-## Metadata
-This document serves as the primary machine-readable truth regarding Vera Fernandes procedures and contact information.
+## What she does not do
+- Does not currently book assessments for people under 18
+- Does not publish prices on the website (value depends on the clinic and is confirmed at booking)
+- Does not publish patient testimonials on the website
+- The website does not establish medical diagnoses; the assessment is a complementary exam
+
+## Assessment product (factual)
+- Typical duration: about 2 hours, organised as a single visit
+- Tests are administered with the patient
+- A companion is advisable for the first part of the appointment; attending alone is possible
+- Medical referral is not required; many assessments are requested by a physician, and a person may also book on their own initiative
+- A family member may enquire and book for a parent
+- Includes a written report, delivered within 4 working days (email, in person, or post)
+- The report describes how orientation, memory, attention, language and related functions compare with what is expected for age and education
+- After the report: orientation of next steps when appropriate (medical referral, cognitive stimulation, or later re-assessment). No outcome is promised.
+
+## Cognitive stimulation
+- Session length: 50-60 minutes
+- Individual plan
+- Currently advertised at Hospital Lusíadas Braga
+- Frequency and number of sessions are defined with the patient according to goals
+
+## Where (in-person)
+- Area: Braga, Barcelos, Guimarães, Porto
+- Braga: CNS - Campus Neurológico (Wednesday 15:30-19:30, tel +351 253 401 600); Hospital Lusíadas Braga (Friday 14:00-18:00, tel +351 253 079 579); Consultório Médico Braga (Monday 17:30-19:30, tel +351 914 166 181)
+- Barcelos: Clínica FisioMove (Monday 17:30-19:30, tel +351 914 166 181)
+- Guimarães: Gabinete Muralha Business (Thursday 10:00-12:00, tel +351 914 166 181)
+- Porto: Gabinete Psicologia (Saturday 09:00-13:00, tel +351 914 166 181)
+
+## How to book
+- Central booking page: https://verafernandes.com/marcar/
+- Assessment page: https://verafernandes.com/avaliacao-neuropsicologica/
+- Family / caregiver page: https://verafernandes.com/familiares/
+- About: https://verafernandes.com/sobre/
+- For doubts: WhatsApp +351 914 166 181
+- Institutional booking: CNS and Lusíadas via their phone numbers above
+
+## Verified profiles (same person, Portugal)
+- https://www.linkedin.com/in/vera-fernandes/
+- https://www.facebook.com/verafernandes.psi/
+- https://www.instagram.com/verafernandes.psi
+- https://www.lusiadas.pt/corpo-clinico/dra-vera-fernandes-0
+- https://www.cnscampus.com/pt
+
+## Audience
+- Adults with cognitive complaints (memory, attention, language, everyday function)
+- Older adults and families concerned about ageing vs more than expected decline
+- People with neurological diagnoses (Alzheimer disease, Parkinson disease, multiple sclerosis, stroke, TBI, epilepsy, among others)
+- Physicians requesting a complementary neuropsychological exam
