@@ -360,68 +360,158 @@ html.page-chooser .header.navbar-area.sticky {
 }
 
 .door-chooser {
-  padding-top: 90px;
+  padding-top: 78px;
 }
 
-.door-chooser .row {
-  min-height: calc(100vh - 220px);
+.door-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100dvh - 78px);
+  overflow: hidden;
 }
 
-.door-panel {
-  min-height: 420px;
-  padding: 72px 48px;
+.door-bg {
+  grid-row: 1;
+  min-height: 100%;
+  transition: filter 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.door-bg--neuro {
+  grid-column: 1;
+  background-color: #C39A98;
+  background-image: repeating-conic-gradient(from 0deg at 100% 62%,
+      rgba(255, 255, 255, 0.09) 0deg 7deg,
+      transparent 7deg 14deg);
+}
+
+.door-bg--sono {
+  grid-column: 2;
+  background-color: #081828;
+  background-image: repeating-conic-gradient(from 180deg at 0% 62%,
+      rgba(255, 255, 255, 0.06) 0deg 7deg,
+      transparent 7deg 14deg);
+}
+
+.door-stage:has(.door-copy--neuro:hover) .door-bg--sono,
+.door-stage:has(.door-copy--neuro:focus-within) .door-bg--sono {
+  filter: brightness(0.72);
+}
+
+.door-stage:has(.door-copy--sono:hover) .door-bg--neuro,
+.door-stage:has(.door-copy--sono:focus-within) .door-bg--neuro {
+  filter: brightness(0.78);
+}
+
+.door-glow {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  z-index: 2;
+  width: min(54vw, 580px);
+  height: min(54vw, 580px);
+  pointer-events: none;
+  transform: translateX(-50%);
+  background: radial-gradient(circle,
+      rgba(255, 255, 255, 0.42) 0%,
+      rgba(195, 154, 152, 0.22) 38%,
+      transparent 70%);
+}
+
+.door-portrait {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 4;
+  height: min(92%, 760px);
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.door-portrait img {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: min(46vw, 560px);
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 22px 48px rgba(8, 24, 40, 0.28));
+}
+
+.door-copy {
+  position: relative;
+  z-index: 3;
+  grid-row: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-height: 100%;
 }
 
-.door-panel h1 {
+.door-copy h1 {
   font-size: 34px;
   font-weight: 800;
-  line-height: 1.25;
+  line-height: 1.22;
   color: #fff;
   margin: 0 0 16px;
+  text-wrap: balance;
 }
 
-.door-panel p {
+.door-copy p {
   color: #fff;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.6;
   margin-bottom: 28px;
-  max-width: 28em;
+  max-width: 22em;
 }
 
-.door-panel--neuro {
-  background: #C39A98;
+.door-copy--neuro {
+  grid-column: 1;
+  align-items: flex-start;
+  text-align: left;
+  padding: 48px 18% 56px 48px;
 }
 
-.door-panel--sono {
-  background: #081828;
+.door-copy--sono {
+  grid-column: 2;
+  align-items: flex-end;
+  text-align: right;
+  padding: 48px 48px 56px 18%;
 }
 
-.door-panel .btn {
+.door-copy--sono p {
+  margin-left: auto;
+}
+
+.door-copy .btn {
   background: #fff;
   color: #081828;
   border: 0;
 }
 
-.door-panel .btn:hover {
+.door-copy .btn:hover,
+.door-copy .btn:focus-visible {
   background: #081828;
   color: #fff;
 }
 
-.door-panel--sono .btn {
+.door-copy .btn:active {
+  transform: scale(0.98);
+}
+
+.door-copy--sono .btn {
   background: #C39A98;
   color: #fff;
 }
 
-.door-panel--sono .btn:hover {
+.door-copy--sono .btn:hover,
+.door-copy--sono .btn:focus-visible {
   background: #fff;
   color: #081828;
 }
 
 .door-identity {
-  padding: 36px 20px 48px;
+  padding: 28px 20px 40px;
   text-align: center;
   background: #fff;
 }
@@ -440,14 +530,77 @@ html.page-chooser .header.navbar-area.sticky {
   color: #081828;
 }
 
-@media (max-width: 991px) {
-  .door-panel {
-    min-height: 360px;
-    padding: 56px 28px;
+@media (prefers-reduced-motion: no-preference) {
+  .door-glow {
+    animation: door-glow 5.2s ease-in-out infinite;
   }
 
-  .door-panel h1 {
-    font-size: 28px;
+  .door-portrait {
+    animation: door-portrait-in 1.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .door-copy--neuro {
+    animation: door-copy-in 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+  }
+
+  .door-copy--sono {
+    animation: door-copy-in 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
+  }
+}
+
+@keyframes door-portrait-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(32px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes door-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes door-glow {
+
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateX(-50%) scale(1);
+  }
+
+  50% {
+    opacity: 0.95;
+    transform: translateX(-50%) scale(1.07);
+  }
+}
+
+@media (max-width: 991px) {
+  .door-copy h1 {
+    font-size: 26px;
+  }
+
+  .door-copy--neuro {
+    padding: 36px 14% 40px 28px;
+  }
+
+  .door-copy--sono {
+    padding: 36px 28px 40px 14%;
+  }
+
+  .door-portrait img {
+    max-width: min(52vw, 420px);
   }
 }
 
@@ -460,7 +613,53 @@ html.page-chooser .header.navbar-area.sticky {
     padding-top: 70px;
   }
 
-  .door-chooser .row {
-    min-height: 0;
+  .door-stage {
+    min-height: calc(100dvh - 70px);
+  }
+
+  .door-copy {
+    justify-content: flex-end;
+    z-index: 5;
+  }
+
+  .door-copy--neuro {
+    background: linear-gradient(to top, rgba(195, 154, 152, 0.94) 0%, rgba(195, 154, 152, 0) 55%);
+  }
+
+  .door-copy--sono {
+    background: linear-gradient(to top, rgba(8, 24, 40, 0.94) 0%, rgba(8, 24, 40, 0) 55%);
+  }
+
+  .door-copy h1 {
+    font-size: 22px;
+  }
+
+  .door-copy p {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .door-copy--neuro,
+  .door-copy--sono {
+    padding: 24px 16px 28px;
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .door-copy--sono p {
+    margin-left: 0;
+  }
+
+  .door-copy .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .door-portrait {
+    height: 62%;
+  }
+
+  .door-portrait img {
+    max-width: min(78vw, 340px);
   }
 }
