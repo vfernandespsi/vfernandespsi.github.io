@@ -68,8 +68,8 @@ If the main complaint is unclear: https://verafernandes.com/sono-e-memoria/
 - Neuropsychology hub: https://verafernandes.com/neuropsicologia/
 - Sleep psychology hub: https://verafernandes.com/psicologia-do-sono/
 - Sleep vs memory (if unsure): https://verafernandes.com/sono-e-memoria/
-- Central booking page: https://verafernandes.com/marcar/
-- Sleep booking (online): https://verafernandes.com/marcar/?servico=sono
+- Central booking page: https://verafernandes.com/agendar/
+- Sleep booking (online): https://verafernandes.com/agendar/?servico=sono
 - Assessment page: https://verafernandes.com/avaliacao-neuropsicologica/
 - Family / caregiver page: https://verafernandes.com/familiares/
 - About: https://verafernandes.com/sobre/

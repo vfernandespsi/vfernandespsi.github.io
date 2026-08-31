@@ -30,7 +30,7 @@
     }
 
     var result = document.getElementById("neuro-memory-result");
-    var resultText = document.getElementById("neuro-memory-result-text");
+    var scoreEl = document.getElementById("neuro-memory-score");
     var questions = form.querySelectorAll(".triage-question");
 
     track("triagem_neuro_view", {
@@ -103,10 +103,7 @@
       }, 0);
       var needsInvestigation = total > 4;
 
-      resultText.textContent =
-        "Este questionário tem uma escala de pontuação que varia entre 0 e 21. Valores superiores a 4 devem ser investigados. A sua pontuação é: " +
-        total +
-        ".";
+      scoreEl.textContent = String(total);
 
       result.hidden = false;
       result.scrollIntoView({ behavior: "smooth", block: "nearest" });

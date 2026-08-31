@@ -10,7 +10,7 @@ fs.mkdirSync(out, { recursive: true });
   const pages = [
     ['home', 'http://127.0.0.1:4173/'],
     ['avaliacao', 'http://127.0.0.1:4173/avaliacao-neuropsicologica/'],
-    ['marcar', 'http://127.0.0.1:4173/marcar/'],
+    ['marcar', 'http://127.0.0.1:4173/agendar/'],
     ['familiares', 'http://127.0.0.1:4173/familiares/'],
     ['braga', 'http://127.0.0.1:4173/avaliacao-neuropsicologica/braga/'],
   ];

@@ -7,7 +7,7 @@
     if (typeof url !== "string" || !url) {
       return "/psicologia-do-sono/";
     }
-    if (url.indexOf("/marcar") !== -1 && url.indexOf("servico=sono") !== -1) {
+    if (url.indexOf("/agendar") !== -1 && url.indexOf("servico=sono") !== -1) {
       return "/psicologia-do-sono/";
     }
     return url;
@@ -380,7 +380,7 @@
       if (choice === "sono") {
         return getSonoBookingUrl();
       }
-      return (window.VF && window.VF.bookingNeuroUrl) || "/marcar/";
+      return (window.VF && window.VF.bookingNeuroUrl) || "/agendar/";
     }
 
     function openModal() {

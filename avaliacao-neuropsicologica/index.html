@@ -176,7 +176,7 @@
         {
           "@type": "Offer",
           "name": "Avaliação neuropsicológica presencial",
-          "url": "https://verafernandes.com/marcar/",
+          "url": "https://verafernandes.com/agendar/",
           "itemOffered": {
             "@id": "https://verafernandes.com/avaliacao-neuropsicologica/#service"
           },
@@ -192,7 +192,7 @@
         {
           "@type": "Offer",
           "name": "Estimulação cognitiva",
-          "url": "https://verafernandes.com/marcar/",
+          "url": "https://verafernandes.com/agendar/",
           "itemOffered": {
             "@id": "https://verafernandes.com/estimulacao-cognitiva/#service"
           },
@@ -202,7 +202,7 @@
         {
           "@type": "Offer",
           "name": "Consulta de psicologia do sono online",
-          "url": "https://verafernandes.com/marcar/?servico=sono",
+          "url": "https://verafernandes.com/agendar/?servico=sono",
           "itemOffered": {
             "@id": "https://verafernandes.com/psicologia-do-sono/#service"
           },
@@ -421,7 +421,7 @@
         "Exame neuropsicológico"
       ],
       "url": "https://verafernandes.com/avaliacao-neuropsicologica/",
-      "description": "Exame complementar de diagnóstico para caracterizar memória, atenção, linguagem e outras funções cognitivas. Duração de cerca de 2 horas, numa única deslocação. Inclui relatório entregue até 4 dias úteis. Para adultos e idosos (18+). Presencial em Braga, Barcelos, Guimarães e Porto.",
+      "description": "Exame complementar de diagnóstico para caracterizar memória, atenção, linguagem e outras funções cognitivas. Duração de cerca de 2 horas, numa única deslocação. Inclui relatório entregue até 5 dias úteis. Para adultos e idosos (18+). Presencial em Braga, Barcelos, Guimarães e Porto.",
       "audience": {
         "@type": "PeopleAudience",
         "suggestedMinAge": 18,
@@ -509,7 +509,7 @@
       "availableChannel": {
         "@type": "ServiceChannel",
         "serviceType": "Online",
-        "serviceUrl": "https://verafernandes.com/marcar/?servico=sono"
+        "serviceUrl": "https://verafernandes.com/agendar/?servico=sono"
       }
     },
     {
@@ -531,7 +531,7 @@
           "name": "Marcar consulta",
           "target": {
             "@type": "EntryPoint",
-            "urlTemplate": "https://verafernandes.com/marcar/",
+            "urlTemplate": "https://verafernandes.com/agendar/",
             "actionPlatform": [
               "https://schema.org/DesktopWebPlatform",
               "https://schema.org/MobileWebPlatform"
@@ -580,60 +580,6 @@
           "position": 2,
           "name": "Avaliação neuropsicológica",
           "item": "https://verafernandes.com/avaliacao-neuropsicologica/"
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://verafernandes.com/avaliacao-neuropsicologica/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "É necessário encaminhamento médico?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Não. Muitas avaliações são pedidas por um médico como exame complementar, mas também pode marcar por iniciativa própria."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Posso marcar para o meu pai ou a minha mãe?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sim. Um familiar pode pedir informação e marcar."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Quanto custa?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "O valor depende do local e é indicado no momento da marcação. A avaliação inclui relatório entregue até 4 dias úteis."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Quanto tempo demora?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A avaliação está organizada para uma única deslocação, com a duração de cerca de 2 horas."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "O que acontece no dia?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Entrevista clínica, aplicação dos testes com o paciente, interpretação posterior e relatório até 4 dias úteis, com orientação dos próximos passos."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Posso ir acompanhado?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "É aconselhável ir acompanhado na primeira parte. Não ter acompanhante não impede a avaliação."
-          }
         }
       ]
     }
@@ -686,7 +632,7 @@
                             </ul>
                         </div>
                         <div class="button add-list-button">
-                            <a href="/marcar/" class="btn" data-track="marcar" data-track-location="nav">Agendar</a>
+                            <a href="/agendar/" class="btn" data-track="marcar" data-track-location="nav">Agendar</a>
                         </div>
                     </nav>
                 </div>
@@ -708,28 +654,62 @@
         </div>
         
         <div class="row"><div class="col-lg-8 offset-lg-2">
-            <p>A avaliação neuropsicológica é um exame complementar de diagnóstico. Caracteriza o estado cognitivo, comportamental e emocional com testes validados para a população portuguesa.</p>
-            <h2>Para quem é</h2>
-            <p>Adultos e idosos (18+) com queixas de memória, atenção ou linguagem; pessoas com diagnóstico neurológico; familiares que observaram alterações; e quem foi encaminhado por um médico.</p>
-            <h2>Quando faz sentido</h2>
-            <p>Quando há esquecimentos de conversas ou recados recentes, mudanças na expressão ou compreensão, ou maior dificuldade em gerir medicação, cozinhar ou conduzir. Também para acompanhar alterações ao longo do tempo.</p>
-            <h2>O que acontece no dia</h2>
+            <p>A avaliação neuropsicológica é um exame complementar de diagnóstico que permite avaliar o funcionamento cognitivo, comportamental e emocional de uma pessoa. É realizada através de uma entrevista clínica e da aplicação de testes neuropsicológicos validados para a população portuguesa.</p>
+            <p>A avaliação permite caracterizar diferentes capacidades, como memória, atenção, linguagem, raciocínio e funções executivas, e perceber se o desempenho observado se encontra dentro do esperado para a idade e escolaridade da pessoa ou se existem alterações que mereçam atenção clínica.</p>
+
+            <h2>Quando é indicada</h2>
+            <p>A avaliação neuropsicológica destina-se a adultos e idosos que apresentem queixas ou alterações ao nível do funcionamento cognitivo ou que tenham necessidade de realizar uma caracterização detalhada do funcionamento cognitivo actual na sequência de uma situação clínica.</p>
+            <p>Pode ser indicada perante:</p>
             <ul class="table-list">
-                <li><i class="lni lni-checkmark-circle"></i> Entrevista: conhecer as dificuldades e o contexto clínico.</li>
-                <li><i class="lni lni-checkmark-circle"></i> Avaliação: aplicação dos testes neuropsicológicos com o paciente.</li>
-                <li><i class="lni lni-checkmark-circle"></i> Análise: interpretação dos resultados.</li>
-                <li><i class="lni lni-checkmark-circle"></i> Relatório: entrega até 4 dias úteis, por e-mail, presencialmente ou CTT.</li>
-                <li><i class="lni lni-checkmark-circle"></i> Próximos passos: orientação de acordo com os resultados.</li>
+                <li><i class="lni lni-checkmark-circle"></i> dificuldades de memória ou esquecimentos frequentes;</li>
+                <li><i class="lni lni-checkmark-circle"></i> dificuldades de atenção ou concentração;</li>
+                <li><i class="lni lni-checkmark-circle"></i> alterações na linguagem, como dificuldade em encontrar palavras ou compreender o que lhe é dito;</li>
+                <li><i class="lni lni-checkmark-circle"></i> dificuldades no raciocínio, organização ou resolução de problemas;</li>
+                <li><i class="lni lni-checkmark-circle"></i> alterações cognitivas associadas a doenças ou lesões neurológicas;</li>
+                <li><i class="lni lni-checkmark-circle"></i> alterações observadas pela própria pessoa ou pelos seus familiares;</li>
+                <li><i class="lni lni-checkmark-circle"></i> encaminhamento por um médico ou outro profissional de saúde.</li>
             </ul>
+            <p>É particularmente útil quando estas alterações começam a interferir com actividades do dia a dia, como gerir medicação, cozinhar, conduzir, organizar tarefas ou lidar com situações que anteriormente eram realizadas com facilidade.</p>
+            <p>A avaliação pode também ser realizada para caracterizar o funcionamento cognitivo actual e acompanhar a sua evolução ao longo do tempo, nomeadamente quando existe uma doença neurológica ou outra condição clínica relevante.</p>
+
+            <h2>Como é feita a avaliação</h2>
+            <p>A avaliação decorre numa única deslocação, com duração aproximada de 2 horas.</p>
+            <h3>Durante a avaliação</h3>
+            <p><strong>Entrevista clínica</strong><br>
+            É recolhida informação sobre as dificuldades sentidas, o seu início e evolução, antecedentes clínicos, medicação, escolaridade, actividade profissional e outros factores relevantes para a interpretação dos resultados.</p>
+            <p>A entrevista é realizada com a própria pessoa e, sempre que possível e adequado, com um familiar ou outra pessoa próxima, uma vez que esta informação complementar pode ajudar a compreender melhor as alterações observadas e o seu impacto no dia a dia.</p>
+            <p><strong>Testes neuropsicológicos</strong><br>
+            São aplicados testes de papel e lápis que avaliam diferentes funções cognitivas, de acordo com as questões clínicas identificadas. Entre as áreas avaliadas podem incluir-se memória, atenção, linguagem, raciocínio, velocidade de processamento, capacidade de pensamento abstracto e flexibilidade cognitiva. A selecção dos testes é realizada de acordo com as características e necessidades de cada pessoa.</p>
+            <p><strong>Esclarecimento de dúvidas</strong><br>
+            Durante a avaliação existe também espaço para esclarecer dúvidas sobre o processo, os procedimentos realizados e os passos seguintes.</p>
+
+            <h2>Depois da avaliação</h2>
+            <p>A avaliação não termina com a aplicação dos testes. Os resultados são posteriormente analisados e interpretados em conjunto com a informação recolhida na entrevista clínica.</p>
+            <p>Os resultados da avaliação neuropsicológica são interpretados tendo em consideração valores de referência ajustados à idade e escolaridade, permitindo compreender se o desempenho está dentro do esperado para a pessoa ou se existem dificuldades que se afastam significativamente do que seria expectável.</p>
+            <p>Esta informação é importante porque algumas alterações cognitivas podem fazer parte do envelhecimento normal, enquanto outras podem justificar investigação clínica adicional.</p>
+            <p>Com base nessa análise é elaborado um relatório neuropsicológico, que integra os principais resultados e a sua interpretação clínica.</p>
+
             <h2>O que o relatório descreve</h2>
-            <p>Como está a memória, a atenção, a linguagem e o raciocínio; se as alterações estão dentro do esperado para a idade e escolaridade; e que áreas podem precisar de acompanhamento. Não substitui o diagnóstico médico.</p>
-            <h2>O que está incluído</h2>
-            <p>Entrevista clínica, avaliação das funções cognitivas, interpretação, relatório e orientação dos próximos passos. Duração de cerca de 2 horas, numa única deslocação. O valor depende do local e é indicado na marcação.</p>
+            <p>O relatório de avaliação neuropsicológica apresenta uma caracterização detalhada do funcionamento cognitivo, de acordo com a problemática clínica que motivou a avaliação.</p>
+            <p>Os resultados são interpretados tendo em consideração factores relevantes como a idade, escolaridade e o contexto clínico, permitindo perceber quais as capacidades que se encontram dentro do esperado, quais poderão apresentar alterações e a relevância dessas alterações no contexto da avaliação. Sempre que adequado, o relatório inclui também orientações sobre os próximos passos, tendo em conta os resultados obtidos.</p>
+            <p>A entrega do relatório é feita até 5 dias úteis, por e-mail, presencialmente ou por CTT, de acordo com a opção mais conveniente.</p>
+            <p>A avaliação neuropsicológica é um exame complementar de diagnóstico e deve ser interpretada em articulação com a informação clínica disponível. Não substitui a avaliação ou o diagnóstico médico.</p>
+
+            <h2>Duração e Preço</h2>
+            <ul class="table-list">
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Duração:</strong> cerca de 2 horas</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Preço:</strong> desde 185€</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Relatório:</strong> incluído</li>
+            </ul>
+            <p>O preço inclui a avaliação neuropsicológica, a análise e interpretação dos resultados, a elaboração do relatório e a orientação dos próximos passos.</p>
+            <p>O valor pode variar consoante o local de realização. O preço aplicável deverá ser confirmado no momento da marcação, de acordo com o local escolhido.</p>
+
             <h2>Onde realizar</h2>
-            <p><a href="/avaliacao-neuropsicologica/braga/">Braga</a>, <a href="/avaliacao-neuropsicologica/barcelos/">Barcelos</a>, <a href="/avaliacao-neuropsicologica/guimaraes/">Guimarães</a> e <a href="/avaliacao-neuropsicologica/porto/">Porto</a>.</p>
-            
+            <p>A avaliação neuropsicológica é realizada presencialmente em:</p>
+            <p><a href="/avaliacao-neuropsicologica/braga/">Braga</a> · <a href="/avaliacao-neuropsicologica/barcelos/">Barcelos</a> · <a href="/avaliacao-neuropsicologica/guimaraes/">Guimarães</a> · <a href="/avaliacao-neuropsicologica/porto/">Porto</a></p>
+
         <div class="button cta-pair" style="margin:24px 0;">
-            <a href="/marcar/" class="btn" data-track="marcar">Agendar</a>
+            <a href="/agendar/" class="btn" data-track="marcar">Agendar</a>
             <a href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica." class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
         </div>
         </div></div>
@@ -740,105 +720,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
-                <h2>Perguntas seguintes</h2>
-                <ul class="related-list"><li><a href="/avaliacao-neuropsicologica/braga/">Onde realizar em Braga?</a></li><li><a href="/familiares/">É para um familiar?</a></li><li><a href="/estimulacao-cognitiva/">O que é a estimulação cognitiva?</a></li><li><a href="/memoria-e-envelhecimento/">Falhas de memória são só idade?</a></li><li><a href="/marcar/">Como marcar?</a></li></ul>
+                <h2>Tópicos relacionados</h2>
+                <ul class="related-list"><li><a href="/familiares/">E se for para um familiar?</a></li><li><a href="/memoria-e-envelhecimento/">Será só da idade?</a></li><li><a href="/avaliacao-neuropsicologica/braga/">Onde realizar em Braga?</a></li></ul>
             </div>
-        </div>
-    </div>
-</section>
-
-<section id="faq" class="faq section">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <h2>Questões frequentes</h2>
-                </div>
-            </div>
-        </div>
-        <div class="accordion" id="accordionExample">
-            
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading1">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                <span class="title"><span class="serial">01</span>É necessário encaminhamento médico?</span><i class="lni lni-plus"></i>
-                            </button>
-                        </h2>
-                        <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body"><p>Não. Muitas avaliações são pedidas por um médico como exame complementar, mas também pode marcar por iniciativa própria.</p></div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading2">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                <span class="title"><span class="serial">02</span>Posso marcar para o meu pai ou a minha mãe?</span><i class="lni lni-plus"></i>
-                            </button>
-                        </h2>
-                        <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body"><p>Sim. Um familiar pode pedir informação e marcar.</p></div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading3">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                                <span class="title"><span class="serial">03</span>Quanto custa?</span><i class="lni lni-plus"></i>
-                            </button>
-                        </h2>
-                        <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body"><p>O valor depende do local e é indicado no momento da marcação. A avaliação inclui relatório entregue até 4 dias úteis.</p></div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading4">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                                <span class="title"><span class="serial">04</span>Quanto tempo demora?</span><i class="lni lni-plus"></i>
-                            </button>
-                        </h2>
-                        <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body"><p>A avaliação está organizada para uma única deslocação, com a duração de cerca de 2 horas.</p></div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading5">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                                <span class="title"><span class="serial">05</span>O que acontece no dia?</span><i class="lni lni-plus"></i>
-                            </button>
-                        </h2>
-                        <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body"><p>Entrevista clínica, aplicação dos testes com o paciente, interpretação posterior e relatório até 4 dias úteis, com orientação dos próximos passos.</p></div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading6">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
-                                <span class="title"><span class="serial">06</span>Posso ir acompanhado?</span><i class="lni lni-plus"></i>
-                            </button>
-                        </h2>
-                        <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body"><p>É aconselhável ir acompanhado na primeira parte. Não ter acompanhante não impede a avaliação.</p></div>
-                        </div>
-                    </div>
-        </div>
-        <div class="button cta-pair" style="margin-top:30px;text-align:center;">
-            <a href="/marcar/" class="btn" data-track="marcar"><i class="lni lni-calendar"></i> Agendar</a>
-            <a href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica." class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
         </div>
     </div>
 </section>
@@ -878,9 +762,11 @@
                             <div class="single-footer f-link">
                                 <h3>Legal</h3>
                                 <ul>
+                                    <li><a href="/informacao-regulatoria/">Informação regulatória</a></li>
                                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
+                                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false" src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -892,7 +778,7 @@
 </footer>
 <a href="#inicio" class="scroll-top" target="_self"><i class="lni lni-chevron-up"></i></a>
 <div class="mobile-cta-bar">
-    <a href="/marcar/" data-track="marcar" data-track-location="mobile-bar">Agendar</a>
+    <a href="/agendar/" data-track="marcar" data-track-location="mobile-bar">Agendar</a>
     <a class="cta-secondary" href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica." data-track="whatsapp" data-track-location="mobile-bar" rel="noopener">Tenho uma dúvida</a>
 </div>
 <script src="/assets/js/bootstrap.min.js" defer></script>

@@ -74,13 +74,13 @@ async function main() {
   );
 
   const blog = await fetchHtml("/blog/");
-  assert("Blog: listing page", blog.includes("Memória e envelhecimento"));
+  assert("Blog: listing page", blog.includes("papel do psicólogo"));
 
-  const post = await fetchHtml("/blog/memoria-e-envelhecimento-normal/");
+  const post = await fetchHtml("/blog/papel-psicologo-doencas-neurologicas/");
   assert("Blog: article JSON-LD", post.includes("BlogPosting"));
 
   const cursos = await fetchHtml("/cursos/");
-  assert("Cursos: page loads", cursos.includes("Curso de exemplo"));
+  assert("Cursos: page loads", cursos.includes("Instrumentos de Rastreio Cognitivo"));
 
   const sitemap = readLocal("sitemap.xml");
   assert("Sitemap: /blog/", sitemap.includes("https://verafernandes.com/blog/"));

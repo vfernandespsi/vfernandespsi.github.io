@@ -11,7 +11,7 @@ PAGES = [
     "index.html",
     "neuropsicologia/index.html",
     "alzheimer/index.html",
-    "marcar/index.html",
+    "agendar/index.html",
     "avaliacao-neuropsicologica/braga/index.html",
     "psicologia-do-sono/index.html",
 ]

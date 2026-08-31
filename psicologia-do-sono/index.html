@@ -179,7 +179,7 @@
         {
           "@type": "Offer",
           "name": "Avaliação neuropsicológica presencial",
-          "url": "https://verafernandes.com/marcar/",
+          "url": "https://verafernandes.com/agendar/",
           "itemOffered": {
             "@id": "https://verafernandes.com/avaliacao-neuropsicologica/#service"
           },
@@ -195,7 +195,7 @@
         {
           "@type": "Offer",
           "name": "Estimulação cognitiva",
-          "url": "https://verafernandes.com/marcar/",
+          "url": "https://verafernandes.com/agendar/",
           "itemOffered": {
             "@id": "https://verafernandes.com/estimulacao-cognitiva/#service"
           },
@@ -205,7 +205,7 @@
         {
           "@type": "Offer",
           "name": "Consulta de psicologia do sono online",
-          "url": "https://verafernandes.com/marcar/?servico=sono",
+          "url": "https://verafernandes.com/agendar/?servico=sono",
           "itemOffered": {
             "@id": "https://verafernandes.com/psicologia-do-sono/#service"
           },
@@ -512,7 +512,7 @@
       "availableChannel": {
         "@type": "ServiceChannel",
         "serviceType": "Online",
-        "serviceUrl": "https://verafernandes.com/marcar/?servico=sono"
+        "serviceUrl": "https://verafernandes.com/agendar/?servico=sono"
       }
     },
     {
@@ -534,7 +534,7 @@
           "name": "Marcar consulta",
           "target": {
             "@type": "EntryPoint",
-            "urlTemplate": "https://verafernandes.com/marcar/",
+            "urlTemplate": "https://verafernandes.com/agendar/",
             "actionPlatform": [
               "https://schema.org/DesktopWebPlatform",
               "https://schema.org/MobileWebPlatform"
@@ -592,34 +592,66 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "A consulta é presencial?",
+          "name": "Como sei se a consulta de psicologia do sono é indicada para mim?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Não. A consulta de psicologia do sono é online."
+            "text": "É indicada para adultos que demoram a adormecer, acordam várias vezes durante a noite, acordam demasiado cedo ou sentem que o sono não é reparador, afectando a energia, a concentração e o humor ao longo do dia."
           }
         },
         {
           "@type": "Question",
-          "name": "É a partir de que idade?",
+          "name": "O que é a Terapia Cognitivo-Comportamental para a Insónia (TCC-I)?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Para adultos, com 18 ou mais anos."
+            "text": "É uma intervenção psicológica estruturada, focada em identificar e modificar os pensamentos e hábitos que mantêm a dificuldade em dormir. É reconhecida internacionalmente pelas diretrizes médicas como a abordagem de primeira linha no tratamento da insónia crónica."
           }
         },
         {
           "@type": "Question",
-          "name": "Qual é o horário?",
+          "name": "Tomo medicação para dormir. Posso fazer esta intervenção?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "O horário é indicado no momento da marcação."
+            "text": "Sim. A TCC-I pode ser realizada em paralelo com a medicação. À medida que recupera o controlo natural sobre o sono, e sempre em articulação médica, pode ser planeado um processo de suspensão gradual dos fármacos."
           }
         },
         {
           "@type": "Question",
-          "name": "Substitui um estudo do sono?",
+          "name": "A TCC-I substitui a realização de um estudo do sono?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Não. Se houver sinais que justifiquem avaliação médica, o passo correcto é um médico."
+            "text": "Não, porque cumprem funções distintas. O estudo do sono é um exame médico de diagnóstico; a TCC-I é o tratamento para a insónia. Complementam-se: a maioria das pessoas com insónia não precisa de exame antes de iniciar a TCC-I."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "É necessário fazer algum exame ao sono antes de agendar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Não. Na primeira consulta é feita uma avaliação clínica detalhada. Se houver suspeita de outra condição médica, será realizado o devido encaminhamento."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quantas consultas são necessárias?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Em média, o processo decorre entre 4 a 8 sessões, variando consoante a evolução individual."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "As consultas são presenciais ou online?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "As consultas decorrem exclusivamente no formato online."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "O que preciso de preparar para a primeira consulta?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Não precisa de preparar nada antecipadamente. Na primeira consulta faremos a recolha do histórico de sono e ser-lhe-ão entregues as ferramentas iniciais, como o diário de sono."
           }
         }
       ]
@@ -679,7 +711,7 @@
                   <li class="nav-item"><a href="#faq" class="page-scroll">FAQ</a></li>
                   <li class="nav-item nav-cta-item">
                     <div class="button add-list-button">
-                      <a href="/marcar/?servico=sono" class="btn" data-track="marcar"
+                      <a href="/agendar/?servico=sono" class="btn" data-track="marcar"
                         data-track-location="nav">Agendar</a>
                     </div>
                   </li>
@@ -699,13 +731,14 @@
       <div class="row align-items-center">
         <div class="col-lg-5 col-md-12 col-12">
           <div class="hero-content">
-            <h1>Dificuldades a dormir?</h1>
-            <p>A consulta de psicologia do sono é online, para adultos (18+). Permite perceber o que está a interferir
-              com o descanso e definir um acompanhamento quando isso fizer sentido.</p>
-            <div class="button">
-              <a href="/marcar/?servico=sono" class="btn" data-track="marcar" data-track-location="hero"><i
-                  class="lni lni-calendar"></i> Agendar</a>
-              <button type="button" class="btn btn-alt" data-reveal-triage>Ver se é indicada</button>
+            <h1>Não está a conseguir dormir?</h1>
+            <p>Estratégias baseadas na ciência para tratar a insónia, regular o sono e recuperar a sua energia. Consulta
+              online.</p>
+            <div class="button hero-cta-pair">
+              <a href="/agendar/?servico=sono" class="btn" data-track="marcar" data-track-location="hero">Agendar
+                Consulta</a>
+              <a href="/rastreio-sono/" class="btn btn-alt" data-track="rastreio" data-track-location="hero">Fazer
+                rastreio</a>
             </div>
           </div>
         </div>
@@ -726,20 +759,18 @@
           <div class="col-lg-6 col-md-12 col-12">
             <div class="info-image wow fadeInRight" data-wow-delay=".5s">
               <div class="single-photo">
-                <img draggable="false" src="/assets/images/mock/sono-cover.jpg"
-                  alt="Ambiente calmo e descanso nocturno">
+                <img draggable="false" src="/assets/images/sono.jpg" alt="Ambiente calmo e descanso nocturno">
               </div>
             </div>
           </div>
           <div class="col-lg-6 col-md-12 col-12">
             <div class="info-text wow fadeInRight" data-wow-delay=".5s">
               <div class="main-icon"><i class="lni lni-xl lni-night"></i></div>
-              <h2>A psicologia do sono estuda como pensamentos, hábitos e emoções afectam o descanso.</h2>
-              <p>A consulta destina-se a adultos com dificuldades de sono persistentes — adormecer, manter o sono ou
-                acordar sem recuperação. Realiza-se <strong>online</strong>; o horário é indicado na marcação.</p>
-              <p>Não é uma avaliação neuropsicológica nem um exame de laboratório do sono. Se houver sinais que exijam
-                avaliação médica (por exemplo pausas respiratórias ou sonolência súbita intensa), o passo correcto é um
-                médico.</p>
+              <h2>A qualidade do sono afecta o equilíbrio físico, emocional e a energia do dia a dia.</h2>
+              <p>Através da avaliação e da intervenção especializada, como a Terapia Cognitivo-Comportamental para a
+                Insónia (TCC-I), é possível identificar os padrões de descanso, perceber o que mantém a dificuldade em
+                dormir e reestruturar hábitos. Esta abordagem tem especial utilidade na gestão da insónia crónica e na
+                redução do impacto de um sono inadequado na qualidade de vida.</p>
             </div>
           </div>
         </div>
@@ -747,64 +778,29 @@
     </div>
   </section>
 
-  <section id="triagem" class="faq section">
+  <section id="tcc-i" class="sobremim section">
     <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="section-title">
-            <h3 class="wow zoomIn" data-wow-delay=".2s">Triagem</h3>
-            <h2 class="wow fadeInUp" data-wow-delay=".4s">Está na dúvida se deve marcar uma consulta de sono?</h2>
-            <p class="wow fadeInUp" data-wow-delay=".6s">Responda a 5 perguntas. Isto não é um diagnóstico. Serve apenas
-              para perceber se faz sentido marcar.</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-          <div class="triage-card" id="triage-form">
-            <div class="triage-question">
-              <p>Tem dificuldade em adormecer?</p>
-              <div class="triage-options">
-                <button type="button" data-triage-answer="yes">Sim</button>
-                <button type="button" data-triage-answer="no">Não</button>
-              </div>
-            </div>
-            <div class="triage-question">
-              <p>Acorda durante a noite e custa a voltar a dormir?</p>
-              <div class="triage-options">
-                <button type="button" data-triage-answer="yes">Sim</button>
-                <button type="button" data-triage-answer="no">Não</button>
-              </div>
-            </div>
-            <div class="triage-question">
-              <p>O sono interfere com o seu dia-a-dia?</p>
-              <div class="triage-options">
-                <button type="button" data-triage-answer="yes">Sim</button>
-                <button type="button" data-triage-answer="no">Não</button>
-              </div>
-            </div>
-            <div class="triage-question">
-              <p>Isto se mantém há mais de algumas semanas?</p>
-              <div class="triage-options">
-                <button type="button" data-triage-answer="yes">Sim</button>
-                <button type="button" data-triage-answer="no">Não</button>
-              </div>
-            </div>
-            <div class="triage-question">
-              <p>Um médico recomendou ajuda para o sono?</p>
-              <div class="triage-options">
-                <button type="button" data-triage-answer="yes">Sim</button>
-                <button type="button" data-triage-answer="no">Não</button>
-              </div>
-            </div>
-            <div class="triage-result" id="triage-result" hidden>
-              <p id="triage-result-text"></p>
+      <div class="info-one">
+        <div class="row align-items-center">
+          <div class="col-lg-6 col-md-12 col-12">
+            <div class="info-text wow fadeInLeft" data-wow-delay=".3s">
+              <div class="main-icon"><i class="lni lni-xl lni-bulb"></i></div>
+              <h2>Procura uma solução duradoura para a insónia?</h2>
+              <p>É frequente sentir frustração quando o sono depende de comprimidos ou quando as estratégias habituais
+                deixam de funcionar. A Terapia Cognitivo-Comportamental para a insónia (TCC-i) é a abordagem de
+                primeira linha recomendada cientificamente para tratar a insónia, focando-se em reestruturar os
+                pensamentos e comportamentos que dificultam o sono.</p>
               <div class="button">
-                <a href="#consultas" class="btn page-scroll" data-sono-booking data-track="marcar"
-                  data-track-location="triagem"><i class="lni lni-calendar"></i> Marcar consulta</a>
-                <a href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20psicologia%20do%20sono."
-                  class="btn btn-alt" data-track="whatsapp" data-track-location="triagem" rel="noopener">Tenho uma
-                  dúvida</a>
+                <a href="/TCC-i/" class="btn">Saber mais sobre TCC-i</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 col-12">
+            <div class="info-image wow fadeInRight" data-wow-delay=".5s">
+              <div class="single-photo">
+                <img draggable="false" loading="lazy" src="/assets/images/seccao-tcci-sono.jpg"
+                  alt="Adulto a dormir descansado — Terapia Cognitivo-Comportamental para a Insónia (TCC-i)"
+                  width="1200" height="800" decoding="async">
               </div>
             </div>
           </div>
@@ -819,9 +815,6 @@
         <div class="col-12">
           <div class="section-title">
             <h3 class="wow zoomIn" data-wow-delay=".2s">Consultas</h3>
-            <h2 class="wow fadeInUp" data-wow-delay=".4s">Psicologia do sono online</h2>
-            <p class="wow fadeInUp" data-wow-delay=".6s">Para adultos com 18 ou mais anos. O horário é indicado na
-              marcação.</p>
           </div>
         </div>
       </div>
@@ -829,33 +822,28 @@
         <div class="col-lg-8">
           <div class="single-feature wow fadeInUp" data-wow-delay=".2s">
             <i class="lni lni-xl lni-laptop-phone"></i>
-            <h3>Consulta de psicologia do sono</h3>
-            <p>Consulta de psicologia online com acompanhamento ao longo de várias sessões quando isso fizer sentido. A
-              frequência define-se em conjunto. Não se prometem resultados clínicos nem prazos de melhoria.</p>
+            <h3>Psicologia do Sono</h3>
+            <p>Consulta de psicologia online dirigida a adultos com dificuldades de sono, nomeadamente insónia,
+              dificuldade em adormecer ou despertares durante a noite. O acompanhamento tem por base a <a
+                href="/TCC-i/">Terapia Cognitivo-Comportamental para a Insónia (TCC-I)</a>, uma abordagem especializada
+              para as dificuldades de sono, promovendo um descanso sustentável e ajustado às necessidades de cada
+              pessoa.</p>
             <div class="table-content">
               <h4 class="middle-title">Indicada para:</h4>
               <ul class="table-list">
-                <li><i class="lni lni-checkmark-circle"></i> Dificuldade em adormecer ou em manter o sono;</li>
-                <li><i class="lni lni-checkmark-circle"></i> Acordar sem sensação de recuperação;</li>
-                <li><i class="lni lni-checkmark-circle"></i> Queixas de sono que afectam o dia-a-dia.</li>
-              </ul>
-            </div>
-            <div class="table-content">
-              <h4 class="middle-title">Não substitui:</h4>
-              <ul class="table-list">
-                <li><i class="lni lni-checkmark-circle"></i> Pneumologia, neurologia ou estudo do sono quando há sinais
-                  de alarme;</li>
-                <li><i class="lni lni-checkmark-circle"></i> Avaliação neuropsicológica — se a dúvida for memória, veja
-                  <a href="/sono-e-memoria/">sono e memória</a> ou <a href="/neuropsicologia/">neuropsicologia</a>.
+                <li><i class="lni lni-checkmark-circle"></i> Dificuldade em adormecer ou manter o sono contínuo;</li>
+                <li><i class="lni lni-checkmark-circle"></i> Despertares frequentes ao longo da noite ou acordar
+                  demasiado cedo;</li>
+                <li><i class="lni lni-checkmark-circle"></i> Preocupações, pensamentos ou ansiedade na hora de deitar;
                 </li>
+                <li><i class="lni lni-checkmark-circle"></i> Sensação de sono não reparador, cansaço ou falta de
+                  concentração durante o dia.</li>
               </ul>
             </div>
             <div class="button">
-              <a href="/marcar/?servico=sono" class="btn" data-track="marcar" data-track-location="consultas"><i
-                  class="lni lni-calendar"></i> Agendar</a>
-              <a href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20psicologia%20do%20sono."
-                class="btn btn-alt" data-track="whatsapp" data-track-location="consultas" rel="noopener">Tenho uma
-                dúvida</a>
+              <a href="/TCC-i/" class="btn">Saber mais</a>
+              <a href="/agendar/?servico=sono" class="btn btn-alt" data-track="marcar"
+                data-track-location="consultas">Agendar</a>
             </div>
           </div>
         </div>
@@ -870,8 +858,8 @@
           <div class="section-title">
             <h3 class="wow zoomIn" data-wow-delay=".2s">FAQ</h3>
             <h2 class="wow fadeInUp" data-wow-delay=".4s">Questões frequentes</h2>
-            <p class="wow fadeInUp" data-wow-delay=".6s">No caso de ter alguma outra questão não hesite em contactar.
-            </p>
+            <p class="wow fadeInUp" data-wow-delay=".6s">Encontre a resposta às dúvidas mais frequentes. Se ainda
+              restar alguma questão, não hesite em contactar.</p>
           </div>
         </div>
       </div>
@@ -883,14 +871,16 @@
               <h2 class="accordion-header" id="heading1">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1"
                   aria-expanded="true" aria-controls="collapse1">
-                  <span class="title"><span class="serial">01</span>A consulta é presencial?</span><i
-                    class="lni lni-plus"></i>
+                  <span class="title"><span class="serial">01</span>Como sei se a consulta de psicologia do sono é
+                    indicada para mim?</span><i class="lni lni-plus"></i>
                 </button>
               </h2>
               <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1"
                 data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                  <p>Não. A consulta de psicologia do sono é online.</p>
+                  <p>É indicada para adultos que demoram a adormecer, acordam várias vezes durante a noite, acordam
+                    demasiado cedo ou sentem que o sono não é reparador, afectando a energia, a concentração e o humor
+                    ao longo do dia.</p>
                 </div>
               </div>
             </div>
@@ -899,14 +889,17 @@
               <h2 class="accordion-header" id="heading2">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                  <span class="title"><span class="serial">02</span>É a partir de que idade?</span><i
-                    class="lni lni-plus"></i>
+                  <span class="title"><span class="serial">02</span>O que é a Terapia Cognitivo-Comportamental para a
+                    Insónia (TCC-I)?</span><i class="lni lni-plus"></i>
                 </button>
               </h2>
               <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
                 data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                  <p>Para adultos, com 18 ou mais anos.</p>
+                  <p>É uma intervenção psicológica estruturada, focada em identificar e modificar os pensamentos e
+                    hábitos que mantêm a dificuldade em dormir. É reconhecida internacionalmente pelas diretrizes
+                    médicas
+                    como a abordagem de primeira linha no tratamento da insónia crónica.</p>
                 </div>
               </div>
             </div>
@@ -915,13 +908,16 @@
               <h2 class="accordion-header" id="heading3">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                  <span class="title"><span class="serial">03</span>Qual é o horário?</span><i class="lni lni-plus"></i>
+                  <span class="title"><span class="serial">03</span>Tomo medicação para dormir. Posso fazer esta
+                    intervenção?</span><i class="lni lni-plus"></i>
                 </button>
               </h2>
               <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3"
                 data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                  <p>O horário é indicado no momento da marcação.</p>
+                  <p>Sim. A TCC-I pode ser realizada em paralelo com a medicação. À medida que recupera o controlo
+                    natural sobre o sono, e sempre em articulação médica, pode ser planeado um processo de suspensão
+                    gradual dos fármacos.</p>
                 </div>
               </div>
             </div>
@@ -930,21 +926,99 @@
               <h2 class="accordion-header" id="heading4">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                  <span class="title"><span class="serial">04</span>Substitui um estudo do sono?</span><i
-                    class="lni lni-plus"></i>
+                  <span class="title"><span class="serial">04</span>A TCC-I substitui a realização de um estudo do
+                    sono?</span><i class="lni lni-plus"></i>
                 </button>
               </h2>
               <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
                 data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                  <p>Não. Se houver sinais que justifiquem avaliação médica, o passo correcto é um médico.</p>
+                  <p>Não, porque cumprem funções distintas. O estudo do sono (como a polissonografia) é um exame médico
+                    de diagnóstico para despistar causas físicas, como a apneia do sono. A TCC-I é o tratamento para a
+                    insónia. Não se substituem, complementam-se: a maioria das pessoas com insónia não precisa de fazer
+                    um exame antes de iniciar a TCC-I.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading5">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                  <span class="title"><span class="serial">05</span>É necessário fazer algum exame ao sono antes de
+                    agendar?</span><i class="lni lni-plus"></i>
+                </button>
+              </h2>
+              <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <p>Não. Na primeira consulta é feita uma avaliação clínica detalhada do seu caso. Se houver suspeita
+                    de outra condição médica (como a apneia do sono), será realizado o devido encaminhamento para a
+                    especialidade adequada.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading6">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                  <span class="title"><span class="serial">06</span>Quantas consultas são necessárias?</span><i
+                    class="lni lni-plus"></i>
+                </button>
+              </h2>
+              <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <p>Por ser uma abordagem focada em objectivos práticos, trata-se de uma intervenção de curta duração.
+                    Em média, o processo decorre entre 4 a 8 sessões, variando consoante a evolução individual.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading7">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                  <span class="title"><span class="serial">07</span>As consultas são presenciais ou online?</span><i
+                    class="lni lni-plus"></i>
+                </button>
+              </h2>
+              <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <p>As consultas decorrem exclusivamente no formato online, permitindo-lhe realizar todo o processo no
+                    conforto do seu ambiente familiar. Para garantir o bom decorrer da consulta, apenas precisa de
+                    assegurar uma ligação à internet estável, um telemóvel ou computador com câmara e microfone e estar
+                    num espaço tranquilo que lhe garanta privacidade e conforto.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading8">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                  <span class="title"><span class="serial">08</span>O que preciso de preparar para a primeira
+                    consulta?</span><i class="lni lni-plus"></i>
+                </button>
+              </h2>
+              <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading8"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <p>Não precisa de preparar nada antecipadamente. Na primeira consulta faremos a recolha detalhada do
+                    seu histórico relacionado com o sono e ser-lhe-ão entregues as ferramentas iniciais (como o diário
+                    de sono) para começarmos a intervenção.</p>
                 </div>
               </div>
             </div>
           </div>
-          <div class="button cta-pair" style="margin-top:30px;text-align:center;">
-            <a href="/marcar/?servico=sono" class="btn" data-track="marcar" data-track-location="faq"><i
-                class="lni lni-calendar"></i> Agendar</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <div class="button cta-pair">
+            <a href="/agendar/?servico=sono" class="btn" data-track="marcar" data-track-location="faq">Agendar</a>
             <a href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20psicologia%20do%20sono."
               class="btn btn-alt" data-track="whatsapp" data-track-location="faq" rel="noopener">Tenho uma dúvida</a>
           </div>
@@ -990,9 +1064,11 @@
                 <div class="single-footer f-link">
                   <h3>Legal</h3>
                   <ul>
+                    <li><a href="/informacao-regulatoria/">Informação regulatória</a></li>
                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
+                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false" src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a></li>
                   </ul>
                 </div>
               </div>
@@ -1004,7 +1080,7 @@
   </footer>
   <a href="#inicio" class="scroll-top" target="_self"><i class="lni lni-chevron-up"></i></a>
   <div class="mobile-cta-bar">
-    <a href="/marcar/?servico=sono" data-track="marcar" data-track-location="mobile-bar">Agendar</a>
+    <a href="/agendar/?servico=sono" data-track="marcar" data-track-location="mobile-bar">Agendar</a>
     <a class="cta-secondary"
       href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20psicologia%20do%20sono."
       data-track="whatsapp" data-track-location="mobile-bar" rel="noopener">Tenho uma dúvida</a>

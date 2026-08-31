@@ -174,11 +174,28 @@
   margin-bottom: 24px;
 }
 
+.triage-group-title {
+  color: #081828;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+
 .triage-result-title {
   color: #081828;
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 12px;
+}
+
+.triage-attribution {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+  color: #555;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .triage-recommendation {
@@ -469,10 +486,21 @@
     display: none;
   }
 
+  html.page-sono .inicio .hero-content .button.hero-cta-pair a.btn:not(.btn-alt) {
+    display: inline-flex;
+  }
+
   .cta-pair,
   .faq>.container>.row .button.cta-pair,
   .faq .button.cta-pair {
     display: none;
+  }
+
+  html.page-sono-triage .button.cta-pair {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
   }
 }
 
@@ -788,6 +816,10 @@ html.page-chooser .header.navbar-area.is-scrolled .navbar-nav .nav-item button[d
 
 #triagem:not(.is-visible) {
   display: none;
+}
+
+html.page-sono-triage #questionario {
+  display: block;
 }
 
 .home-about {
@@ -1169,6 +1201,39 @@ html.page-sono .consultas .button .btn-alt:hover,
 html.page-sono .faq .button .btn-alt:hover {
   background-color: var(--vf-sono-accent) !important;
   color: #fff !important;
+}
+
+html.page-sono.page-inner .page-content .button .btn,
+html.page-sono.page-inner .faq .button .btn {
+  background: var(--vf-sono-accent);
+  border-color: var(--vf-sono-accent);
+}
+
+html.page-sono.page-inner .page-content .button .btn:hover,
+html.page-sono.page-inner .faq .button .btn:hover {
+  background: var(--vf-sono-ref);
+  border-color: var(--vf-sono-ref);
+}
+
+html.page-sono.page-inner .page-content .button .btn-alt,
+html.page-sono.page-inner .faq .button .btn-alt {
+  color: var(--vf-sono-accent) !important;
+  background: transparent !important;
+  border: 2px solid var(--vf-sono-accent) !important;
+}
+
+html.page-sono.page-inner .page-content .button .btn-alt:hover,
+html.page-sono.page-inner .faq .button .btn-alt:hover {
+  background-color: var(--vf-sono-accent) !important;
+  color: #fff !important;
+}
+
+html.page-sono.page-inner .page-content a:not(.btn) {
+  color: var(--vf-sono-accent);
+}
+
+html.page-sono.page-inner .page-content a:not(.btn):hover {
+  color: var(--vf-sono-ref);
 }
 
 html.page-sono .triage-options button {
@@ -1782,6 +1847,11 @@ html.page-sono .header:not(.sticky) .button .btn {
 html.page-sono .inicio .hero-content .button .btn:hover,
 html.page-sono .inicio .hero-content .button .btn.btn-alt:hover {
   color: var(--vf-sono-accent);
+}
+
+html.page-sono .inicio .hero-content .button.hero-cta-pair .btn {
+  min-width: 12.5rem;
+  text-align: center;
 }
 
 /* Neuro lane — outline on hero, filled when sticky */

@@ -32,7 +32,7 @@ const sono = await get("/psicologia-do-sono/");
 log(sono.status === 200, `GET /psicologia-do-sono/ -> ${sono.status}`);
 log(sono.text.includes('href="/"'), "Sono: Início -> /");
 
-for (const path of ["/blog/", "/cursos/", "/blog/memoria-e-envelhecimento-normal/"]) {
+for (const path of ["/blog/", "/cursos/", "/blog/papel-psicologo-doencas-neurologicas/"]) {
   const page = await get(path);
   log(page.status === 200, `GET ${path} -> ${page.status}`);
 }

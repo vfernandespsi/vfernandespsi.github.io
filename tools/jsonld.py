@@ -13,8 +13,8 @@ SITE = "https://verafernandes.com"
 PHONE = "+351914166181"
 EMAIL = "vfernandes.psi@gmail.com"
 WHATSAPP = "https://api.whatsapp.com/send?phone=351914166181"
-BOOKING = f"{SITE}/marcar/"
-BOOKING_SONO = f"{SITE}/marcar/?servico=sono"
+BOOKING = f"{SITE}/agendar/"
+BOOKING_SONO = f"{SITE}/agendar/?servico=sono"
 CNS_PROFILE = "https://www.cnscampus.com/equipa/vera-fernandes/"
 
 SAME_AS = [

@@ -10,7 +10,7 @@ const PAGES = [
   { file: "blog/index.html", kind: "inner", expectBtn: true, expectSticky: true, lane: "inner" },
   { file: "cursos/index.html", kind: "inner", expectBtn: true, expectSticky: true, lane: "inner" },
   { file: "avaliacao-neuropsicologica/index.html", kind: "inner", expectBtn: true, expectSticky: true, lane: "neuro" },
-  { file: "marcar/index.html", kind: "inner", expectBtn: true, expectSticky: true, lane: "neuro" },
+  { file: "agendar/index.html", kind: "inner", expectBtn: true, expectSticky: true, lane: "neuro" },
   { file: "sono-e-memoria/index.html", kind: "inner", expectBtn: true, expectSticky: true, lane: "neuro" },
 ];
 

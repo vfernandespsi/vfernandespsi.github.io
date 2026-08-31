@@ -7,14 +7,15 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <title>Rastreio Memória | Vera Fernandes</title>
   <meta name="description"
-    content="Questionário de rastreio de queixas de memória. Não é um diagnóstico. Serve para perceber se faz sentido marcar uma avaliação neuropsicológica." />
+    content="Questionário de rastreio de queixas de memória. Guia orientador que não substitui diagnóstico clínico." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="Vera Fernandes" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta property="og:locale" content="pt_PT" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Rastreio Memória | Vera Fernandes" />
-  <meta property="og:description" content="Questionário de rastreio de queixas de memória. Não é um diagnóstico." />
+  <meta property="og:description"
+    content="Questionário de rastreio de queixas de memória. Guia orientador que não substitui diagnóstico clínico." />
   <meta property="og:url" content="https://verafernandes.com/rastreiomemoria/" />
   <meta property="og:site_name" content="Vera Fernandes - Neuropsicóloga" />
   <meta property="og:image" content="https://verafernandes.com/assets/images/vera1.webp" />
@@ -27,7 +28,7 @@
       "@id": "https://verafernandes.com/rastreiomemoria/#webpage",
       "url": "https://verafernandes.com/rastreiomemoria/",
       "name": "Rastreio Memória",
-      "description": "Questionário de rastreio de queixas de memória. Não substitui avaliação neuropsicológica nem diagnóstico médico.",
+      "description": "Questionário de rastreio de queixas de memória. Guia orientador que não substitui diagnóstico clínico.",
       "inLanguage": "pt-PT",
       "isPartOf": { "@id": "https://verafernandes.com/#website" },
       "about": { "@id": "https://verafernandes.com/#professional" }
@@ -96,7 +97,7 @@
                 </ul>
               </div>
               <div class="button add-list-button">
-                <a href="/marcar/" class="btn" data-track="marcar" data-track-location="nav">Agendar</a>
+                <a href="/agendar/" class="btn" data-track="marcar" data-track-location="nav">Agendar</a>
               </div>
             </nav>
           </div>
@@ -111,10 +112,10 @@
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
             <div class="section-title">
-              <h3>Rastreio Memória</h3>
-              <h1>Rastreio Memória</h1>
-              <p>Responda às perguntas abaixo sobre queixas de memória. Isto não é um diagnóstico. Serve apenas para
-                perceber se faz sentido marcar uma avaliação neuropsicológica.</p>
+              <h3>Rastreio</h3>
+              <h1 class="is-lead">Está na dúvida se deve agendar uma avaliação neuropsicológica?</h1>
+              <p>Responda a este breve questionário para perceber se as suas queixas justificam um agendamento. Este
+                rastreio serve como um guia orientador e não substitui um diagnóstico clínico.</p>
             </div>
           </div>
         </div>
@@ -220,15 +221,21 @@
               </div>
 
               <div class="triage-result" id="neuro-memory-result" hidden>
-                <p id="neuro-memory-result-text"></p>
+                <p>Este questionário tem uma escala de pontuação que varia entre 0 e 21. Valores superiores a 4 devem
+                  ser investigados.</p>
+                <p>A sua pontuação é: <strong id="neuro-memory-score"></strong></p>
                 <div class="button cta-pair">
-                  <a href="/marcar/" class="btn" data-track="marcar" data-track-location="triagem-memoria"><i
+                  <a href="/agendar/" class="btn" data-track="marcar" data-track-location="triagem-memoria"><i
                       class="lni lni-calendar"></i> Marcar avaliação</a>
                   <a href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica."
                     class="btn btn-alt" data-track="whatsapp" data-track-location="triagem-memoria" rel="noopener">Tenho
                     uma dúvida</a>
                 </div>
               </div>
+
+              <p class="triage-attribution">Adaptado da Escala de Queixas de Memória (Subjective Memory Complaints –
+                SMC; Schmand et al., 1996). Versão Portuguesa: Sandra Ginó, Manuela Guerreiro, Carlos Garcia
+                (Laboratório de Estudos de Linguagem, 2001).</p>
             </div>
 
             <!-- Rastreio sono: a adicionar numa fase posterior -->
@@ -276,9 +283,13 @@
                 <div class="single-footer f-link">
                   <h3>Legal</h3>
                   <ul>
+                    <li><a href="/informacao-regulatoria/">Informação regulatória</a></li>
                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
+                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false"
+                          src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -291,7 +302,7 @@
 
   <a href="#inicio" class="scroll-top" target="_self"><i class="lni lni-chevron-up"></i></a>
   <div class="mobile-cta-bar">
-    <a href="/marcar/" data-track="marcar" data-track-location="mobile-bar">Agendar</a>
+    <a href="/agendar/" data-track="marcar" data-track-location="mobile-bar">Agendar</a>
     <a class="cta-secondary"
       href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica."
       data-track="whatsapp" data-track-location="mobile-bar" rel="noopener">Tenho uma dúvida</a>

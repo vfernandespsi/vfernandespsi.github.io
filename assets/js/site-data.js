@@ -1,23 +1,33 @@
 window.VF = {
-  bookingNeuroUrl: "/marcar/",
+  bookingNeuroUrl: "/agendar/",
   bookingSonoUrl: "/psicologia-do-sono/",
   blogPosts: [
     {
-      slug: "memoria-e-envelhecimento-normal",
-      title: "Memória e envelhecimento: o que é normal?",
+      slug: "papel-psicologo-doencas-neurologicas",
+      title: "Qual é o papel do psicólogo nas doenças neurológicas e neurodegenerativas?",
       excerpt:
-        "Esquecimentos pontuais fazem parte da idade. Saiba quando uma avaliação neuropsicológica pode ajudar a esclarecer a dúvida.",
-      date: "2026-08-01",
+        "Desde a avaliação cognitiva precoce ao apoio a familiares e cuidadores: o que faz a neuropsicologia clínica nas doenças neurológicas.",
+      date: "2026-08-31",
+      published: true
+    },
+    {
+      slug: "demencia-quando-procurar-avaliacao-neuropsicologica",
+      title: "Demência: quando procurar uma avaliação neuropsicológica?",
+      excerpt:
+        "Esquecimentos, desorientação ou alterações de comportamento podem justificar avaliação. Saiba quando procurar esclarecimento.",
+      date: "2026-08-24",
       published: true
     }
   ],
   courses: [
     {
-      id: "curso-exemplo",
-      title: "Curso de exemplo",
+      id: "instrumentos-rastreio-cognitivo",
+      title: "Instrumentos de Rastreio Cognitivo",
       description:
-        "Formação destinada a profissionais de saúde. Conteúdo e datas serão anunciados em breve.",
-      externalUrl: "https://example.com",
+        "Formação assíncrona destinada a profissionais de saúde. Inscrições abertas.",
+      externalUrl: "https://verafernandes.thinkific.com/courses/instrumentos-de-rastreio",
+      image: "/assets/images/cursos/instrumentos-rastreio-cognitivo.jpg",
+      category: "Curso Prático",
       available: true
     }
   ],

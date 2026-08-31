@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://verafernandes.com"
 MANUAL_PAGE_PATHS = frozenset({"psicologia-do-sono"})
 WA = "https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica."
+WA_ESTIMULACAO = "https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20estimula%C3%A7%C3%A3o%20cognitiva."
 WA_SONO = "https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20psicologia%20do%20sono."
 
 VENUES = [
@@ -215,7 +216,7 @@ def page(
     brand_home = "/"
     wa = WA_SONO if is_sono else WA
     cta_label = "Agendar"
-    cta_href = "/marcar/?servico=sono" if is_sono else "/marcar/"
+    cta_href = "/agendar/?servico=sono" if is_sono else "/agendar/"
     nav = """
                                 <li class="nav-item"><a href="/">Início</a></li>
                                 <li class="nav-item"><a href="/neuropsicologia/">Neuropsicologia</a></li>
@@ -396,16 +397,22 @@ def section(title, kicker, html, hid="inicio", extra_class=""):
 </section>'''
 
 
-def cta(sono=False):
+def cta(sono=False, estimulacao=False):
     if sono:
         return f'''
         <div class="button cta-pair" style="margin:24px 0;">
-            <a href="/marcar/?servico=sono" class="btn" data-track="marcar">Agendar</a>
+            <a href="/agendar/?servico=sono" class="btn" data-track="marcar">Agendar</a>
             <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
+        </div>'''
+    if estimulacao:
+        return f'''
+        <div class="button cta-pair" style="margin:24px 0;">
+            <a href="/agendar/" class="btn" data-track="marcar">Agendar</a>
+            <a href="{WA_ESTIMULACAO}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
         </div>'''
     return f'''
         <div class="button cta-pair" style="margin:24px 0;">
-            <a href="/marcar/" class="btn" data-track="marcar">Agendar</a>
+            <a href="/agendar/" class="btn" data-track="marcar">Agendar</a>
             <a href="{WA}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
         </div>'''
 
@@ -494,7 +501,7 @@ def write_sono_funnel_page():
                                 <li class="nav-item"><a href="#faq" class="page-scroll">FAQ</a></li>
                                 <li class="nav-item nav-cta-item">
                                     <div class="button add-list-button">
-                                        <a href="/marcar/?servico=sono" class="btn" data-track="marcar" data-track-location="nav">Agendar</a>
+                                        <a href="/agendar/?servico=sono" class="btn" data-track="marcar" data-track-location="nav">Agendar</a>
                                     </div>
                                 </li>
                                 <li class="nav-item header-nav-sep" aria-hidden="true"><span>|</span></li>
@@ -516,7 +523,7 @@ def write_sono_funnel_page():
                     <h1>Dificuldades a dormir?</h1>
                     <p>A consulta de psicologia do sono é online, para adultos (18+). Permite perceber o que está a interferir com o descanso e definir um acompanhamento quando isso fizer sentido.</p>
                     <div class="button">
-                        <a href="/marcar/?servico=sono" class="btn" data-track="marcar" data-track-location="hero"><i class="lni lni-calendar"></i> Agendar</a>
+                        <a href="/agendar/?servico=sono" class="btn" data-track="marcar" data-track-location="hero"><i class="lni lni-calendar"></i> Agendar</a>
                         <button type="button" class="btn btn-alt" data-reveal-triage>Ver se é indicada</button>
                     </div>
                 </div>
@@ -649,7 +656,7 @@ def write_sono_funnel_page():
                         </ul>
                     </div>
                     <div class="button">
-                        <a href="/marcar/?servico=sono" class="btn" data-track="marcar" data-track-location="consultas"><i class="lni lni-calendar"></i> Agendar</a>
+                        <a href="/agendar/?servico=sono" class="btn" data-track="marcar" data-track-location="consultas"><i class="lni lni-calendar"></i> Agendar</a>
                         <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" data-track-location="consultas" rel="noopener">Tenho uma dúvida</a>
                     </div>
                 </div>
@@ -675,7 +682,7 @@ def write_sono_funnel_page():
                     {faq_html(faqs)}
                 </div>
                 <div class="button cta-pair" style="margin-top:30px;text-align:center;">
-                    <a href="/marcar/?servico=sono" class="btn" data-track="marcar" data-track-location="faq"><i class="lni lni-calendar"></i> Agendar</a>
+                    <a href="/agendar/?servico=sono" class="btn" data-track="marcar" data-track-location="faq"><i class="lni lni-calendar"></i> Agendar</a>
                     <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" data-track-location="faq" rel="noopener">Tenho uma dúvida</a>
                 </div>
             </div>
@@ -732,7 +739,7 @@ def write_sono_funnel_page():
 </footer>
 <a href="#inicio" class="scroll-top" target="_self"><i class="lni lni-chevron-up"></i></a>
 <div class="mobile-cta-bar">
-    <a href="/marcar/?servico=sono" data-track="marcar" data-track-location="mobile-bar">Agendar</a>
+    <a href="/agendar/?servico=sono" data-track="marcar" data-track-location="mobile-bar">Agendar</a>
     <a class="cta-secondary" href="{WA_SONO}" data-track="whatsapp" data-track-location="mobile-bar" rel="noopener">Tenho uma dúvida</a>
 </div>
 <script src="/assets/js/bootstrap.min.js" defer></script>
@@ -782,22 +789,33 @@ def city_page(slug, label):
         ]
         if s != slug
     ]
+    prep = {
+        "braga": "em Braga",
+        "barcelos": "em Barcelos",
+        "guimaraes": "em Guimarães",
+        "porto": "no Porto",
+    }[slug]
     body = section(
         f"Avaliação neuropsicológica em {label}",
         "Localização",
         f"""
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
-                <p>Vera Fernandes, neuropsicóloga (OPP 21502), realiza avaliação neuropsicológica em {label} para adultos e idosos. O exame caracteriza o funcionamento cognitivo e inclui relatório entregue até 4 dias úteis. O valor depende do local e é confirmado na marcação.</p>
-                {cta()}
+                <p>Vera Fernandes, neuropsicóloga clínica (cédula profissional n.º 21502), realiza avaliação neuropsicológica {prep} para adultos e idosos.</p>
+                <p>A avaliação permite perceber como estão a funcionar diferentes capacidades, como a memória, atenção, linguagem e raciocínio, e se o desempenho está dentro do esperado para a idade e escolaridade. Inclui relatório, entregue até 5 dias úteis. O valor depende do local e é confirmado no momento da marcação.</p>
             </div>
         </div>
         <div class="localizacao">
         <div class="row">{cards}</div>
         </div>
         <div class="row" style="margin-top:24px;">
-            <div class="col-lg-8 offset-lg-2">
+            <div class="col-lg-8 offset-lg-2 text-center">
                 <p>Também disponível em {", ".join(f'<a href="{href}">{lab}</a>' for lab, href in others)}.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                {cta()}
             </div>
         </div>""",
     )
@@ -812,21 +830,65 @@ def city_page(slug, label):
             (label, f"{SITE}/avaliacao-neuropsicologica/{slug}/"),
         ],
         body,
-        COMMON_FAQS
-        + [
-            (
-                f"Onde marcar em {label}?",
-                f"Os locais e horários em {label} estão nesta página. A marcação faz-se pelo telefone do local ou na página de agendamento.",
-            )
-        ],
+        [],
         related=[
-            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
-            ("Posso marcar para um familiar?", "/familiares/"),
-            *[(f"Avaliação em {lab}?", href) for lab, href in others[:2]],
-            ("Como marcar?", "/marcar/"),
+            ("Como é feita a avaliação?", "/avaliacao-neuropsicologica/"),
+            ("Posso agendar para um familiar?", "/familiares/"),
+            ("Como posso agendar?", "/agendar/"),
         ],
+        related_heading="Tópicos relacionados",
         service_key="avaliacao",
         city=label,
+        page_kind="city",
+    )
+
+
+def estimulacao_braga_page():
+    cards = "".join(
+        venue_card(v)
+        for v in VENUES
+        if v["city"] == "braga" and "estimulacao" in v["services"]
+    )
+    page(
+        "estimulacao-cognitiva/braga",
+        "Estimulação Cognitiva em Braga | Vera Fernandes",
+        "Estimulação cognitiva em Braga para adultos e idosos. Hospital Lusíadas Braga. Vera Fernandes, OPP 21502.",
+        f"{SITE}/estimulacao-cognitiva/braga/",
+        [
+            ("Início", f"{SITE}/"),
+            ("Estimulação cognitiva", f"{SITE}/estimulacao-cognitiva/"),
+            ("Braga", f"{SITE}/estimulacao-cognitiva/braga/"),
+        ],
+        section(
+            "Estimulação cognitiva em Braga",
+            "Localização",
+            f"""
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <p>Vera Fernandes, neuropsicóloga clínica (cédula profissional n.º 21502), realiza estimulação cognitiva em Braga para adultos e idosos.</p>
+                <p>A intervenção permite trabalhar diferentes capacidades, como memória, atenção e linguagem, através de atividades adaptadas às necessidades e objetivos de cada pessoa. O preço deverá ser confirmado no momento da marcação.</p>
+            </div>
+        </div>
+        <div class="localizacao">
+        <div class="row">{cards}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                {cta(estimulacao=True)}
+            </div>
+        </div>""",
+        ),
+        [],
+        related=[
+            ("Como funciona a estimulação cognitiva?", "/estimulacao-cognitiva/"),
+            (
+                "Será necessário primeiro uma avaliação neuropsicológica?",
+                "/avaliacao-neuropsicologica/",
+            ),
+            ("Como posso agendar?", "/agendar/"),
+        ],
+        related_heading="Tópicos relacionados",
+        service_key="estimulacao",
         page_kind="city",
     )
 
@@ -844,7 +906,7 @@ def problem_page(slug, title, h1, lead, when, solution, extra_faq, related):
                 <h2>O que a avaliação neuropsicológica pode acrescentar</h2>
                 <p>{solution}</p>
                 <h2>Próximo passo</h2>
-                <p>Se esta descrição se aproxima da situação, o passo seguinte é perceber <a href="/avaliacao-neuropsicologica/">o que inclui a avaliação</a> e, se fizer sentido, <a href="/marcar/">marcar</a>. A triagem na página de neuropsicologia ajuda a decidir se a avaliação poderá ser indicada. Isto não é um diagnóstico.</p>
+                <p>Se esta descrição se aproxima da situação, o passo seguinte é perceber <a href="/avaliacao-neuropsicologica/">o que inclui a avaliação</a> e, se fizer sentido, <a href="/agendar/">marcar</a>. A triagem na página de neuropsicologia ajuda a decidir se a avaliação poderá ser indicada. Isto não é um diagnóstico.</p>
                 <p>Vera Fernandes é neuropsicóloga em Portugal, OPP 21502, com avaliação em Braga, Barcelos, Guimarães e Porto. Não se trata da profissional homónima noutros países.</p>
                 {cta()}
             </div>
@@ -865,16 +927,6 @@ def problem_page(slug, title, h1, lead, when, solution, extra_faq, related):
 
 
 def main():
-    avaliacao_faqs = COMMON_FAQS + [
-        (
-            "O que acontece no dia?",
-            "Entrevista clínica, aplicação dos testes com o paciente, interpretação posterior e relatório até 4 dias úteis, com orientação dos próximos passos.",
-        ),
-        (
-            "Posso ir acompanhado?",
-            "É aconselhável ir acompanhado na primeira parte. Não ter acompanhante não impede a avaliação.",
-        ),
-    ]
     page(
         "avaliacao-neuropsicologica",
         "Avaliação Neuropsicológica | Vera Fernandes",
@@ -889,43 +941,67 @@ def main():
             "Exame complementar de diagnóstico",
             f"""
         <div class="row"><div class="col-lg-8 offset-lg-2">
-            <p>A avaliação neuropsicológica é um exame complementar de diagnóstico. Caracteriza o estado cognitivo, comportamental e emocional com testes validados para a população portuguesa.</p>
-            <h2>Para quem é</h2>
-            <p>Adultos e idosos (18+) com queixas de memória, atenção ou linguagem; pessoas com diagnóstico neurológico; familiares que observaram alterações; e quem foi encaminhado por um médico.</p>
-            <h2>Quando faz sentido</h2>
-            <p>Quando há esquecimentos de conversas ou recados recentes, mudanças na expressão ou compreensão, ou maior dificuldade em gerir medicação, cozinhar ou conduzir. Também para acompanhar alterações ao longo do tempo.</p>
-            <h2>O que acontece no dia</h2>
+            <p>A avaliação neuropsicológica é um exame complementar de diagnóstico que permite avaliar o funcionamento cognitivo, comportamental e emocional de uma pessoa. É realizada através de uma entrevista clínica e da aplicação de testes neuropsicológicos validados para a população portuguesa.</p>
+            <p>A avaliação permite caracterizar diferentes capacidades, como memória, atenção, linguagem, raciocínio e funções executivas, e perceber se o desempenho observado se encontra dentro do esperado para a idade e escolaridade da pessoa ou se existem alterações que mereçam atenção clínica.</p>
+            <h2>Quando é indicada</h2>
+            <p>A avaliação neuropsicológica destina-se a adultos e idosos que apresentem queixas ou alterações ao nível do funcionamento cognitivo ou que tenham necessidade de realizar uma caracterização detalhada do funcionamento cognitivo actual na sequência de uma situação clínica.</p>
+            <p>Pode ser indicada perante:</p>
             <ul class="table-list">
-                <li><i class="lni lni-checkmark-circle"></i> Entrevista: conhecer as dificuldades e o contexto clínico.</li>
-                <li><i class="lni lni-checkmark-circle"></i> Avaliação: aplicação dos testes neuropsicológicos com o paciente.</li>
-                <li><i class="lni lni-checkmark-circle"></i> Análise: interpretação dos resultados.</li>
-                <li><i class="lni lni-checkmark-circle"></i> Relatório: entrega até 4 dias úteis, por e-mail, presencialmente ou CTT.</li>
-                <li><i class="lni lni-checkmark-circle"></i> Próximos passos: orientação de acordo com os resultados.</li>
+                <li><i class="lni lni-checkmark-circle"></i> dificuldades de memória ou esquecimentos frequentes;</li>
+                <li><i class="lni lni-checkmark-circle"></i> dificuldades de atenção ou concentração;</li>
+                <li><i class="lni lni-checkmark-circle"></i> alterações na linguagem, como dificuldade em encontrar palavras ou compreender o que lhe é dito;</li>
+                <li><i class="lni lni-checkmark-circle"></i> dificuldades no raciocínio, organização ou resolução de problemas;</li>
+                <li><i class="lni lni-checkmark-circle"></i> alterações cognitivas associadas a doenças ou lesões neurológicas;</li>
+                <li><i class="lni lni-checkmark-circle"></i> alterações observadas pela própria pessoa ou pelos seus familiares;</li>
+                <li><i class="lni lni-checkmark-circle"></i> encaminhamento por um médico ou outro profissional de saúde.</li>
             </ul>
+            <p>É particularmente útil quando estas alterações começam a interferir com actividades do dia a dia, como gerir medicação, cozinhar, conduzir, organizar tarefas ou lidar com situações que anteriormente eram realizadas com facilidade.</p>
+            <p>A avaliação pode também ser realizada para caracterizar o funcionamento cognitivo actual e acompanhar a sua evolução ao longo do tempo, nomeadamente quando existe uma doença neurológica ou outra condição clínica relevante.</p>
+            <h2>Como é feita a avaliação</h2>
+            <p>A avaliação decorre numa única deslocação, com duração aproximada de 2 horas.</p>
+            <h3>Durante a avaliação</h3>
+            <p><strong>Entrevista clínica</strong><br>É recolhida informação sobre as dificuldades sentidas, o seu início e evolução, antecedentes clínicos, medicação, escolaridade, actividade profissional e outros factores relevantes para a interpretação dos resultados.</p>
+            <p>A entrevista é realizada com a própria pessoa e, sempre que possível e adequado, com um familiar ou outra pessoa próxima, uma vez que esta informação complementar pode ajudar a compreender melhor as alterações observadas e o seu impacto no dia a dia.</p>
+            <p><strong>Testes neuropsicológicos</strong><br>São aplicados testes de papel e lápis que avaliam diferentes funções cognitivas, de acordo com as questões clínicas identificadas. Entre as áreas avaliadas podem incluir-se memória, atenção, linguagem, raciocínio, velocidade de processamento, capacidade de pensamento abstracto e flexibilidade cognitiva. A selecção dos testes é realizada de acordo com as características e necessidades de cada pessoa.</p>
+            <p><strong>Esclarecimento de dúvidas</strong><br>Durante a avaliação existe também espaço para esclarecer dúvidas sobre o processo, os procedimentos realizados e os passos seguintes.</p>
+            <h2>Depois da avaliação</h2>
+            <p>A avaliação não termina com a aplicação dos testes. Os resultados são posteriormente analisados e interpretados em conjunto com a informação recolhida na entrevista clínica.</p>
+            <p>Os resultados da avaliação neuropsicológica são interpretados tendo em consideração valores de referência ajustados à idade e escolaridade, permitindo compreender se o desempenho está dentro do esperado para a pessoa ou se existem dificuldades que se afastam significativamente do que seria expectável.</p>
+            <p>Esta informação é importante porque algumas alterações cognitivas podem fazer parte do envelhecimento normal, enquanto outras podem justificar investigação clínica adicional.</p>
+            <p>Com base nessa análise é elaborado um relatório neuropsicológico, que integra os principais resultados e a sua interpretação clínica.</p>
             <h2>O que o relatório descreve</h2>
-            <p>Como está a memória, a atenção, a linguagem e o raciocínio; se as alterações estão dentro do esperado para a idade e escolaridade; e que áreas podem precisar de acompanhamento. Não substitui o diagnóstico médico.</p>
-            <h2>O que está incluído</h2>
-            <p>Entrevista clínica, avaliação das funções cognitivas, interpretação, relatório e orientação dos próximos passos. Duração de cerca de 2 horas, numa única deslocação. O valor depende do local e é indicado na marcação.</p>
+            <p>O relatório de avaliação neuropsicológica apresenta uma caracterização detalhada do funcionamento cognitivo, de acordo com a problemática clínica que motivou a avaliação.</p>
+            <p>Os resultados são interpretados tendo em consideração factores relevantes como a idade, escolaridade e o contexto clínico, permitindo perceber quais as capacidades que se encontram dentro do esperado, quais poderão apresentar alterações e a relevância dessas alterações no contexto da avaliação. Sempre que adequado, o relatório inclui também orientações sobre os próximos passos, tendo em conta os resultados obtidos.</p>
+            <p>A entrega do relatório é feita até 5 dias úteis, por e-mail, presencialmente ou por CTT, de acordo com a opção mais conveniente.</p>
+            <p>A avaliação neuropsicológica é um exame complementar de diagnóstico e deve ser interpretada em articulação com a informação clínica disponível. Não substitui a avaliação ou o diagnóstico médico.</p>
+            <h2>Duração e Preço</h2>
+            <ul class="table-list">
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Duração:</strong> cerca de 2 horas</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Preço:</strong> desde 185€</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Relatório:</strong> incluído</li>
+            </ul>
+            <p>O preço inclui a avaliação neuropsicológica, a análise e interpretação dos resultados, a elaboração do relatório e a orientação dos próximos passos.</p>
+            <p>O valor pode variar consoante o local de realização. O preço aplicável deverá ser confirmado no momento da marcação, de acordo com o local escolhido.</p>
             <h2>Onde realizar</h2>
-            <p><a href="/avaliacao-neuropsicologica/braga/">Braga</a>, <a href="/avaliacao-neuropsicologica/barcelos/">Barcelos</a>, <a href="/avaliacao-neuropsicologica/guimaraes/">Guimarães</a> e <a href="/avaliacao-neuropsicologica/porto/">Porto</a>.</p>
+            <p>A avaliação neuropsicológica é realizada presencialmente em:</p>
+            <p><a href="/avaliacao-neuropsicologica/braga/">Braga</a> · <a href="/avaliacao-neuropsicologica/barcelos/">Barcelos</a> · <a href="/avaliacao-neuropsicologica/guimaraes/">Guimarães</a> · <a href="/avaliacao-neuropsicologica/porto/">Porto</a></p>
             {cta()}
         </div></div>""",
         ),
-        avaliacao_faqs,
+        [],
         related=[
+            ("E se for para um familiar?", "/familiares/"),
+            ("Será só da idade?", "/memoria-e-envelhecimento/"),
             ("Onde realizar em Braga?", "/avaliacao-neuropsicologica/braga/"),
-            ("É para um familiar?", "/familiares/"),
-            ("O que é a estimulação cognitiva?", "/estimulacao-cognitiva/"),
-            ("Falhas de memória são só idade?", "/memoria-e-envelhecimento/"),
-            ("Como marcar?", "/marcar/"),
         ],
+        related_heading="Tópicos relacionados",
         service_key="avaliacao",
     )
 
     page(
         "estimulacao-cognitiva",
         "Estimulação Cognitiva | Vera Fernandes",
-        "Consulta de estimulação cognitiva de 50 a 60 minutos, com plano individual, no Hospital Lusíadas Braga.",
+        "Consulta de estimulação cognitiva de 50 minutos, com plano individual, no Hospital Lusíadas Braga.",
         f"{SITE}/estimulacao-cognitiva/",
         [
             ("Início", f"{SITE}/"),
@@ -933,32 +1009,65 @@ def main():
         ],
         section(
             "Estimulação cognitiva",
-            "Acompanhamento",
+            "Intervenção psicológica individualizada",
             f"""
         <div class="row"><div class="col-lg-8 offset-lg-2">
-            <p>A estimulação cognitiva consiste em actividades destinadas a trabalhar o desempenho cognitivo, de modo geral ou em domínios específicos, em pessoas saudáveis ou com défices.</p>
-            <p>Indicada para favorecer memória, atenção e linguagem; auxiliar pessoas com demência a gerir dificuldades no dia-a-dia; e apoiar a recuperação após AVC ou traumatismo cranioencefálico, quando clinicamente adequado.</p>
-            <p>Duração de 50 a 60 minutos, com plano individual. A frequência é definida em conjunto. Actualmente está indicada no Hospital Lusíadas Braga.</p>
-            <p>Na maior parte das situações, o primeiro passo é uma <a href="/avaliacao-neuropsicologica/">avaliação neuropsicológica</a>, para conhecer o perfil cognitivo antes de planear o acompanhamento.</p>
+            <p>A estimulação cognitiva é uma intervenção psicológica individualizada, que utiliza estratégias e actividades adaptadas às capacidades, necessidades e objectivos de cada pessoa.</p>
+            <p>A intervenção pode incidir sobre diferentes capacidades cognitivas, como memória, atenção, linguagem, raciocínio e funções executivas, de acordo com o perfil de cada pessoa e com os objectivos definidos para o acompanhamento.</p>
+            <p>Pode ser realizada por pessoas sem alterações cognitivas significativas, com o objectivo de manter e estimular determinadas capacidades, ou por pessoas que apresentam alterações cognitivas associadas a uma condição neurológica ou clínica, quando clinicamente adequada.</p>
+            <h2>Quando é indicada</h2>
+            <p>A estimulação cognitiva pode ser considerada quando existem dificuldades cognitivas que beneficiem de uma intervenção estruturada e individualizada.</p>
+            <p>Pode ser indicada perante:</p>
+            <ul class="table-list">
+                <li><i class="lni lni-checkmark-circle"></i> dificuldades de memória;</li>
+                <li><i class="lni lni-checkmark-circle"></i> dificuldades de atenção ou concentração;</li>
+                <li><i class="lni lni-checkmark-circle"></i> alterações na linguagem;</li>
+                <li><i class="lni lni-checkmark-circle"></i> dificuldades de organização, planeamento ou resolução de problemas;</li>
+                <li><i class="lni lni-checkmark-circle"></i> alterações cognitivas associadas a doenças ou lesões neurológicas;</li>
+                <li><i class="lni lni-checkmark-circle"></i> alterações cognitivas após um AVC ou traumatismo cranioencefálico, quando clinicamente adequado;</li>
+                <li><i class="lni lni-checkmark-circle"></i> necessidade de manter ou estimular determinadas capacidades cognitivas.</li>
+            </ul>
+            <p>Quando existem alterações cognitivas, a <a href="/avaliacao-neuropsicologica/">avaliação neuropsicológica</a> pode ser importante antes de iniciar a intervenção, permitindo conhecer o perfil cognitivo da pessoa e definir objectivos de acompanhamento mais adequados.</p>
+            <h2>Como é feita a intervenção</h2>
+            <p>As sessões têm uma duração de cerca de 50 minutos e são realizadas individualmente.</p>
+            <p><strong>Avaliação inicial</strong><br>Sempre que possível, a intervenção é precedida por uma avaliação neuropsicológica, que permite conhecer o perfil cognitivo da pessoa, identificar as capacidades mais preservadas e as áreas que apresentam maiores dificuldades. Esta informação ajuda a definir objectivos de intervenção ajustados às necessidades de cada pessoa.</p>
+            <p><strong>Definição das actividades</strong><br>A partir da informação disponível são seleccionadas e adaptadas actividades e estratégias de intervenção cognitiva, tendo em consideração as capacidades, dificuldades e objectivos identificados.</p>
+            <p>São também considerados os interesses e preferências pessoais, procurando que as actividades sejam significativas e tenham relação com a vida quotidiana da pessoa.</p>
+            <p><strong>Acompanhamento</strong><br>Ao longo das sessões, as actividades podem ser ajustadas de acordo com a resposta da pessoa, a evolução observada e os objectivos definidos. Existe também espaço para esclarecer dúvidas e reflectir sobre a aplicação das estratégias no dia a dia.</p>
+            <h2>O que pode ser trabalhado</h2>
+            <p>De acordo com as necessidades e objectivos de cada pessoa, podem ser trabalhadas diferentes capacidades cognitivas, nomeadamente:</p>
+            <ul class="table-list">
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Memória</strong> — retenção e evocação de informação;</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Atenção</strong> — capacidade de manter, seleccionar e alternar a atenção;</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Linguagem</strong> — acesso às palavras, compreensão e expressão;</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Raciocínio</strong> — análise de informação e resolução de problemas;</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Funções executivas</strong> — planeamento, organização, flexibilidade e controlo da acção;</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Velocidade de processamento</strong> — rapidez com que a informação é compreendida e utilizada.</li>
+            </ul>
+            <p>O objectivo é trabalhar as capacidades cognitivas de forma orientada e funcional, procurando, sempre que possível, estabelecer uma relação entre as actividades realizadas e as exigências do dia a dia.</p>
+            <h2>Duração e preço</h2>
+            <ul class="table-list">
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Duração:</strong> 50 minutos</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Formato:</strong> acompanhamento individual</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Preço:</strong> de acordo com a tabela de honorários aplicável no Hospital Lusíadas Braga</li>
+            </ul>
+            <p>A frequência do acompanhamento é definida em conjunto, de acordo com as necessidades e objectivos da pessoa, e pode ser ajustada ao longo do tempo.</p>
+            <p>O preço deverá ser confirmado directamente com o Hospital Lusíadas Braga no momento da marcação, de acordo com as condições aplicáveis.</p>
+            <h2 id="onde-realizar">Onde realizar</h2>
+            <p>A estimulação cognitiva é realizada presencialmente no <a href="https://www.lusiadas.pt/corpo-clinico/dra-vera-fernandes-0" target="_blank" rel="noopener">Hospital Lusíadas Braga</a>.</p>
             {cta()}
         </div></div>""",
         ),
-        [
-            (
-                "Onde está disponível?",
-                "A consulta de estimulação cognitiva está indicada no Hospital Lusíadas Braga.",
-            ),
-            (
-                "Preciso de avaliação primeiro?",
-                "Muitas vezes sim, para definir objectivos. Pode esclarecer na marcação.",
-            ),
-        ],
+        [],
         related=[
-            ("Preciso de avaliação primeiro?", "/avaliacao-neuropsicologica/"),
-            ("E depois de um AVC?", "/avc/"),
-            ("Onde em Braga?", "/avaliacao-neuropsicologica/braga/"),
-            ("Como marcar?", "/marcar/"),
+            (
+                "Será necessário primeiro uma avaliação neuropsicológica?",
+                "/avaliacao-neuropsicologica/",
+            ),
+            ("Onde realizar em Braga?", "/estimulacao-cognitiva/braga/"),
+            ("Como posso agendar?", "/agendar/"),
         ],
+        related_heading="Tópicos relacionados",
         service_key="estimulacao",
     )
 
@@ -997,7 +1106,7 @@ def main():
             ("O que acontece no dia da avaliação?", "/avaliacao-neuropsicologica/"),
             ("Memória e envelhecimento", "/memoria-e-envelhecimento/"),
             ("Onde realizar?", "/avaliacao-neuropsicologica/braga/"),
-            ("Como marcar?", "/marcar/"),
+            ("Como marcar?", "/agendar/"),
         ],
     )
 
@@ -1011,34 +1120,50 @@ def main():
             "Vera Fernandes, neuropsicóloga",
             "Sobre",
             f"""
-        <div class="row align-items-center">
-            <div class="col-lg-5"><img draggable="false" src="/assets/images/vera1.webp" alt="Vera Fernandes, neuropsicóloga em Portugal"></div>
+        <div class="row align-items-start" style="margin-top: 2rem;">
+            <div class="col-lg-5"><img draggable="false" src="/assets/images/vera2.webp" alt="Vera Fernandes, neuropsicóloga — foto de perfil"></div>
             <div class="col-lg-7">
-                <p>Vera Fernandes é neuropsicóloga em Portugal, Membro Efectivo da Ordem dos Psicólogos Portugueses n.º 21502, com Especialidade Avançada em Neuropsicologia. Não se trata de profissionais homónimas noutros países, incluindo resultados de pesquisa no Brasil.</p>
-                <p>Experiência clínica em contexto hospitalar e em clínica privada, incluindo avaliação neuropsicológica no Hospital de Braga e colaboração com CNS - Campus Neurológico Braga e Hospital Lusíadas Braga.</p>
-                <p>Contributo para a investigação acerca da doença de Alzheimer enquanto membro de equipa de vários ensaios clínicos.</p>
-                <p>Dados actualizados em 2026: +10 anos de experiência; +4800 avaliações; +40 casos de reabilitação; +10 ensaios clínicos.</p>
-                <p>Atende adultos e idosos em Braga, Barcelos, Guimarães e Porto. Não está disponível o agendamento para menores de 18 anos.</p>
-                <p><a href="https://www.linkedin.com/in/vera-fernandes/" rel="noopener">Perfil LinkedIn</a> · <a href="https://www.lusiadas.pt/corpo-clinico/dra-vera-fernandes-0" rel="noopener">Perfil Lusíadas</a></p>
+                <p>Membro efetivo da Ordem dos Psicólogos Portugueses, cédula profissional n.º 21502</p>
+                <ul class="table-list">
+                    <li><i class="lni lni-checkmark-circle"></i> Especialidade Geral de Psicologia Clínica e da Saúde</li>
+                    <li><i class="lni lni-checkmark-circle"></i> Especialidade Avançada em Neuropsicologia</li>
+                </ul>
+                <p>Prática clínica dedicada à avaliação neuropsicológica de adultos e idosos, com particular foco nas alterações cognitivas associadas ao envelhecimento, demências e outras doenças neurodegenerativas, bem como a diferentes condições neurológicas e psiquiátricas. A avaliação permite compreender o funcionamento cognitivo, bem como os aspetos emocionais e comportamentais, proporcionando uma visão mais abrangente das dificuldades apresentadas e do seu impacto no quotidiano, contribuindo para a orientação clínica.</p>
+                <p>Na área do sono, intervenção psicológica dirigida à insónia, com formação específica em Terapia Cognitivo-Comportamental para a Insónia (TCC-I), uma abordagem de primeira linha para o tratamento da insónia. A intervenção centra-se na identificação e modificação dos fatores que contribuem para a manutenção das dificuldades de sono, promovendo padrões de sono mais regulares e reparadores.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <h2>Experiência Clínica</h2>
+                <p>Experiência na realização de avaliação neuropsicológica de adultos e idosos em contexto hospitalar público, no Hospital de Braga (ULS Braga).</p>
+                <p>Prática clínica independente em diferentes clínicas privadas, incluindo a colaboração com o <a href="https://www.cnscampus.com/equipa/vera-fernandes/" target="_blank" rel="noopener">CNS – Campus Neurológico</a> e o <a href="https://www.lusiadas.pt/corpo-clinico/dra-vera-fernandes-0" target="_blank" rel="noopener">Hospital Lusíadas Braga</a>.</p>
+                <p>Percurso clínico iniciado em estágios hospitalares no Centro Hospitalar Entre Douro e Vouga e no Hospital de Braga e, posteriormente, consolidado no Serviço de Consulta da Faculdade de Psicologia e de Ciências da Educação da Universidade do Porto (FPCEUP).</p>
+                <h2>Investigação e Formação</h2>
+                <p>Participação como rater em ensaios clínicos internacionais, integrando equipas de investigação clínica dedicadas ao estudo de novos fármacos na Doença de Alzheimer e noutras patologias neurodegenerativas.</p>
+                <p>Apresentação de comunicações e trabalhos científicos em congressos nacionais e internacionais de Neurologia e Neuropsicologia.</p>
+                <p>Participação regular em formação clínica especializada, assegurando uma actualização contínua na área clínica.</p>
+                <p>Docente no Instituto CRIAP, com colaborações pontuais em instituições de ensino superior.</p>
+                <p>Dinamização de sessões de formação e workshops dirigidos a profissionais de saúde e cuidadores.</p>
+                <h2>Formação Académica</h2>
+                <p><strong>Mestrado Integrado em Psicologia Clínica e da Saúde</strong><br>Faculdade de Psicologia e de Ciências da Educação da Universidade do Porto.</p>
+                <p><a href="https://www.linkedin.com/in/vera-fernandes/" target="_blank" rel="noopener">Percurso profissional completo</a></p>
                 {cta()}
             </div>
         </div>""",
         ),
-        [
-            (
-                "Qual é a cédula profissional?",
-                "Membro Efectivo da Ordem dos Psicólogos Portugueses n.º 21502.",
-            ),
-            (
-                "É a mesma pessoa que aparece no Lusíadas e no CNS?",
-                "Sim. Os perfis institucionais em Portugal correspondem a esta profissional.",
-            ),
-        ],
+        [],
         related=[
-            ("O que é a avaliação neuropsicológica?", "/avaliacao-neuropsicologica/"),
-            ("Onde atende?", "/neuropsicologia/#localizacao"),
-            ("Como marcar?", "/marcar/"),
+            (
+                "O que acontece na avaliação neuropsicológica?",
+                "/avaliacao-neuropsicologica/",
+            ),
+            ("O que é a Terapia Cognitivo-Comportamental para a insónia?", "/TCC-i/"),
+            (
+                "Qual o papel do psicólogo nas doenças neurológicas?",
+                "/blog/papel-psicologo-doencas-neurologicas/",
+            ),
         ],
+        related_heading="Tópicos relacionados",
     )
 
     cards = "".join(venue_card(v, booking=True) for v in VENUES)
@@ -1046,8 +1171,8 @@ def main():
         "marcar",
         "Agendar | Vera Fernandes",
         "Agendar consultas de neuropsicologia presencial em Braga, Barcelos, Guimarães e Porto. Vera Fernandes, OPP 21502.",
-        f"{SITE}/marcar/",
-        [("Início", f"{SITE}/"), ("Agendar", f"{SITE}/marcar/")],
+        f"{SITE}/agendar/",
+        [("Início", f"{SITE}/"), ("Agendar", f"{SITE}/agendar/")],
         section(
             "Consultas de neuropsicologia",
             "Agendar",
@@ -1115,7 +1240,7 @@ def main():
             ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
             ("É para um familiar?", "/familiares/"),
             ("Quando a dúvida é maior", "/demencia/"),
-            ("Como marcar?", "/marcar/"),
+            ("Como marcar?", "/agendar/"),
         ],
     )
     problem_page(
@@ -1139,7 +1264,7 @@ def main():
             ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
             ("Informação para familiares", "/familiares/"),
             ("Doença de Alzheimer", "/alzheimer/"),
-            ("Como marcar?", "/marcar/"),
+            ("Como marcar?", "/agendar/"),
         ],
     )
     problem_page(
@@ -1163,7 +1288,7 @@ def main():
             ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
             ("Informação para familiares", "/familiares/"),
             ("Avaliação e demência", "/demencia/"),
-            ("Como marcar?", "/marcar/"),
+            ("Como marcar?", "/agendar/"),
         ],
     )
     problem_page(
@@ -1187,7 +1312,7 @@ def main():
             ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
             ("Estimulação cognitiva", "/estimulacao-cognitiva/"),
             ("Lesão cerebral ou TCE", "/lesao-cerebral/"),
-            ("Como marcar?", "/marcar/"),
+            ("Como marcar?", "/agendar/"),
         ],
     )
     problem_page(
@@ -1210,7 +1335,7 @@ def main():
         related=[
             ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
             ("Informação para familiares", "/familiares/"),
-            ("Como marcar?", "/marcar/"),
+            ("Como marcar?", "/agendar/"),
         ],
     )
     problem_page(
@@ -1234,7 +1359,7 @@ def main():
             ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
             ("Depois de um AVC", "/avc/"),
             ("Estimulação cognitiva", "/estimulacao-cognitiva/"),
-            ("Como marcar?", "/marcar/"),
+            ("Como marcar?", "/agendar/"),
         ],
     )
     problem_page(
@@ -1256,7 +1381,7 @@ def main():
                 "/avaliacao-neuropsicologica/",
             ),
             ("Onde em Braga?", "/avaliacao-neuropsicologica/braga/"),
-            ("Como marcar?", "/marcar/"),
+            ("Como marcar?", "/agendar/"),
         ],
     )
 
@@ -1309,9 +1434,9 @@ def main():
         f"{SITE}/estimulacao-cognitiva/",
         f"{SITE}/familiares/",
         f"{SITE}/sobre/",
-        f"{SITE}/marcar/",
+        f"{SITE}/agendar/",
         f"{SITE}/blog/",
-        f"{SITE}/blog/memoria-e-envelhecimento-normal/",
+        f"{SITE}/blog/papel-psicologo-doencas-neurologicas/",
         f"{SITE}/cursos/",
         f"{SITE}/memoria-e-envelhecimento/",
         f"{SITE}/demencia/",
