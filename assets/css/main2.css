@@ -2434,7 +2434,7 @@ ol {
   transform: translateY(-5px);
 }
 
-.consultas .single-feature i {
+.consultas .single-feature>i {
   height: 60px;
   width: 60px;
   line-height: 60px;
@@ -2447,6 +2447,17 @@ ol {
   -webkit-box-shadow: 0px 4px 6px #0000002a;
   box-shadow: 0px 4px 6px #0000002a;
   margin-bottom: 30px;
+}
+
+.consultas .button .btn i {
+  height: auto;
+  width: auto;
+  line-height: inherit;
+  background-color: transparent;
+  box-shadow: none;
+  margin-bottom: 0;
+  border-radius: 0;
+  font-size: 1em;
 }
 
 

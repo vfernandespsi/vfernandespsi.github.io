@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
+
+from consent_snippets import CONSENT_BANNER
+from jsonld import build_graph
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://verafernandes.com"
+MANUAL_PAGE_PATHS = frozenset({"psicologia-do-sono"})
 WA = "https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica."
 WA_SONO = "https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20psicologia%20do%20sono."
 
@@ -20,7 +23,7 @@ VENUES = [
         "services": "avaliacao",
         "tel": "tel:+351253401600",
         "maps": "https://maps.app.goo.gl/wDj2fLMUs6n5ADGo8",
-        "more": "https://www.cnscampus.com/pt",
+        "more": "https://www.cnscampus.com/equipa/vera-fernandes/",
         "wa": None,
         "image": "/assets/images/locais/CNS.webp",
         "alt": "CNS - Campus Neurológico em Braga",
@@ -101,7 +104,7 @@ VENUES = [
 def venue_card(v, booking=False):
     extra = []
     extra.append(
-        f'<li><a href="{v["tel"]}" data-track="telefone" rel="noopener"><i class="lni lni-xl lni-phone"></i> Marcar avaliação</a></li>'
+        f'<li><a href="{v["tel"]}" data-track="telefone" rel="noopener"><i class="lni lni-xl lni-phone"></i> Ligar</a></li>'
     )
     extra.append(
         f'<li><a href="{v["maps"]}" target="_blank" rel="noopener"><i class="lni lni-xl lni-map-marker"></i> Localização</a></li>'
@@ -169,137 +172,54 @@ def faq_html(items):
     return "\n".join(parts)
 
 
-def professional_graph():
-    return {
-        "@type": ["Person", "Physician", "MedicalBusiness"],
-        "@id": f"{SITE}/#professional",
-        "name": "Vera Fernandes",
-        "alternateName": [
-            "Vera Fernandes - Neuropsicóloga | Braga, Barcelos, Guimarães e Porto",
-            "Dra. Vera Fernandes",
-        ],
-        "jobTitle": "Neuropsicóloga",
-        "image": f"{SITE}/assets/images/vera1.webp",
-        "url": f"{SITE}/",
-        "telephone": "+351914166181",
-        "email": "vfernandes.psi@gmail.com",
-        "description": "Neuropsicóloga em Portugal (não confundir com profissionais homónimas noutros países). Membro Efectivo da Ordem dos Psicólogos Portugueses n.º 21502, com Especialidade Avançada em Neuropsicologia. Avaliação neuropsicológica e estimulação cognitiva para adultos e idosos em Braga, Barcelos, Guimarães e Porto. Consulta de psicologia do sono online (18+).",
-        "knowsLanguage": "pt-PT",
-        "identifier": {
-            "@type": "PropertyValue",
-            "name": "Cédula OPP",
-            "value": "21502",
-        },
-        "hasCredential": {
-            "@type": "EducationalOccupationalCredential",
-            "credentialCategory": "Especialidade Avançada em Neuropsicologia",
-            "recognizedBy": {
-                "@type": "Organization",
-                "name": "Ordem dos Psicólogos Portugueses",
-            },
-        },
-        "sameAs": [
-            "https://www.facebook.com/verafernandes.psi/",
-            "https://www.instagram.com/verafernandes.psi",
-            "https://www.linkedin.com/in/vera-fernandes/",
-            "https://www.lusiadas.pt/corpo-clinico/dra-vera-fernandes-0",
-            "https://www.cnscampus.com/pt",
-        ],
-        "areaServed": [
-            {"@type": "City", "name": "Braga"},
-            {"@type": "City", "name": "Barcelos"},
-            {"@type": "City", "name": "Guimarães"},
-            {"@type": "City", "name": "Porto"},
-        ],
-    }
-
-
-def jsonld(url, name, crumbs, faqs=None):
-    graph = [
-        professional_graph(),
-        {
-            "@type": "WebSite",
-            "@id": f"{SITE}/#website",
-            "url": f"{SITE}/",
-            "name": "Vera Fernandes - Neuropsicóloga | Braga, Barcelos, Guimarães e Porto",
-            "inLanguage": "pt-PT",
-            "publisher": {"@id": f"{SITE}/#professional"},
-        },
-        {
-            "@type": "WebPage",
-            "@id": f"{url}#webpage",
-            "url": url,
-            "name": name,
-            "isPartOf": {"@id": f"{SITE}/#website"},
-            "about": {"@id": f"{SITE}/#professional"},
-            "inLanguage": "pt-PT",
-        },
-        {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-                {"@type": "ListItem", "position": i, "name": n, "item": u}
-                for i, (n, u) in enumerate(crumbs, 1)
-            ],
-        },
-    ]
-    if faqs:
-        graph.append(
-            {
-                "@type": "FAQPage",
-                "mainEntity": [
-                    {
-                        "@type": "Question",
-                        "name": q,
-                        "acceptedAnswer": {"@type": "Answer", "text": a},
-                    }
-                    for q, a in faqs
-                ],
-            }
-        )
-    return json.dumps(
-        {"@context": "https://schema.org", "@graph": graph},
-        ensure_ascii=False,
-        indent=2,
-    )
-
-
-def related_html(items):
+def related_html(items, heading="Perguntas seguintes"):
     if not items:
         return ""
     lis = "".join(f'<li><a href="{href}">{label}</a></li>' for label, href in items)
-    return f'''
+    return f"""
 <section class="related-questions">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
-                <h2>Perguntas seguintes</h2>
+                <h2>{heading}</h2>
                 <ul class="related-list">{lis}</ul>
             </div>
         </div>
     </div>
-</section>'''
+</section>"""
 
 
-def page(path, title, description, canonical, crumbs, body, faqs=None, related=None, lane="neuro"):
+def page(
+    path,
+    title,
+    description,
+    canonical,
+    crumbs,
+    body,
+    faqs=None,
+    related=None,
+    related_heading="Perguntas seguintes",
+    lane="neuro",
+    *,
+    condition_slug=None,
+    service_key=None,
+    city=None,
+    page_kind="default",
+):
+    if path in MANUAL_PAGE_PATHS:
+        print("skip manual", path)
+        return
+
     is_sono = lane == "sono"
     html_class = "no-js page-inner page-sono" if is_sono else "no-js page-inner"
-    home = "/psicologia-do-sono/" if is_sono else "/neuropsicologia/"
+    brand_home = "/"
     wa = WA_SONO if is_sono else WA
-    cta_label = "Marcar consulta de sono" if is_sono else "Marcar avaliação"
+    cta_label = "Agendar"
     cta_href = "/marcar/?servico=sono" if is_sono else "/marcar/"
-    nav = (
-        '''
-                                <li class="nav-item"><a href="/psicologia-do-sono/">Início</a></li>
-                                <li class="nav-item"><a href="/psicologia-do-sono/#faq">FAQ</a></li>
-                                <li class="nav-item"><a href="/">Outras consultas</a></li>'''
-        if is_sono
-        else '''
-                                <li class="nav-item"><a href="/neuropsicologia/#inicio">Início</a></li>
-                                <li class="nav-item"><a href="/neuropsicologia/#consultas">Consultas</a></li>
-                                <li class="nav-item"><a href="/neuropsicologia/#localizacao">Localizações</a></li>
-                                <li class="nav-item"><a href="/neuropsicologia/#faq">FAQ</a></li>
-                                <li class="nav-item"><a href="/">Outras consultas</a></li>'''
-    )
+    nav = """
+                                <li class="nav-item"><a href="/">Início</a></li>
+                                <li class="nav-item"><a href="/neuropsicologia/">Neuropsicologia</a></li>
+                                <li class="nav-item"><a href="/psicologia-do-sono/">Psicologia do sono</a></li>"""
     faq_block = ""
     if faqs:
         faq_block = f'''
@@ -315,7 +235,7 @@ def page(path, title, description, canonical, crumbs, body, faqs=None, related=N
         <div class="accordion" id="accordionExample">
             {faq_html(faqs)}
         </div>
-        <div class="button" style="margin-top:30px;text-align:center;">
+        <div class="button cta-pair" style="margin-top:30px;text-align:center;">
             <a href="{cta_href}" class="btn" data-track="marcar"><i class="lni lni-calendar"></i> {cta_label}</a>
             <a href="{wa}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
         </div>
@@ -324,13 +244,6 @@ def page(path, title, description, canonical, crumbs, body, faqs=None, related=N
     html = f'''<!DOCTYPE html>
 <html class="{html_class}" lang="pt-pt">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PXV8NTKC6D"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {{ dataLayer.push(arguments); }}
-        gtag('js', new Date());
-        gtag('config', 'G-PXV8NTKC6D');
-    </script>
     <link rel="api-catalog" href="/llms.txt" />
     <link rel="service-doc" href="/llms.txt" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
@@ -350,31 +263,32 @@ def page(path, title, description, canonical, crumbs, body, faqs=None, related=N
     <meta property="og:site_name" content="Vera Fernandes - Neuropsicóloga | Braga, Barcelos, Guimarães e Porto" />
     <meta property="og:image" content="{SITE}/assets/images/vera1.webp" />
     <script type="application/ld+json">
-{jsonld(canonical, title, crumbs, faqs)}
+{build_graph(canonical, title, crumbs, description=description, faqs=faqs, condition_slug=condition_slug, service_key=service_key, city=city, page_kind=page_kind)}
     </script>
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico" />
     <link rel="stylesheet" href="/assets/css/animate.css">
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/tiny-slider.css">
     <link rel="stylesheet" href="/assets/css/funnel.css">
+    <link rel="stylesheet" href="/assets/css/consent.css">
 </head>
+<body>
+<a class="skip-link" href="#inicio">Saltar para o conteúdo</a>
 <div class="preloader"><div class="preloader-inner"><div class="preloader-icon"><span></span><span></span></div></div></div>
-<script type="text/javascript" src="https://cookieconsent.popupsmart.com/src/js/popper.js"></script>
-<script> window.start.init({{ Palette: "palette2", Theme: "edgeless", Mode: "banner bottom", Message: "Este website utiliza cookies para melhorar a sua experiência. Concorda? ", ButtonText: "Aceita", LinkText: "Saber Mais", Location: "https://verafernandes.com/privacy/", Time: "0", }})</script>
+{CONSENT_BANNER}
 <header class="header navbar-area sticky">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-12">
                 <div class="nav-inner">
                     <nav class="navbar navbar-expand-lg">
-                        <a class="navbar-brand" href="{home}" target="_self">
+                        <a class="navbar-brand" href="{brand_home}" target="_self">
                             <img draggable="false" src="/assets/images/logo/logo.svg" alt="Vera Fernandes, neuropsicóloga">
                         </a>
                         <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
+                            aria-expanded="false" aria-label="Abrir menu">
                             <span class="toggler-icon"></span><span class="toggler-icon"></span><span class="toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
@@ -391,9 +305,11 @@ def page(path, title, description, canonical, crumbs, body, faqs=None, related=N
         </div>
     </div>
 </header>
+<main>
 {body}
-{related_html(related)}
+{related_html(related, related_heading)}
 {faq_block}
+</main>
 <footer class="footer">
     <div class="footer-top">
         <div class="container">
@@ -401,7 +317,7 @@ def page(path, title, description, canonical, crumbs, body, faqs=None, related=N
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="single-footer f-about">
                         <div class="logo">
-                            <a href="{home}" target="_self">
+                            <a href="{brand_home}" target="_self">
                                 <img draggable="false" src="/assets/images/logo/white-logo.svg" alt="Vera Fernandes, neuropsicóloga">
                             </a>
                         </div>
@@ -431,6 +347,7 @@ def page(path, title, description, canonical, crumbs, body, faqs=None, related=N
                                 <ul>
                                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
+                                    <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
                                 </ul>
                             </div>
                         </div>
@@ -445,13 +362,12 @@ def page(path, title, description, canonical, crumbs, body, faqs=None, related=N
     <a href="{cta_href}" data-track="marcar" data-track-location="mobile-bar">{cta_label}</a>
     <a class="cta-secondary" href="{wa}" data-track="whatsapp" data-track-location="mobile-bar" rel="noopener">Tenho uma dúvida</a>
 </div>
-<script src="/assets/js/bootstrap.min.js"></script>
-<script src="/assets/js/wow.min.js"></script>
-<script src="/assets/js/tiny-slider.js"></script>
-<script src="/assets/js/count-up.min.js"></script>
-<script src="/assets/js/main.js"></script>
-<script src="/assets/js/site-data.js"></script>
-<script src="/assets/js/funnel.js"></script>
+<script src="/assets/js/bootstrap.min.js" defer></script>
+<script src="/assets/js/wow.min.js" defer></script>
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/site-data.js" defer></script>
+<script src="/assets/js/consent.js?v=3" defer></script>
+<script src="/assets/js/funnel.js" defer></script>
 </body>
 </html>
 '''
@@ -461,13 +377,14 @@ def page(path, title, description, canonical, crumbs, body, faqs=None, related=N
     print("wrote", out.relative_to(ROOT))
 
 
-def section(title, kicker, html, hid="inicio"):
+def section(title, kicker, html, hid="inicio", extra_class=""):
     k = f"<h3>{kicker}</h3>" if kicker else ""
+    section_class = f"section page-content{extra_class}"
     return f'''
-<section id="{hid}" class="section page-content">
+<section id="{hid}" class="{section_class}">
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-lg-8 offset-lg-2">
                 <div class="section-title">
                     {k}
                     <h1>{title}</h1>
@@ -482,15 +399,355 @@ def section(title, kicker, html, hid="inicio"):
 def cta(sono=False):
     if sono:
         return f'''
-        <div class="button" style="margin:24px 0;">
-            <a href="/marcar/?servico=sono" class="btn" data-track="marcar"><i class="lni lni-calendar"></i> Marcar consulta de sono</a>
+        <div class="button cta-pair" style="margin:24px 0;">
+            <a href="/marcar/?servico=sono" class="btn" data-track="marcar">Agendar</a>
             <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
         </div>'''
     return f'''
-        <div class="button" style="margin:24px 0;">
-            <a href="/marcar/" class="btn" data-track="marcar"><i class="lni lni-calendar"></i> Marcar avaliação</a>
+        <div class="button cta-pair" style="margin:24px 0;">
+            <a href="/marcar/" class="btn" data-track="marcar">Agendar</a>
             <a href="{WA}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
         </div>'''
+
+
+def write_sono_funnel_page():
+    """Página funnel do sono — estrutura espelhada da neuro, tema azul. Não usar page() genérico."""
+    path = "psicologia-do-sono"
+    title = "Consulta de psicologia do sono | Vera Fernandes"
+    description = (
+        "Consulta de psicologia do sono online para adultos (18+). "
+        "Vera Fernandes, neuropsicóloga, OPP 21502. Horário indicado na marcação."
+    )
+    canonical = f"{SITE}/{path}/"
+    crumbs = [("Início", f"{SITE}/"), ("Psicologia do sono", canonical)]
+    faqs = [
+        ("A consulta é presencial?", "Não. A consulta de psicologia do sono é online."),
+        ("É a partir de que idade?", "Para adultos, com 18 ou mais anos."),
+        ("Qual é o horário?", "O horário é indicado no momento da marcação."),
+        (
+            "Substitui um estudo do sono?",
+            "Não. Se houver sinais que justifiquem avaliação médica, o passo correcto é um médico.",
+        ),
+    ]
+    graph = build_graph(
+        canonical,
+        title,
+        crumbs,
+        description=description,
+        faqs=faqs,
+        service_key="sono",
+    )
+    html = f'''<!DOCTYPE html>
+<html class="no-js page-sono" lang="pt-pt">
+<head>
+    <link rel="api-catalog" href="/llms.txt" />
+    <link rel="service-doc" href="/llms.txt" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="canonical" href="{canonical}" />
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>{title}</title>
+    <meta name="description" content="{description}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Vera Fernandes" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta property="og:locale" content="pt_PT" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{title}" />
+    <meta property="og:description" content="{description}" />
+    <meta property="og:url" content="{canonical}" />
+    <meta property="og:site_name" content="Vera Fernandes - Neuropsicóloga | Braga, Barcelos, Guimarães e Porto" />
+    <meta property="og:image" content="{SITE}/assets/images/vera1.webp" />
+    <script type="application/ld+json">
+{graph}
+    </script>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/funnel.css">
+    <link rel="stylesheet" href="/assets/css/consent.css">
+</head>
+<body>
+<a class="skip-link" href="#inicio">Saltar para o conteúdo</a>
+<div class="preloader"><div class="preloader-inner"><div class="preloader-icon"><span></span><span></span></div></div></div>
+{CONSENT_BANNER}
+<header class="header navbar-area">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12">
+                <div class="nav-inner">
+                    <nav class="navbar navbar-expand-lg">
+                        <a class="navbar-brand" href="/" target="_self">
+                            <img draggable="false" src="/assets/images/logo/white-logo.svg" alt="Vera Fernandes, neuropsicóloga">
+                        </a>
+                        <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="toggler-icon"></span><span class="toggler-icon"></span><span class="toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                            <ul id="nav" class="navbar-nav ms-auto">
+                                <li class="nav-item"><a href="/" aria-label="Página inicial">Início</a></li>
+                                <li class="nav-item"><a href="#consultas" class="page-scroll">Consultas</a></li>
+                                <li class="nav-item"><a href="#faq" class="page-scroll">FAQ</a></li>
+                                <li class="nav-item nav-cta-item">
+                                    <div class="button add-list-button">
+                                        <a href="/marcar/?servico=sono" class="btn" data-track="marcar" data-track-location="nav">Agendar</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item header-nav-sep" aria-hidden="true"><span>|</span></li>
+                                <li class="nav-item header-lane-item"><a href="/neuropsicologia/">Neuropsicologia</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="inicio" class="inicio">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 col-md-12 col-12">
+                <div class="hero-content">
+                    <h1>Dificuldades a dormir?</h1>
+                    <p>A consulta de psicologia do sono é online, para adultos (18+). Permite perceber o que está a interferir com o descanso e definir um acompanhamento quando isso fizer sentido.</p>
+                    <div class="button">
+                        <a href="/marcar/?servico=sono" class="btn" data-track="marcar" data-track-location="hero"><i class="lni lni-calendar"></i> Agendar</a>
+                        <button type="button" class="btn btn-alt" data-reveal-triage>Ver se é indicada</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-12 col-12">
+                <div class="hero-image">
+                    <img draggable="false" src="/assets/images/vera1.webp" alt="Vera Fernandes, neuropsicóloga — consulta de psicologia do sono online">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="overview" class="sobremim section">
+    <div class="container">
+        <div class="info-one style2">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-12 col-12">
+                    <div class="info-image wow fadeInRight" data-wow-delay=".5s">
+                        <div class="single-photo">
+                            <img draggable="false" src="/assets/images/mock/sono-cover.jpg" alt="Ambiente calmo e descanso nocturno">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-12">
+                    <div class="info-text wow fadeInRight" data-wow-delay=".5s">
+                        <div class="main-icon"><i class="lni lni-xl lni-night"></i></div>
+                        <h2>A psicologia do sono estuda como pensamentos, hábitos e emoções afectam o descanso.</h2>
+                        <p>A consulta destina-se a adultos com dificuldades de sono persistentes — adormecer, manter o sono ou acordar sem recuperação. Realiza-se <strong>online</strong>; o horário é indicado na marcação.</p>
+                        <p>Não é uma avaliação neuropsicológica nem um exame de laboratório do sono. Se houver sinais que exijam avaliação médica (por exemplo pausas respiratórias ou sonolência súbita intensa), o passo correcto é um médico.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="triagem" class="faq section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h3 class="wow zoomIn" data-wow-delay=".2s">Triagem</h3>
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s">Está na dúvida se deve marcar uma consulta de sono?</h2>
+                    <p class="wow fadeInUp" data-wow-delay=".6s">Responda a 5 perguntas. Isto não é um diagnóstico. Serve apenas para perceber se faz sentido marcar.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="triage-card" id="triage-form">
+                    <div class="triage-question">
+                        <p>Tem dificuldade em adormecer?</p>
+                        <div class="triage-options">
+                            <button type="button" data-triage-answer="yes">Sim</button>
+                            <button type="button" data-triage-answer="no">Não</button>
+                        </div>
+                    </div>
+                    <div class="triage-question">
+                        <p>Acorda durante a noite e custa a voltar a dormir?</p>
+                        <div class="triage-options">
+                            <button type="button" data-triage-answer="yes">Sim</button>
+                            <button type="button" data-triage-answer="no">Não</button>
+                        </div>
+                    </div>
+                    <div class="triage-question">
+                        <p>O sono interfere com o seu dia-a-dia?</p>
+                        <div class="triage-options">
+                            <button type="button" data-triage-answer="yes">Sim</button>
+                            <button type="button" data-triage-answer="no">Não</button>
+                        </div>
+                    </div>
+                    <div class="triage-question">
+                        <p>Isto se mantém há mais de algumas semanas?</p>
+                        <div class="triage-options">
+                            <button type="button" data-triage-answer="yes">Sim</button>
+                            <button type="button" data-triage-answer="no">Não</button>
+                        </div>
+                    </div>
+                    <div class="triage-question">
+                        <p>Um médico recomendou ajuda para o sono?</p>
+                        <div class="triage-options">
+                            <button type="button" data-triage-answer="yes">Sim</button>
+                            <button type="button" data-triage-answer="no">Não</button>
+                        </div>
+                    </div>
+                    <div class="triage-result" id="triage-result" hidden>
+                        <p id="triage-result-text"></p>
+                        <div class="button">
+                            <a href="#consultas" class="btn page-scroll" data-sono-booking data-track="marcar" data-track-location="triagem"><i class="lni lni-calendar"></i> Marcar consulta</a>
+                            <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" data-track-location="triagem" rel="noopener">Tenho uma dúvida</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="consultas" class="consultas section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h3 class="wow zoomIn" data-wow-delay=".2s">Consultas</h3>
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s">Psicologia do sono online</h2>
+                    <p class="wow fadeInUp" data-wow-delay=".6s">Para adultos com 18 ou mais anos. O horário é indicado na marcação.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="single-feature wow fadeInUp" data-wow-delay=".2s">
+                    <i class="lni lni-xl lni-laptop-phone"></i>
+                    <h3>Consulta de psicologia do sono</h3>
+                    <p>Consulta de psicologia online com acompanhamento ao longo de várias sessões quando isso fizer sentido. A frequência define-se em conjunto. Não se prometem resultados clínicos nem prazos de melhoria.</p>
+                    <div class="table-content">
+                        <h4 class="middle-title">Indicada para:</h4>
+                        <ul class="table-list">
+                            <li><i class="lni lni-checkmark-circle"></i> Dificuldade em adormecer ou em manter o sono;</li>
+                            <li><i class="lni lni-checkmark-circle"></i> Acordar sem sensação de recuperação;</li>
+                            <li><i class="lni lni-checkmark-circle"></i> Queixas de sono que afectam o dia-a-dia.</li>
+                        </ul>
+                    </div>
+                    <div class="table-content">
+                        <h4 class="middle-title">Não substitui:</h4>
+                        <ul class="table-list">
+                            <li><i class="lni lni-checkmark-circle"></i> Pneumologia, neurologia ou estudo do sono quando há sinais de alarme;</li>
+                            <li><i class="lni lni-checkmark-circle"></i> Avaliação neuropsicológica — se a dúvida for memória, veja <a href="/sono-e-memoria/">sono e memória</a> ou <a href="/neuropsicologia/">neuropsicologia</a>.</li>
+                        </ul>
+                    </div>
+                    <div class="button">
+                        <a href="/marcar/?servico=sono" class="btn" data-track="marcar" data-track-location="consultas"><i class="lni lni-calendar"></i> Agendar</a>
+                        <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" data-track-location="consultas" rel="noopener">Tenho uma dúvida</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="faq" class="faq section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h3 class="wow zoomIn" data-wow-delay=".2s">FAQ</h3>
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s">Questões frequentes</h2>
+                    <p class="wow fadeInUp" data-wow-delay=".6s">No caso de ter alguma outra questão não hesite em contactar.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="accordion" id="accordionExample">
+                    {faq_html(faqs)}
+                </div>
+                <div class="button cta-pair" style="margin-top:30px;text-align:center;">
+                    <a href="/marcar/?servico=sono" class="btn" data-track="marcar" data-track-location="faq"><i class="lni lni-calendar"></i> Agendar</a>
+                    <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" data-track-location="faq" rel="noopener">Tenho uma dúvida</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="single-footer f-about">
+                        <div class="logo">
+                            <a href="/" target="_self">
+                                <img draggable="false" src="/assets/images/logo/white-logo.svg" alt="Vera Fernandes, neuropsicóloga">
+                            </a>
+                        </div>
+                        <ul class="social">
+                            <li><a href="https://www.facebook.com/verafernandes.psi/"><i class="lni lni-facebook-filled"></i></a></li>
+                            <li><a href="https://www.instagram.com/verafernandes.psi"><i class="lni lni-instagram"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/vera-fernandes/"><i class="lni lni-linkedin-original"></i></a></li>
+                            <li><a href="mailto:vfernandes.psi@gmail.com"><i class="lni lni-envelope"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Contactos</h3>
+                                <ul>
+                                    <li>Membro Efectivo OPP 21502</li>
+                                    <li>Especialidade Avançada em Neuropsicologia</li>
+                                    <li><a href="mailto:vfernandes.psi@gmail.com">vfernandes.psi@gmail.com</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="single-footer f-link">
+                                <h3>Legal</h3>
+                                <ul>
+                                    <li><a href="/tos/" target="_self">Termos e Condições</a></li>
+                                    <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
+                                    <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<a href="#inicio" class="scroll-top" target="_self"><i class="lni lni-chevron-up"></i></a>
+<div class="mobile-cta-bar">
+    <a href="/marcar/?servico=sono" data-track="marcar" data-track-location="mobile-bar">Agendar</a>
+    <a class="cta-secondary" href="{WA_SONO}" data-track="whatsapp" data-track-location="mobile-bar" rel="noopener">Tenho uma dúvida</a>
+</div>
+<script src="/assets/js/bootstrap.min.js" defer></script>
+<script src="/assets/js/wow.min.js" defer></script>
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/site-data.js" defer></script>
+<script src="/assets/js/consent.js?v=3" defer></script>
+<script src="/assets/js/funnel.js" defer></script>
+</body>
+</html>
+'''
+    out = ROOT / path / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(html, encoding="utf-8")
+    print("wrote", out.relative_to(ROOT))
 
 
 COMMON_FAQS = [
@@ -517,7 +774,12 @@ def city_page(slug, label):
     cards = "".join(venue_card(v) for v in VENUES if v["city"] == slug)
     others = [
         (lab, f"/avaliacao-neuropsicologica/{s}/")
-        for s, lab in [("braga", "Braga"), ("barcelos", "Barcelos"), ("guimaraes", "Guimarães"), ("porto", "Porto")]
+        for s, lab in [
+            ("braga", "Braga"),
+            ("barcelos", "Barcelos"),
+            ("guimaraes", "Guimarães"),
+            ("porto", "Porto"),
+        ]
         if s != slug
     ]
     body = section(
@@ -563,6 +825,9 @@ def city_page(slug, label):
             *[(f"Avaliação em {lab}?", href) for lab, href in others[:2]],
             ("Como marcar?", "/marcar/"),
         ],
+        service_key="avaliacao",
+        city=label,
+        page_kind="city",
     )
 
 
@@ -594,6 +859,8 @@ def problem_page(slug, title, h1, lead, when, solution, extra_faq, related):
         body,
         COMMON_FAQS + extra_faq,
         related=related,
+        condition_slug=slug,
+        service_key="avaliacao",
     )
 
 
@@ -629,11 +896,11 @@ def main():
             <p>Quando há esquecimentos de conversas ou recados recentes, mudanças na expressão ou compreensão, ou maior dificuldade em gerir medicação, cozinhar ou conduzir. Também para acompanhar alterações ao longo do tempo.</p>
             <h2>O que acontece no dia</h2>
             <ul class="table-list">
-                <li><i2 class="lni lni-checkmark-circle"></i2> Entrevista: conhecer as dificuldades e o contexto clínico.</li>
-                <li><i2 class="lni lni-checkmark-circle"></i2> Avaliação: aplicação dos testes neuropsicológicos com o paciente.</li>
-                <li><i2 class="lni lni-checkmark-circle"></i2> Análise: interpretação dos resultados.</li>
-                <li><i2 class="lni lni-checkmark-circle"></i2> Relatório: entrega até 4 dias úteis, por e-mail, presencialmente ou CTT.</li>
-                <li><i2 class="lni lni-checkmark-circle"></i2> Próximos passos: orientação de acordo com os resultados.</li>
+                <li><i class="lni lni-checkmark-circle"></i> Entrevista: conhecer as dificuldades e o contexto clínico.</li>
+                <li><i class="lni lni-checkmark-circle"></i> Avaliação: aplicação dos testes neuropsicológicos com o paciente.</li>
+                <li><i class="lni lni-checkmark-circle"></i> Análise: interpretação dos resultados.</li>
+                <li><i class="lni lni-checkmark-circle"></i> Relatório: entrega até 4 dias úteis, por e-mail, presencialmente ou CTT.</li>
+                <li><i class="lni lni-checkmark-circle"></i> Próximos passos: orientação de acordo com os resultados.</li>
             </ul>
             <h2>O que o relatório descreve</h2>
             <p>Como está a memória, a atenção, a linguagem e o raciocínio; se as alterações estão dentro do esperado para a idade e escolaridade; e que áreas podem precisar de acompanhamento. Não substitui o diagnóstico médico.</p>
@@ -652,6 +919,7 @@ def main():
             ("Falhas de memória são só idade?", "/memoria-e-envelhecimento/"),
             ("Como marcar?", "/marcar/"),
         ],
+        service_key="avaliacao",
     )
 
     page(
@@ -691,6 +959,7 @@ def main():
             ("Onde em Braga?", "/avaliacao-neuropsicologica/braga/"),
             ("Como marcar?", "/marcar/"),
         ],
+        service_key="estimulacao",
     )
 
     page(
@@ -748,7 +1017,7 @@ def main():
                 <p>Vera Fernandes é neuropsicóloga em Portugal, Membro Efectivo da Ordem dos Psicólogos Portugueses n.º 21502, com Especialidade Avançada em Neuropsicologia. Não se trata de profissionais homónimas noutros países, incluindo resultados de pesquisa no Brasil.</p>
                 <p>Experiência clínica em contexto hospitalar e em clínica privada, incluindo avaliação neuropsicológica no Hospital de Braga e colaboração com CNS - Campus Neurológico Braga e Hospital Lusíadas Braga.</p>
                 <p>Contributo para a investigação acerca da doença de Alzheimer enquanto membro de equipa de vários ensaios clínicos.</p>
-                <p>Dados actualizados em 2026: +10 anos de experiência; &gt;4800 avaliações; &gt;38 casos de reabilitação; &gt;10 ensaios clínicos.</p>
+                <p>Dados actualizados em 2026: +10 anos de experiência; +4800 avaliações; +40 casos de reabilitação; +10 ensaios clínicos.</p>
                 <p>Atende adultos e idosos em Braga, Barcelos, Guimarães e Porto. Não está disponível o agendamento para menores de 18 anos.</p>
                 <p><a href="https://www.linkedin.com/in/vera-fernandes/" rel="noopener">Perfil LinkedIn</a> · <a href="https://www.lusiadas.pt/corpo-clinico/dra-vera-fernandes-0" rel="noopener">Perfil Lusíadas</a></p>
                 {cta()}
@@ -775,22 +1044,20 @@ def main():
     cards = "".join(venue_card(v, booking=True) for v in VENUES)
     page(
         "marcar",
-        "Marcar consulta | Vera Fernandes",
-        "Marcar avaliação neuropsicológica, estimulação cognitiva ou consulta de psicologia do sono. Vera Fernandes, OPP 21502.",
+        "Agendar | Vera Fernandes",
+        "Agendar consultas de neuropsicologia presencial em Braga, Barcelos, Guimarães e Porto. Vera Fernandes, OPP 21502.",
         f"{SITE}/marcar/",
-        [("Início", f"{SITE}/"), ("Marcar", f"{SITE}/marcar/")],
+        [("Início", f"{SITE}/"), ("Agendar", f"{SITE}/marcar/")],
         section(
-            "Marcar consulta",
-            "Agendamento",
+            "Consultas de neuropsicologia",
+            "Agendar",
             f'''
         <div class="booking-step">
             <h3>Qual o serviço?</h3>
             <div class="city-chips">
                 <button type="button" class="city-chip is-active" data-book-service="avaliacao">Avaliação neuropsicológica</button>
                 <button type="button" class="city-chip" data-book-service="estimulacao">Estimulação cognitiva</button>
-                <button type="button" class="city-chip" data-book-service="sono">Psicologia do sono</button>
             </div>
-            <p id="booking-note-presencial">A estimulação cognitiva está indicada no Hospital Lusíadas Braga. O valor depende do local e é indicado na marcação.</p>
         </div>
         <div id="booking-cities" class="booking-step">
             <h3>Onde pretende realizar?</h3>
@@ -801,22 +1068,22 @@ def main():
                 <button type="button" class="city-chip" data-book-city="porto">Porto</button>
             </div>
         </div>
-        <div id="booking-sono-panel" class="booking-sono" hidden>
-            <p>A consulta de psicologia do sono é <strong>online</strong>, para adultos (18+). O horário é indicado na marcação. Não substitui uma consulta médica nem um estudo do sono em laboratório.</p>
-            {cta(sono=True)}
-        </div>
         <div id="booking-venues" class="booking-venues localizacao">
             <div class="row">{cards}</div>
         </div>
         <p id="booking-empty" hidden>A estimulação cognitiva está indicada no Hospital Lusíadas Braga. Escolha Braga para ver esse local, ou seleccione avaliação neuropsicológica para os outros concelhos.</p>
-        <p id="booking-doubt-presencial">Se ainda tem dúvidas, use <a href="{WA}" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a> (WhatsApp).</p>'''
+        <p id="booking-doubt-presencial">Se ainda tem dúvidas, clique em <a href="{WA}" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>.</p>''',
+            hid="inicio",
+            extra_class=" booking-page",
         ),
-        COMMON_FAQS,
+        faqs=None,
         related=[
+            ("Será só da idade ou devo preocupar-me?", "/memoria-e-envelhecimento/"),
             ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
-            ("É para um familiar?", "/familiares/"),
-            ("Consulta de psicologia do sono", "/psicologia-do-sono/"),
+            ("E se quiser agendar para um familiar?", "/familiares/"),
         ],
+        related_heading="Tópicos relacionados",
+        page_kind="booking",
     )
 
     for slug, label in [
@@ -984,60 +1251,16 @@ def main():
             )
         ],
         related=[
-            ("O que inclui a avaliação neuropsicológica?", "/avaliacao-neuropsicologica/"),
+            (
+                "O que inclui a avaliação neuropsicológica?",
+                "/avaliacao-neuropsicologica/",
+            ),
             ("Onde em Braga?", "/avaliacao-neuropsicologica/braga/"),
             ("Como marcar?", "/marcar/"),
         ],
     )
 
-    page(
-        "psicologia-do-sono",
-        "Consulta de psicologia do sono | Vera Fernandes",
-        "Consulta de psicologia do sono online para adultos (18+). Vera Fernandes, neuropsicóloga, OPP 21502. Horário indicado na marcação.",
-        f"{SITE}/psicologia-do-sono/",
-        [("Início", f"{SITE}/"), ("Psicologia do sono", f"{SITE}/psicologia-do-sono/")],
-        section(
-            "Consulta de psicologia do sono",
-            "Online · 18+",
-            f"""
-        <div class="row"><div class="col-lg-8 offset-lg-2">
-            <p>A consulta de psicologia do sono destina-se a adultos (18+) com dificuldades de sono. Realiza-se <strong>online</strong>. O horário é indicado na marcação.</p>
-            <h2>Para quem é</h2>
-            <p>Para a própria pessoa que não está a conseguir dormir, ou que acorda sem recuperação. Não é uma avaliação neuropsicológica nem um exame de laboratório do sono.</p>
-            <h2>O que acontece</h2>
-            <p>É uma consulta de psicologia, com acompanhamento ao longo de várias sessões quando isso fizer sentido. A frequência define-se em conjunto. Não se prometem resultados clínicos nem prazos de melhoria.</p>
-            <h2>O que não é</h2>
-            <p>Não substitui pneumologia, neurologia ou um estudo do sono quando há sinais que exigem avaliação médica (por exemplo pausas respiratórias ou sonolência súbita intensa). Nesses casos o passo correcto é um médico.</p>
-            <h2>Quem realiza</h2>
-            <p>Vera Fernandes, neuropsicóloga em Portugal, OPP 21502. Não se trata de profissionais homónimas noutros países.</p>
-            {cta(sono=True)}
-        </div></div>""",
-        ),
-        [
-            (
-                "A consulta é presencial?",
-                "Não. A consulta de psicologia do sono é online.",
-            ),
-            (
-                "É a partir de que idade?",
-                "Para adultos, com 18 ou mais anos.",
-            ),
-            (
-                "Qual é o horário?",
-                "O horário é indicado no momento da marcação.",
-            ),
-            (
-                "Substitui um estudo do sono?",
-                "Não. Se houver sinais que justifiquem avaliação médica, o passo correcto é um médico.",
-            ),
-        ],
-        related=[
-            ("Como marcar a consulta de sono?", "/marcar/?servico=sono"),
-            ("Não sei se é memória ou sono", "/sono-e-memoria/"),
-            ("Outras consultas", "/"),
-        ],
-        lane="sono",
-    )
+    write_sono_funnel_page()
 
     page(
         "sono-e-memoria",
@@ -1048,7 +1271,7 @@ def main():
         section(
             "Sono e memória",
             "Escolher o caminho",
-            f"""
+            """
         <div class="row"><div class="col-lg-8 offset-lg-2">
             <p>Sono mau e falhas de memória podem aparecer juntos. São, neste site, dois serviços diferentes. Escolha o que descreve melhor a situação principal.</p>
             <h2>A queixa principal é o sono</h2>
@@ -1075,6 +1298,7 @@ def main():
     urls = [
         f"{SITE}/",
         f"{SITE}/neuropsicologia/",
+        f"{SITE}/rastreiomemoria/",
         f"{SITE}/psicologia-do-sono/",
         f"{SITE}/sono-e-memoria/",
         f"{SITE}/avaliacao-neuropsicologica/",
@@ -1086,6 +1310,9 @@ def main():
         f"{SITE}/familiares/",
         f"{SITE}/sobre/",
         f"{SITE}/marcar/",
+        f"{SITE}/blog/",
+        f"{SITE}/blog/memoria-e-envelhecimento-normal/",
+        f"{SITE}/cursos/",
         f"{SITE}/memoria-e-envelhecimento/",
         f"{SITE}/demencia/",
         f"{SITE}/alzheimer/",

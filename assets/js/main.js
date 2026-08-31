@@ -7,15 +7,29 @@ Author: GrayGrids
 
     //===== Preloader
 
+    function isInnerPage() {
+        return document.documentElement.classList.contains('page-inner');
+    }
+
     window.onload = function () {
         window.setTimeout(fadeout, 1);
         var header_navbar = document.querySelector(".navbar-area");
         var logo = document.querySelector('.navbar-brand img');
-        if (header_navbar && !document.querySelector('.inicio')) {
+        if (header_navbar && isInnerPage()) {
             header_navbar.classList.add("sticky");
             if (logo) {
                 logo.src = '/assets/images/logo/logo.svg';
             }
+            return;
+        }
+        if (header_navbar && !document.querySelector('.inicio') && !isChooserPage()) {
+            header_navbar.classList.add("sticky");
+            if (logo) {
+                logo.src = '/assets/images/logo/logo.svg';
+            }
+        }
+        if (isChooserPage()) {
+            updateChooserHeader();
         }
     }
 
@@ -31,23 +45,78 @@ Author: GrayGrids
     /*=====================================
     Sticky
     ======================================= */
+    function isChooserPage() {
+        return document.documentElement.classList.contains('page-chooser');
+    }
+
+    function updateChooserHeader() {
+        var header_navbar = document.querySelector(".navbar-area");
+        var doorChooser = document.querySelector('.door-chooser');
+        var logo = document.querySelector('.navbar-brand img');
+        if (!header_navbar) {
+            return;
+        }
+
+        header_navbar.classList.add('sticky');
+
+        var headerHeight = header_navbar.offsetHeight;
+        var doorsBottom = doorChooser ? doorChooser.getBoundingClientRect().bottom : 0;
+        var nextSectionUnderHeader = doorsBottom <= headerHeight;
+
+        if (nextSectionUnderHeader) {
+            header_navbar.classList.add('is-scrolled');
+            if (logo) {
+                logo.src = '/assets/images/logo/logo.svg';
+            }
+            return;
+        }
+
+        header_navbar.classList.remove('is-scrolled');
+        if (logo) {
+            logo.src = '/assets/images/logo/white-logo.svg';
+        }
+    }
+
+    window.addEventListener('resize', function () {
+        if (isChooserPage()) {
+            updateChooserHeader();
+        }
+    });
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', function () {
+            if (isChooserPage()) {
+                updateChooserHeader();
+            }
+        });
+    }
+
     window.onscroll = function () {
         var header_navbar = document.querySelector(".navbar-area");
         if (!header_navbar) {
             return;
         }
-        var sticky = header_navbar.offsetTop;
 
-        var logo = document.querySelector('.navbar-brand img');
-        if (window.scrollY > sticky || !document.querySelector('.inicio')) {
+        if (isChooserPage()) {
+            updateChooserHeader();
+        } else if (isInnerPage()) {
             header_navbar.classList.add("sticky");
-            if (logo) {
-                logo.src = '/assets/images/logo/logo.svg';
+            var innerLogo = document.querySelector('.navbar-brand img');
+            if (innerLogo) {
+                innerLogo.src = '/assets/images/logo/logo.svg';
             }
         } else {
-            header_navbar.classList.remove("sticky");
-            if (logo) {
-                logo.src = '/assets/images/logo/white-logo.svg';
+            var sticky = header_navbar.offsetTop;
+            var logo = document.querySelector('.navbar-brand img');
+            if (window.scrollY > sticky || !document.querySelector('section.inicio')) {
+                header_navbar.classList.add("sticky");
+                if (logo) {
+                    logo.src = '/assets/images/logo/logo.svg';
+                }
+            } else {
+                header_navbar.classList.remove("sticky");
+                if (logo) {
+                    logo.src = '/assets/images/logo/white-logo.svg';
+                }
             }
         }
 

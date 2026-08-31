@@ -1,8 +1,30 @@
 window.VF = {
+  bookingNeuroUrl: "/marcar/",
+  bookingSonoUrl: "/psicologia-do-sono/",
+  blogPosts: [
+    {
+      slug: "memoria-e-envelhecimento-normal",
+      title: "Memória e envelhecimento: o que é normal?",
+      excerpt:
+        "Esquecimentos pontuais fazem parte da idade. Saiba quando uma avaliação neuropsicológica pode ajudar a esclarecer a dúvida.",
+      date: "2026-08-01",
+      published: true
+    }
+  ],
+  courses: [
+    {
+      id: "curso-exemplo",
+      title: "Curso de exemplo",
+      description:
+        "Formação destinada a profissionais de saúde. Conteúdo e datas serão anunciados em breve.",
+      externalUrl: "https://example.com",
+      available: true
+    }
+  ],
   stats: {
     years: 10,
     assessments: 4800,
-    rehab: 38,
+    rehab: 40,
     trials: 10,
     updated: 2026
   },
@@ -24,7 +46,7 @@ window.VF = {
       phone: "+351253401600",
       telHref: "tel:+351253401600",
       maps: "https://maps.app.goo.gl/wDj2fLMUs6n5ADGo8",
-      more: "https://www.cnscampus.com/pt",
+      more: "https://www.cnscampus.com/equipa/vera-fernandes/",
       image: "/assets/images/locais/CNS.webp",
       imageAlt: "Edifício do CNS - Campus Neurológico em Braga"
     },

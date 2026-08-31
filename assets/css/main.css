@@ -2456,7 +2456,7 @@ ol {
   transform: translateY(-5px);
 }
 
-.consultas .single-feature i {
+.consultas .single-feature>i {
   height: 60px;
   width: 60px;
   line-height: 60px;
@@ -2469,6 +2469,17 @@ ol {
   -webkit-box-shadow: 0px 4px 6px #0000002a;
   box-shadow: 0px 4px 6px #0000002a;
   margin-bottom: 30px;
+}
+
+.consultas .button .btn i {
+  height: auto;
+  width: auto;
+  line-height: inherit;
+  background-color: transparent;
+  box-shadow: none;
+  margin-bottom: 0;
+  border-radius: 0;
+  font-size: 1em;
 }
 
 
@@ -3569,22 +3580,29 @@ ol {
 ========================================*/
 
 .content-wrapper {
-  flex-grow: 1; /* Allows content to take up available space */
+  flex-grow: 1;
+  /* Allows content to take up available space */
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
   padding: 5%;
   padding-bottom: 35%;
-  text-align: center; /* Center text within the content box */
+  text-align: center;
+  /* Center text within the content box */
 }
 
 .redirect-box {
   background-color: white;
   padding: 30px 40px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* More prominent shadow */
-  max-width: 500px; /* Limit width for readability */
-  width: 100%; /* Make it responsive */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  /* More prominent shadow */
+  max-width: 500px;
+  /* Limit width for readability */
+  width: 100%;
+  /* Make it responsive */
 }
 
 .redirect-box p {
@@ -3594,16 +3612,22 @@ ol {
 }
 
 .redirect-box a {
-  color: #007bff; /* Standard link blue */
-  text-decoration: none; /* No underline by default */
+  color: #007bff;
+  /* Standard link blue */
+  text-decoration: none;
+  /* No underline by default */
   font-weight: bold;
-  transition: color 0.3s ease; /* Smooth hover effect */
+  transition: color 0.3s ease;
+  /* Smooth hover effect */
 }
 
 .redirect-box a:hover {
-  color: #0056b3; /* Darker blue on hover */
-  text-decoration: underline; /* Underline on hover */
+  color: #0056b3;
+  /* Darker blue on hover */
+  text-decoration: underline;
+  /* Underline on hover */
 }
+
 /*======================================
 	Footer CSS
 ========================================*/
