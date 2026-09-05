@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import shutil
 from pathlib import Path
 
 from consent_snippets import CONSENT_BANNER, HEAD_STYLES
@@ -10,6 +11,15 @@ from jsonld import build_graph
 ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://verafernandes.com"
 MANUAL_PAGE_PATHS = frozenset({"psicologia-do-sono", "agendar"})
+
+# Post-launch articles: keep generators below, do not emit HTML/sitemap until copy is ready.
+# Flip to True + add URLs to sitemap / llms.txt when real articles ship (same quality as alzheimer/).
+PUBLISH_POST_LAUNCH_ARTICLES = False
+POST_LAUNCH_ARTICLE_SLUGS = ("avc", "parkinson", "lesao-cerebral")
+# Planned, not scaffolded yet:
+#   insonia — artigo sono sobre insónia (lane sono)
+# Removed permanently (thin duplicate of /avaliacao-neuropsicologica/): avaliacao-cognitiva
+
 WA = "https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica."
 WA_ESTIMULACAO = "https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20estimula%C3%A7%C3%A3o%20cognitiva."
 WA_SONO = "https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20psicologia%20do%20sono."
@@ -345,9 +355,11 @@ def page(
                             <div class="single-footer f-link">
                                 <h3>Legal</h3>
                                 <ul>
+                                    <li><a href="/informacao-regulatoria/">Informação Regulatória</a></li>
                                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
+                                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false" src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -358,10 +370,6 @@ def page(
     </div>
 </footer>
 <a href="#inicio" class="scroll-top" target="_self"><i class="lni lni-chevron-up"></i></a>
-<div class="mobile-cta-bar">
-    <a href="{cta_href}" data-track="marcar" data-track-location="mobile-bar">{cta_label}</a>
-    <a class="cta-secondary" href="{wa}" data-track="whatsapp" data-track-location="mobile-bar" rel="noopener">Tenho uma dúvida</a>
-</div>
 <script src="/assets/js/bootstrap.min.js" defer></script>
 <script src="/assets/js/wow.min.js" defer></script>
 <script src="/assets/js/main.js" defer></script>
@@ -775,9 +783,11 @@ def write_sono_funnel_page():
                             <div class="single-footer f-link">
                                 <h3>Legal</h3>
                                 <ul>
+                                    <li><a href="/informacao-regulatoria/">Informação Regulatória</a></li>
                                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
+                                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false" src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -788,10 +798,6 @@ def write_sono_funnel_page():
     </div>
 </footer>
 <a href="#inicio" class="scroll-top" target="_self"><i class="lni lni-chevron-up"></i></a>
-<div class="mobile-cta-bar">
-    <a href="/agendar/?servico=sono" data-track="marcar" data-track-location="mobile-bar">Agendar</a>
-    <a class="cta-secondary" href="{WA_SONO}" data-track="whatsapp" data-track-location="mobile-bar" rel="noopener">Tenho uma dúvida</a>
-</div>
 <script src="/assets/js/bootstrap.min.js" defer></script>
 <script src="/assets/js/wow.min.js" defer></script>
 <script src="/assets/js/main.js" defer></script>
@@ -1025,14 +1031,13 @@ def main():
                 <li>A entrega do relatório é feita em até <strong>5 dias úteis</strong>, por e-mail, presencialmente ou por CTT, de acordo com a sua preferência.</li>
             </ul>
             <h2>Duração e Preço</h2>
-            <p><strong>Duração:</strong> cerca de 2 horas</p>
-            <p><strong>Preço:</strong> desde 185€</p>
-            <p><strong>Relatório:</strong> incluído</p>
+            <p><strong>Duração:</strong> cerca de 2 horas<br>
+            <strong>Preço:</strong> desde 185€<br>
+            <strong>Relatório:</strong> incluído</p>
             <p>O preço inclui a avaliação neuropsicológica, a análise e interpretação dos resultados, a elaboração do relatório e a orientação dos próximos passos.</p>
             <p>O valor pode variar consoante o local de realização. O preço aplicável deverá ser confirmado no momento da marcação, de acordo com o local escolhido.</p>
             <h2>Onde realizar</h2>
-            <p>A avaliação neuropsicológica é realizada presencialmente em:</p>
-            <p><a href="/avaliacao-neuropsicologica/braga/">Braga</a> · <a href="/avaliacao-neuropsicologica/barcelos/">Barcelos</a> · <a href="/avaliacao-neuropsicologica/guimaraes/">Guimarães</a> · <a href="/avaliacao-neuropsicologica/porto/">Porto</a></p>
+            <p>A avaliação neuropsicológica é realizada presencialmente em: <a href="/avaliacao-neuropsicologica/braga/">Braga</a> · <a href="/avaliacao-neuropsicologica/barcelos/">Barcelos</a> · <a href="/avaliacao-neuropsicologica/guimaraes/">Guimarães</a> · <a href="/avaliacao-neuropsicologica/porto/">Porto</a></p>
             {cta()}
         </div></div>""",
         ),
@@ -1094,11 +1099,9 @@ def main():
             </ul>
             <p>O objectivo é trabalhar as capacidades cognitivas de forma orientada e funcional, procurando, sempre que possível, estabelecer uma relação entre as actividades realizadas e as exigências do dia a dia.</p>
             <h2>Duração e preço</h2>
-            <ul class="table-list">
-                <li><strong>Duração:</strong> 50 minutos</li>
-                <li><strong>Formato:</strong> acompanhamento individual</li>
-                <li><strong>Preço:</strong> de acordo com a tabela de honorários aplicável no Hospital Lusíadas Braga</li>
-            </ul>
+            <p><strong>Duração:</strong> 50 minutos<br>
+            <strong>Formato:</strong> acompanhamento individual<br>
+            <strong>Preço:</strong> de acordo com a tabela de honorários aplicável no Hospital Lusíadas Braga</p>
             <p>A frequência do acompanhamento é definida em conjunto, de acordo com as necessidades e objectivos da pessoa, e pode ser ajustada ao longo do tempo.</p>
             <p>O preço deverá ser confirmado directamente com o Hospital Lusíadas Braga no momento da marcação, de acordo com as condições aplicáveis.</p>
             <h2 id="onde-realizar">Onde realizar</h2>
@@ -1206,7 +1209,7 @@ def main():
                 "O que acontece na avaliação neuropsicológica?",
                 "/avaliacao-neuropsicologica/",
             ),
-            ("O que é a Terapia Cognitivo-Comportamental para a insónia?", "/TCC-i/"),
+            ("O que é a Terapia Cognitivo-Comportamental para a insónia?", "/TCC-I/"),
             (
                 "Qual o papel do psicólogo nas doenças neurológicas?",
                 "/blog/papel-psicologo-doencas-neurologicas/",
@@ -1392,99 +1395,95 @@ def main():
         condition_slug="alzheimer",
         service_key="avaliacao",
     )
-    problem_page(
-        "avc",
-        "Avaliação neuropsicológica após AVC | Vera Fernandes",
-        "Alterações cognitivas depois de um AVC",
-        "Após um acidente vascular cerebral podem existir alterações de atenção, memória, linguagem ou outras funções. A avaliação neuropsicológica caracteriza esse perfil.",
-        "Quando, depois de um AVC, se notam dificuldades cognitivas no dia-a-dia, ou quando o médico pede o exame. A estimulação cognitiva, quando indicada, está listada no Hospital Lusíadas Braga.",
-        "O relatório descreve as funções avaliadas e pode orientar a planificação de estimulação ou reabilitação, quando clinicamente adequada.",
-        [
-            (
-                "A estimulação está disponível depois do AVC?",
-                "Quando indicada, a estimulação cognitiva está listada no Hospital Lusíadas Braga.",
-            ),
-            (
-                "Quanto tempo demora a avaliação?",
-                "Cerca de 2 horas, numa única deslocação.",
-            ),
-        ],
-        related=[
-            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
-            ("Estimulação cognitiva", "/estimulacao-cognitiva/"),
-            ("Lesão cerebral ou TCE", "/lesao-cerebral/"),
-            ("Como marcar?", "/agendar/"),
-        ],
-    )
-    problem_page(
-        "parkinson",
-        "Avaliação neuropsicológica na doença de Parkinson | Vera Fernandes",
-        "Avaliação neuropsicológica e Parkinson",
-        "Na doença de Parkinson pode ser pedida uma caracterização cognitiva como exame complementar, para descrever o funcionamento actual ou acompanhar alterações.",
-        "Quando existem queixas cognitivas, quando o médico solicita o exame, ou para comparar o funcionamento ao longo do tempo.",
-        "A avaliação usa testes validados para a população portuguesa e inclui relatório. O valor depende do local.",
-        [
-            (
-                "Preciso de encaminhamento de neurologia?",
-                "Não é obrigatório. Muitas avaliações são pedidas pelo médico, e também se pode marcar por iniciativa própria.",
-            ),
-            (
-                "Um familiar pode marcar?",
-                "Sim. Um familiar pode pedir informação e marcar.",
-            ),
-        ],
-        related=[
-            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
-            ("Informação para familiares", "/familiares/"),
-            ("Como marcar?", "/agendar/"),
-        ],
-    )
-    problem_page(
-        "lesao-cerebral",
-        "Avaliação após lesão cerebral ou TCE | Vera Fernandes",
-        "Lesão cerebral e traumatismo cranioencefálico",
-        "Após traumatismo cranioencefálico ou outra lesão cerebral adquirida, a avaliação neuropsicológica pode caracterizar o funcionamento cognitivo.",
-        "Quando se notam alterações de memória, atenção, linguagem ou comportamento após a lesão, ou quando o médico pede o exame.",
-        "O relatório descreve o perfil actual. A estimulação cognitiva, quando indicada, está listada no Hospital Lusíadas Braga.",
-        [
-            (
-                "É para adultos?",
-                "O agendamento está disponível para adultos e idosos, com mais de 18 anos.",
-            ),
-            (
-                "Há estimulação depois da lesão?",
-                "Quando indicada, a estimulação cognitiva está listada no Hospital Lusíadas Braga.",
-            ),
-        ],
-        related=[
-            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
-            ("Depois de um AVC", "/avc/"),
-            ("Estimulação cognitiva", "/estimulacao-cognitiva/"),
-            ("Como marcar?", "/agendar/"),
-        ],
-    )
-    problem_page(
-        "avaliacao-cognitiva",
-        "Avaliação cognitiva | Vera Fernandes",
-        "Avaliação cognitiva",
-        "Avaliação cognitiva, neste contexto, refere-se à avaliação neuropsicológica: um exame complementar que caracteriza memória, atenção, linguagem e outras funções.",
-        "Quando há queixas cognitivas, pedido médico, ou necessidade de um relatório para o seguimento clínico.",
-        "Em cerca de 2 horas, numa única deslocação, com relatório até 4 dias úteis. Disponível em Braga, Barcelos, Guimarães e Porto.",
-        [
-            (
-                "Qual é a diferença para um teste de memória isolado?",
-                "A avaliação neuropsicológica cobre várias funções cognitivas e inclui interpretação clínica e relatório.",
-            )
-        ],
-        related=[
-            (
-                "O que inclui a avaliação neuropsicológica?",
-                "/avaliacao-neuropsicologica/",
-            ),
-            ("Onde em Braga?", "/avaliacao-neuropsicologica/braga/"),
-            ("Como marcar?", "/agendar/"),
-        ],
-    )
+
+    def write_post_launch_condition_stubs() -> None:
+        """Scaffold stubs for post-launch condition articles. Not published until flag is True."""
+        problem_page(
+            "avc",
+            "Avaliação neuropsicológica após AVC | Vera Fernandes",
+            "Alterações cognitivas depois de um AVC",
+            "Após um acidente vascular cerebral podem existir alterações de atenção, memória, linguagem ou outras funções. A avaliação neuropsicológica caracteriza esse perfil.",
+            "Quando, depois de um AVC, se notam dificuldades cognitivas no dia-a-dia, ou quando o médico pede o exame. A estimulação cognitiva, quando indicada, está listada no Hospital Lusíadas Braga.",
+            "O relatório descreve as funções avaliadas e pode orientar a planificação de estimulação ou reabilitação, quando clinicamente adequada.",
+            [
+                (
+                    "A estimulação está disponível depois do AVC?",
+                    "Quando indicada, a estimulação cognitiva está listada no Hospital Lusíadas Braga.",
+                ),
+                (
+                    "Quanto tempo demora a avaliação?",
+                    "Cerca de 2 horas, numa única deslocação.",
+                ),
+            ],
+            related=[
+                ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
+                ("Estimulação cognitiva", "/estimulacao-cognitiva/"),
+                ("Lesão cerebral ou TCE", "/lesao-cerebral/"),
+                ("Como marcar?", "/agendar/"),
+            ],
+        )
+        problem_page(
+            "parkinson",
+            "Avaliação neuropsicológica na doença de Parkinson | Vera Fernandes",
+            "Avaliação neuropsicológica e Parkinson",
+            "Na doença de Parkinson pode ser pedida uma caracterização cognitiva como exame complementar, para descrever o funcionamento actual ou acompanhar alterações.",
+            "Quando existem queixas cognitivas, quando o médico solicita o exame, ou para comparar o funcionamento ao longo do tempo.",
+            "A avaliação usa testes validados para a população portuguesa e inclui relatório. O valor depende do local.",
+            [
+                (
+                    "Preciso de encaminhamento de neurologia?",
+                    "Não é obrigatório. Muitas avaliações são pedidas pelo médico, e também se pode marcar por iniciativa própria.",
+                ),
+                (
+                    "Um familiar pode marcar?",
+                    "Sim. Um familiar pode pedir informação e marcar.",
+                ),
+            ],
+            related=[
+                ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
+                ("Informação para familiares", "/familiares/"),
+                ("Como marcar?", "/agendar/"),
+            ],
+        )
+        problem_page(
+            "lesao-cerebral",
+            "Avaliação após lesão cerebral ou TCE | Vera Fernandes",
+            "Lesão cerebral e traumatismo cranioencefálico",
+            "Após traumatismo cranioencefálico ou outra lesão cerebral adquirida, a avaliação neuropsicológica pode caracterizar o funcionamento cognitivo.",
+            "Quando se notam alterações de memória, atenção, linguagem ou comportamento após a lesão, ou quando o médico pede o exame.",
+            "O relatório descreve o perfil actual. A estimulação cognitiva, quando indicada, está listada no Hospital Lusíadas Braga.",
+            [
+                (
+                    "É para adultos?",
+                    "O agendamento está disponível para adultos e idosos, com mais de 18 anos.",
+                ),
+                (
+                    "Há estimulação depois da lesão?",
+                    "Quando indicada, a estimulação cognitiva está listada no Hospital Lusíadas Braga.",
+                ),
+            ],
+            related=[
+                ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
+                ("Depois de um AVC", "/avc/"),
+                ("Estimulação cognitiva", "/estimulacao-cognitiva/"),
+                ("Como marcar?", "/agendar/"),
+            ],
+        )
+
+    if PUBLISH_POST_LAUNCH_ARTICLES:
+        write_post_launch_condition_stubs()
+    else:
+        for slug in POST_LAUNCH_ARTICLE_SLUGS:
+            stale = ROOT / slug
+            if stale.is_dir():
+                shutil.rmtree(stale)
+                print("removed unpublished", slug)
+
+    # avaliacao-cognitiva removed permanently (duplicate of avaliacao-neuropsicologica)
+    stale_avaliacao_cognitiva = ROOT / "avaliacao-cognitiva"
+    if stale_avaliacao_cognitiva.is_dir():
+        shutil.rmtree(stale_avaliacao_cognitiva)
+        print("removed", "avaliacao-cognitiva")
 
     page(
         "consulta-do-sono",
@@ -1538,11 +1537,9 @@ def main():
                 <li>Definição de ferramentas autónomas para manter os ganhos a longo prazo e gerir eventuais noites piores no futuro.</li>
             </ul>
             <h2>Duração e Preço</h2>
-            <ul class="table-list">
-                <li><strong>Formato:</strong> Online (via videochamada individual e segura)</li>
-                <li><strong>Duração da consulta:</strong> 50 minutos</li>
-                <li><strong>Preço:</strong> 45€ por consulta</li>
-            </ul>
+            <p><strong>Formato:</strong> Online (via videochamada individual e segura)<br>
+            <strong>Duração da consulta:</strong> 50 minutos<br>
+            <strong>Preço:</strong> 45€ por consulta</p>
             <p>O valor inclui a consulta individual online, a análise dos diários de sono e o envio de materiais de apoio práticos entre sessões, quando aplicável.</p>
             <h2>Onde realizar</h2>
             <p>As consultas são realizadas <strong>exclusivamente em formato online</strong>, permitindo fazer todo o acompanhamento com total comodidade, privacidade e no conforto do seu espaço, sem necessidade de deslocações.</p>
@@ -1551,7 +1548,7 @@ def main():
         ),
         [],
         related=[
-            ("Saber mais sobre TCC-i", "/TCC-i/"),
+            ("Saber mais sobre TCC-I", "/TCC-I/"),
             ("Como posso agendar?", "/agendar/?servico=sono"),
             ("Será um problema de memória ou de sono?", "/sono-e-memoria/"),
         ],
@@ -1572,7 +1569,7 @@ def main():
             "Memória e Sono: Por onde começar?",
             "Orientação clínica",
             extra_class=" page-content--justify",
-            html="""
+            html=f"""
         <div class="row"><div class="col-lg-8 offset-lg-2">
             <p>O sono e a cognição influenciam-se mutuamente. Dormimos pior quando estamos preocupados com a memória, e a falta de um sono reparador afeta diretamente a atenção, a concentração e a retenção de informação no dia a dia. Para identificar a resposta mais adequada à sua situação ou à de um familiar é importante definir qual é a queixa com maior impacto no seu bem-estar ou na sua rotina diária.</p>
 
@@ -1584,15 +1581,17 @@ def main():
 
             <h2>Ainda com dúvidas sobre qual a opção indicada para si ou para um familiar?</h2>
             <p>Pode consultar mais informações sobre o modo de funcionamento da <a href="/avaliacao-neuropsicologica/">Avaliação Neuropsicológica</a> e da <a href="/consulta-do-sono/">Consulta de Psicologia do Sono</a>.</p>
+            {cta(sono=True)}
         </div></div>""",
         ),
         [],
         related=[
-            ("O que é a TCC-i", "/TCC-i/"),
+            ("O que é a TCC-I", "/TCC-I/"),
             ("Os esquecimentos serão só da idade?", "/memoria-e-envelhecimento/"),
             ("Saber mais sobre estimulação cognitiva", "/estimulacao-cognitiva/"),
         ],
         related_heading="Tópicos Relacionados",
+        lane="sono",
     )
 
     urls = [
@@ -1617,13 +1616,16 @@ def main():
         f"{SITE}/memoria-e-envelhecimento/",
         f"{SITE}/demencia/",
         f"{SITE}/alzheimer/",
-        f"{SITE}/avc/",
-        f"{SITE}/parkinson/",
-        f"{SITE}/lesao-cerebral/",
-        f"{SITE}/avaliacao-cognitiva/",
         f"{SITE}/tos/",
         f"{SITE}/privacy/",
     ]
+    if PUBLISH_POST_LAUNCH_ARTICLES:
+        insert_at = urls.index(f"{SITE}/alzheimer/") + 1
+        urls[insert_at:insert_at] = [
+            f"{SITE}/avc/",
+            f"{SITE}/parkinson/",
+            f"{SITE}/lesao-cerebral/",
+        ]
     items = "\n".join(
         f"""  <url>
     <loc>{u}</loc>

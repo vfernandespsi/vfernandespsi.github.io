@@ -2428,13 +2428,12 @@ ol {
   border: 1px solid #eee;
   -webkit-transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0s;
   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0s;
-  height: 750px;
+  height: auto;
 }
 
 @media (min-width: 991px) and (max-width: 1200px) {
   .consultas .single-feature {
-    height: 840px;
-    ;
+    height: auto;
   }
 }
 
@@ -2521,13 +2520,13 @@ ol {
 
 
 .consultas .single-feature h3 {
-  font-size: 18px;
+  font-size: 28px;
   font-weight: 500;
   margin-bottom: 12px;
 }
 
 .consultas .single-feature p {
-  height: 90px;
+  height: auto;
   text-align: justify;
   margin-bottom: auto;
 
@@ -2535,7 +2534,7 @@ ol {
 
 @media (min-width: 991px) and (max-width: 1200px) {
   .consultas .single-feature p {
-    height: 120px;
+    height: auto;
     text-align: justify;
     ;
   }

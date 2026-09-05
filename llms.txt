@@ -50,15 +50,11 @@ Audience: adults with cognitive complaints; older adults and families; people wi
 - [Memória e envelhecimento](https://verafernandes.com/memoria-e-envelhecimento/): Normal ageing vs concerning cognitive decline
 - [Demência](https://verafernandes.com/demencia/): Dementia and neuropsychological assessment
 - [Alzheimer](https://verafernandes.com/alzheimer/): Alzheimer disease and cognitive assessment
-- [AVC](https://verafernandes.com/avc/): Stroke and neuropsychological follow-up
-- [Parkinson](https://verafernandes.com/parkinson/): Parkinson disease and cognitive function
-- [Lesão cerebral](https://verafernandes.com/lesao-cerebral/): Traumatic brain injury assessment
-- [Avaliação cognitiva](https://verafernandes.com/avaliacao-cognitiva/): General cognitive assessment information
-- [TCC-I](https://verafernandes.com/TCC-i/): Cognitive behavioural therapy for insomnia (CBT-I)
+- [TCC-I](https://verafernandes.com/TCC-I/): Cognitive behavioural therapy for insomnia (CBT-I)
 
 ## Screening tools
 
-- [Rastreio de memória](https://verafernandes.com/rastreiomemoria/): Self-screening questionnaire for memory concerns
+- [Rastreio de memória](https://verafernandes.com/rastreio-memoria/): Self-screening questionnaire for memory concerns
 - [Rastreio de sono](https://verafernandes.com/rastreio-sono/): Self-screening questionnaire for sleep difficulties
 
 ## Blog and courses
@@ -78,6 +74,6 @@ Audience: adults with cognitive complaints; older adults and families; people wi
 
 ## Optional
 
-- [Informação regulatória](https://verafernandes.com/informacao-regulatoria/): Regulatory and legal information
+- [Informação Regulatória](https://verafernandes.com/informacao-regulatoria/): Regulatory and legal information
 - [Política de privacidade](https://verafernandes.com/privacy/): Privacy policy
 - [Termos de serviço](https://verafernandes.com/tos/): Terms of service

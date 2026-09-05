@@ -1,4 +1,5 @@
-"""Add Informação regulatória and LRE links to site footers."""
+"""Add Informação Regulatória and LRE links to site footers."""
+
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,33 +14,39 @@ REPLACEMENTS = [
         """                    <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>""",
-        """                    <li><a href="/informacao-regulatoria/">Informação regulatória</a></li>
+        """                    <li><a href="/informacao-regulatoria/">Informação Regulatória</a></li>
                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
-                    """ + "                    " + LRE,
+                    """
+        + "                    "
+        + LRE,
     ),
     (
         """                                    <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>""",
-        """                                    <li><a href="/informacao-regulatoria/">Informação regulatória</a></li>
+        """                                    <li><a href="/informacao-regulatoria/">Informação Regulatória</a></li>
                                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
-                                    """ + "                                    " + LRE,
+                                    """
+        + "                                    "
+        + LRE,
     ),
     (
         """                                        <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                                         <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                                         <li><button type="button" class="vf-consent-link"
                                                 data-vf-open-consent>Cookies</button></li>""",
-        """                                        <li><a href="/informacao-regulatoria/">Informação regulatória</a></li>
+        """                                        <li><a href="/informacao-regulatoria/">Informação Regulatória</a></li>
                                         <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                                         <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                                         <li><button type="button" class="vf-consent-link"
                                                 data-vf-open-consent>Cookies</button></li>
-                                        """ + "                                        " + LRE,
+                                        """
+        + "                                        "
+        + LRE,
     ),
 ]
 

@@ -44,3 +44,22 @@ if (document.querySelector(".photo-slider")) {
         }
     });
 }
+
+//========= compare cards (mobile consultas)
+if (
+    document.querySelector(".compare-slider") &&
+    window.matchMedia("(max-width: 767px)").matches
+) {
+    tns({
+        container: ".compare-slider",
+        items: 1,
+        slideBy: 1,
+        autoplay: false,
+        mouseDrag: true,
+        gutter: 0,
+        nav: true,
+        navPosition: "bottom",
+        controls: false,
+        loop: false
+    });
+}

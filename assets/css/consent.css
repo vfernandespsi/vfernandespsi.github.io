@@ -111,12 +111,6 @@
     padding-bottom: max(10px, env(safe-area-inset-bottom));
   }
 
-  .mobile-cta-bar~.vf-consent,
-  body:has(.mobile-cta-bar) .vf-consent {
-    bottom: calc(67px + env(safe-area-inset-bottom, 0px));
-    padding-bottom: 10px;
-  }
-
   .vf-consent__inner {
     flex-direction: row;
     flex-wrap: wrap;

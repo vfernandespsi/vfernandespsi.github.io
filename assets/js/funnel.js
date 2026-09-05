@@ -56,7 +56,19 @@
     }
 
     var selectedService = "avaliacao";
-    var selectedCity = "all";
+    var mqMobile = window.matchMedia("(max-width: 767px)");
+    var selectedCity = mqMobile.matches ? "" : "all";
+
+    function firstAvailableCity(available) {
+      var order = ["braga", "barcelos", "guimaraes", "porto"];
+      for (var i = 0; i < order.length; i++) {
+        if (available[order[i]]) {
+          return order[i];
+        }
+      }
+      var keys = Object.keys(available);
+      return keys.length ? keys[0] : "braga";
+    }
 
     function citiesForService(service) {
       var available = {};
@@ -85,11 +97,26 @@
         return;
       }
       var available = citiesForService(selectedService);
+      var preferCity = mqMobile.matches;
       cityChips.forEach(function (chip) {
         var city = chip.getAttribute("data-city-filter");
-        chip.hidden = city !== "all" && !available[city];
+        if (city === "all") {
+          chip.hidden = preferCity;
+          return;
+        }
+        chip.hidden = !available[city];
       });
-      if (selectedCity !== "all" && !available[selectedCity]) {
+      if (preferCity) {
+        if (!selectedCity || selectedCity === "all" || !available[selectedCity]) {
+          selectedCity = firstAvailableCity(available);
+        }
+        cityChips.forEach(function (item) {
+          item.classList.toggle(
+            "is-active",
+            item.getAttribute("data-city-filter") === selectedCity
+          );
+        });
+      } else if (selectedCity !== "all" && !available[selectedCity]) {
         selectedCity = "all";
         cityChips.forEach(function (item) {
           item.classList.toggle("is-active", item.getAttribute("data-city-filter") === "all");
