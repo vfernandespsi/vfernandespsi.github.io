@@ -607,12 +607,23 @@
 }
   </script>
   <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico" />
-  <link rel="stylesheet" href="/assets/css/animate.css">
+  <link rel="preload" as="image" href="/assets/images/vera1-380w.webp" fetchpriority="high"
+    imagesrcset="/assets/images/vera1-260w.webp 260w, /assets/images/vera1-380w.webp 380w, /assets/images/vera1-760w.webp 760w"
+    imagesizes="(min-width: 992px) 380px, 32vw">
+  <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/fonts.css">
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
   <link rel="stylesheet" href="/assets/css/main.css">
   <link rel="stylesheet" href="/assets/css/funnel.css">
-  <link rel="stylesheet" href="/assets/css/consent.css">
+  <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/assets/css/consent.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/assets/css/animate.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
+    <link rel="stylesheet" href="/assets/css/consent.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+  </noscript>
 </head>
 
 <body>
@@ -643,7 +654,8 @@
           <div class="nav-inner">
             <nav class="navbar navbar-expand-lg">
               <a class="navbar-brand" href="/" target="_self">
-                <img draggable="false" src="/assets/images/logo/white-logo.svg" alt="Vera Fernandes, neuropsicóloga">
+                <img draggable="false" src="/assets/images/logo/white-logo.svg" width="160" height="53"
+                  alt="Vera Fernandes, neuropsicóloga">
               </a>
               <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -704,7 +716,10 @@
         </span>
       </a>
       <div class="door-portrait">
-        <img draggable="false" src="/assets/images/vera1.webp" alt="Vera Fernandes, neuropsicóloga em Portugal">
+        <img draggable="false" src="/assets/images/vera1-380w.webp"
+          srcset="/assets/images/vera1-260w.webp 260w, /assets/images/vera1-380w.webp 380w, /assets/images/vera1-760w.webp 760w"
+          sizes="(min-width: 992px) 380px, 32vw" width="746" height="1119" fetchpriority="high" decoding="async"
+          alt="Vera Fernandes, neuropsicóloga em Portugal">
       </div>
     </div>
   </section>
@@ -715,22 +730,27 @@
         <div class="row align-items-center">
           <div class="col-lg-6 col-md-12 col-12 order-lg-1 order-2">
             <div class="info-text wow fadeInLeft" data-wow-delay=".3s">
-              <div class="main-icon">
-                <i class="lni lni-xl lni-checkmark-circle"></i>
+              <div class="info-text-head">
+                <div class="main-icon">
+                  <i class="lni lni-lg lni-checkmark-circle"></i>
+                </div>
+                <h2>Experiência em contexto hospitalar e em clínica privada.</h2>
               </div>
-              <h2>Experiência em contexto hospitalar e em clínica privada.</h2>
               <p>Atividade dedicada à avaliação neuropsicológica no Hospital de Braga e em consultório privado, com
                 contributo para a investigação na Doença de Alzheimer em vários ensaios clínicos. Na área do sono,
                 dispõe de formação dedicada ao tratamento da insónia por TCC-I.</p>
               <div class="button">
-                <a href="/sobre/" class="btn"><i class="lni lni-xl lni-notepad"></i> Ver currículo</a>
+                <a href="/sobre/" class="btn">Ver currículo</a>
               </div>
             </div>
           </div>
           <div class="col-lg-6 col-md-12 col-12 order-lg-2 order-1">
             <div class="info-image wow fadeInRight" data-wow-delay=".5s">
               <div class="single-photo">
-                <img draggable="false" src="/assets/images/vera2.webp" alt="Vera Fernandes, neuropsicóloga em Portugal">
+                <img draggable="false" src="/assets/images/vera2-400w.webp"
+                  srcset="/assets/images/vera2-400w.webp 400w, /assets/images/vera2-800w.webp 800w"
+                  sizes="(min-width: 992px) 50vw, 100vw" width="636" height="636" loading="lazy" decoding="async"
+                  alt="Vera Fernandes, neuropsicóloga em Portugal">
               </div>
             </div>
           </div>
@@ -770,16 +790,21 @@
             <div class="single-footer f-about">
               <div class="logo">
                 <a href="/" target="_self">
-                  <img draggable="false" src="/assets/images/logo/white-logo.svg" alt="Vera Fernandes, neuropsicóloga">
+                  <img draggable="false" src="/assets/images/logo/white-logo.svg" width="160" height="53"
+                    alt="Vera Fernandes, neuropsicóloga">
                 </a>
               </div>
               <ul class="social">
-                <li><a href="https://www.facebook.com/verafernandes.psi/"><i class="lni lni-facebook-filled"></i></a>
+                <li><a href="https://www.facebook.com/verafernandes.psi/" aria-label="Facebook"><i
+                      class="lni lni-facebook-filled"></i></a>
                 </li>
-                <li><a href="https://www.instagram.com/verafernandes.psi"><i class="lni lni-instagram"></i></a></li>
-                <li><a href="https://www.linkedin.com/in/vera-fernandes/"><i class="lni lni-linkedin-original"></i></a>
+                <li><a href="https://www.instagram.com/verafernandes.psi" aria-label="Instagram"><i
+                      class="lni lni-instagram"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/vera-fernandes/" aria-label="LinkedIn"><i
+                      class="lni lni-linkedin-original"></i></a>
                 </li>
-                <li><a href="mailto:vfernandes.psi@gmail.com"><i class="lni lni-envelope"></i></a></li>
+                <li><a href="mailto:vfernandes.psi@gmail.com" aria-label="Enviar email"><i
+                      class="lni lni-envelope"></i></a></li>
               </ul>
             </div>
           </div>
@@ -803,7 +828,10 @@
                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
-                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false" src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a></li>
+                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false"
+                          src="/assets/images/misc/livroreclamacoes.png" width="140" height="58"
+                          alt="Livro de Reclamações Electrónico"></a>
+                    </li>
                   </ul>
                 </div>
               </div>

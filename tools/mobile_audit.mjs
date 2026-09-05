@@ -15,7 +15,7 @@ const pages = [
   ["braga", "/avaliacao-neuropsicologica/braga/"],
   ["estimulacao-braga", "/estimulacao-cognitiva/braga/"],
   ["rastreio-sono", "/rastreio-sono/"],
-  ["rastreio-memoria", "/rastreiomemoria/"],
+  ["rastreio-memoria", "/rastreio-memoria/"],
   ["blog", "/blog/"],
 ];
 

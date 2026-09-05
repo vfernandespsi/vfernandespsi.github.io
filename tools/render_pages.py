@@ -4,12 +4,12 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from consent_snippets import CONSENT_BANNER
+from consent_snippets import CONSENT_BANNER, HEAD_STYLES
 from jsonld import build_graph
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://verafernandes.com"
-MANUAL_PAGE_PATHS = frozenset({"psicologia-do-sono"})
+MANUAL_PAGE_PATHS = frozenset({"psicologia-do-sono", "agendar"})
 WA = "https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica."
 WA_ESTIMULACAO = "https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20estimula%C3%A7%C3%A3o%20cognitiva."
 WA_SONO = "https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20psicologia%20do%20sono."
@@ -213,6 +213,10 @@ def page(
 
     is_sono = lane == "sono"
     html_class = "no-js page-inner page-sono" if is_sono else "no-js page-inner"
+    if path == "sobre":
+        html_class += " sobre-page"
+    if path == "sono-e-memoria" and "page-sono" not in html_class:
+        html_class += " page-sono"
     brand_home = "/"
     wa = WA_SONO if is_sono else WA
     cta_label = "Agendar"
@@ -220,7 +224,7 @@ def page(
     nav = """
                                 <li class="nav-item"><a href="/">Início</a></li>
                                 <li class="nav-item"><a href="/neuropsicologia/">Neuropsicologia</a></li>
-                                <li class="nav-item"><a href="/psicologia-do-sono/">Psicologia do sono</a></li>"""
+                                <li class="nav-item"><a href="/psicologia-do-sono/">Psicologia do Sono</a></li>"""
     faq_block = ""
     if faqs:
         faq_block = f'''
@@ -267,12 +271,7 @@ def page(
 {build_graph(canonical, title, crumbs, description=description, faqs=faqs, condition_slug=condition_slug, service_key=service_key, city=city, page_kind=page_kind)}
     </script>
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico" />
-    <link rel="stylesheet" href="/assets/css/animate.css">
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/funnel.css">
-    <link rel="stylesheet" href="/assets/css/consent.css">
+{HEAD_STYLES}
 </head>
 <body>
 <a class="skip-link" href="#inicio">Saltar para o conteúdo</a>
@@ -378,6 +377,59 @@ def page(
     print("wrote", out.relative_to(ROOT))
 
 
+def write_legacy_redirect(
+    path: str, target: str, label: str = "página actualizada"
+) -> None:
+    """Keep old URLs working after path renames (e.g. /marcar/ -> /agendar/)."""
+    html = f'''<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+  <meta charset="utf-8" />
+  <link rel="canonical" href="{SITE}{target}" />
+  <meta http-equiv="refresh" content="0;url={target}" />
+  <title>Redireccionar | Vera Fernandes</title>
+  <script>
+    location.replace("{target}" + location.search + location.hash);
+  </script>
+</head>
+<body>
+  <p>Esta página foi movida. <a href="{target}">{label}</a></p>
+</body>
+</html>
+'''
+    out = ROOT / path / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(html, encoding="utf-8")
+    print("wrote redirect", out.relative_to(ROOT), "->", target)
+
+
+def sobre_section(title, kicker, html, hid="inicio"):
+    k = f"<h3>{kicker}</h3>" if kicker else ""
+    return f'''
+<section id="{hid}" class="section page-content page-content--justify">
+    <div class="container">
+        <div class="row sobre-layout align-items-start">
+            <div class="col-lg-5 sobre-photo-col">
+                <div class="sobre-photo">
+                    <img draggable="false" src="/assets/images/vera-sobre-400w.webp"
+                        srcset="/assets/images/vera-sobre-400w.webp 400w, /assets/images/vera-sobre.webp 721w"
+                        sizes="(min-width: 992px) 41.666vw, 320px"
+                        width="721" height="1080" loading="eager" decoding="async"
+                        alt="Vera Fernandes, neuropsicóloga — foto de perfil">
+                </div>
+            </div>
+            <div class="col-lg-7 sobre-content">
+                <div class="section-title sobre-title">
+                    {k}
+                    <h1>{title}</h1>
+                </div>
+                {html}
+            </div>
+        </div>
+    </div>
+</section>'''
+
+
 def section(title, kicker, html, hid="inicio", extra_class=""):
     k = f"<h3>{kicker}</h3>" if kicker else ""
     section_class = f"section page-content{extra_class}"
@@ -397,22 +449,22 @@ def section(title, kicker, html, hid="inicio", extra_class=""):
 </section>'''
 
 
-def cta(sono=False, estimulacao=False):
+def cta(sono=False, estimulacao=False, label="Agendar"):
     if sono:
         return f'''
         <div class="button cta-pair" style="margin:24px 0;">
-            <a href="/agendar/?servico=sono" class="btn" data-track="marcar">Agendar</a>
+            <a href="/agendar/?servico=sono" class="btn" data-track="marcar">{label}</a>
             <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
         </div>'''
     if estimulacao:
         return f'''
         <div class="button cta-pair" style="margin:24px 0;">
-            <a href="/agendar/" class="btn" data-track="marcar">Agendar</a>
+            <a href="/agendar/" class="btn" data-track="marcar">{label}</a>
             <a href="{WA_ESTIMULACAO}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
         </div>'''
     return f'''
         <div class="button cta-pair" style="margin:24px 0;">
-            <a href="/agendar/" class="btn" data-track="marcar">Agendar</a>
+            <a href="/agendar/" class="btn" data-track="marcar">{label}</a>
             <a href="{WA}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
         </div>'''
 
@@ -420,6 +472,9 @@ def cta(sono=False, estimulacao=False):
 def write_sono_funnel_page():
     """Página funnel do sono — estrutura espelhada da neuro, tema azul. Não usar page() genérico."""
     path = "psicologia-do-sono"
+    if path in MANUAL_PAGE_PATHS:
+        print("skip manual", path)
+        return
     title = "Consulta de psicologia do sono | Vera Fernandes"
     description = (
         "Consulta de psicologia do sono online para adultos (18+). "
@@ -469,12 +524,7 @@ def write_sono_funnel_page():
 {graph}
     </script>
     <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico" />
-    <link rel="stylesheet" href="/assets/css/animate.css">
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/funnel.css">
-    <link rel="stylesheet" href="/assets/css/consent.css">
+{HEAD_STYLES}
 </head>
 <body>
 <a class="skip-link" href="#inicio">Saltar para o conteúdo</a>
@@ -814,7 +864,7 @@ def city_page(slug, label):
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-8 offset-lg-2">
+            <div class="col-lg-8 offset-lg-2 text-center">
                 {cta()}
             </div>
         </div>""",
@@ -873,7 +923,7 @@ def estimulacao_braga_page():
         <div class="row">{cards}</div>
         </div>
         <div class="row">
-            <div class="col-lg-8 offset-lg-2">
+            <div class="col-lg-8 offset-lg-2 text-center">
                 {cta(estimulacao=True)}
             </div>
         </div>""",
@@ -937,15 +987,15 @@ def main():
             ("Avaliação neuropsicológica", f"{SITE}/avaliacao-neuropsicologica/"),
         ],
         section(
-            "Avaliação neuropsicológica",
+            "Avaliação Neuropsicológica",
             "Exame complementar de diagnóstico",
-            f"""
+            extra_class=" page-content--justify",
+            html=f"""
         <div class="row"><div class="col-lg-8 offset-lg-2">
-            <p>A avaliação neuropsicológica é um exame complementar de diagnóstico que permite avaliar o funcionamento cognitivo, comportamental e emocional de uma pessoa. É realizada através de uma entrevista clínica e da aplicação de testes neuropsicológicos validados para a população portuguesa.</p>
-            <p>A avaliação permite caracterizar diferentes capacidades, como memória, atenção, linguagem, raciocínio e funções executivas, e perceber se o desempenho observado se encontra dentro do esperado para a idade e escolaridade da pessoa ou se existem alterações que mereçam atenção clínica.</p>
-            <h2>Quando é indicada</h2>
-            <p>A avaliação neuropsicológica destina-se a adultos e idosos que apresentem queixas ou alterações ao nível do funcionamento cognitivo ou que tenham necessidade de realizar uma caracterização detalhada do funcionamento cognitivo actual na sequência de uma situação clínica.</p>
-            <p>Pode ser indicada perante:</p>
+            <p>A avaliação neuropsicológica é um exame complementar de diagnóstico que permite compreender em detalhe o funcionamento cognitivo, comportamental e emocional. Através de uma entrevista clínica e da aplicação de testes neuropsicológicos validados, são avaliadas capacidades como a <strong>memória, atenção, linguagem, raciocínio e funções executivas</strong>.</p>
+            <p>O objetivo é perceber se o desempenho se encontra dentro do esperado para a idade e escolaridade da pessoa ou se existem alterações que justificam atenção e intervenção clínica.</p>
+            <h2>Quando é indicada?</h2>
+            <p>Esta avaliação destina-se a adultos e idosos e é indicada quando surgem queixas, dificuldades no dia a dia ou necessidade de acompanhamento clínico, nomeadamente perante:</p>
             <ul class="table-list">
                 <li><i class="lni lni-checkmark-circle"></i> dificuldades de memória ou esquecimentos frequentes;</li>
                 <li><i class="lni lni-checkmark-circle"></i> dificuldades de atenção ou concentração;</li>
@@ -955,31 +1005,29 @@ def main():
                 <li><i class="lni lni-checkmark-circle"></i> alterações observadas pela própria pessoa ou pelos seus familiares;</li>
                 <li><i class="lni lni-checkmark-circle"></i> encaminhamento por um médico ou outro profissional de saúde.</li>
             </ul>
-            <p>É particularmente útil quando estas alterações começam a interferir com actividades do dia a dia, como gerir medicação, cozinhar, conduzir, organizar tarefas ou lidar com situações que anteriormente eram realizadas com facilidade.</p>
-            <p>A avaliação pode também ser realizada para caracterizar o funcionamento cognitivo actual e acompanhar a sua evolução ao longo do tempo, nomeadamente quando existe uma doença neurológica ou outra condição clínica relevante.</p>
-            <h2>Como é feita a avaliação</h2>
-            <p>A avaliação decorre numa única deslocação, com duração aproximada de 2 horas.</p>
-            <h3>Durante a avaliação</h3>
-            <p><strong>Entrevista clínica</strong><br>É recolhida informação sobre as dificuldades sentidas, o seu início e evolução, antecedentes clínicos, medicação, escolaridade, actividade profissional e outros factores relevantes para a interpretação dos resultados.</p>
-            <p>A entrevista é realizada com a própria pessoa e, sempre que possível e adequado, com um familiar ou outra pessoa próxima, uma vez que esta informação complementar pode ajudar a compreender melhor as alterações observadas e o seu impacto no dia a dia.</p>
-            <p><strong>Testes neuropsicológicos</strong><br>São aplicados testes de papel e lápis que avaliam diferentes funções cognitivas, de acordo com as questões clínicas identificadas. Entre as áreas avaliadas podem incluir-se memória, atenção, linguagem, raciocínio, velocidade de processamento, capacidade de pensamento abstracto e flexibilidade cognitiva. A selecção dos testes é realizada de acordo com as características e necessidades de cada pessoa.</p>
-            <p><strong>Esclarecimento de dúvidas</strong><br>Durante a avaliação existe também espaço para esclarecer dúvidas sobre o processo, os procedimentos realizados e os passos seguintes.</p>
-            <h2>Depois da avaliação</h2>
-            <p>A avaliação não termina com a aplicação dos testes. Os resultados são posteriormente analisados e interpretados em conjunto com a informação recolhida na entrevista clínica.</p>
-            <p>Os resultados da avaliação neuropsicológica são interpretados tendo em consideração valores de referência ajustados à idade e escolaridade, permitindo compreender se o desempenho está dentro do esperado para a pessoa ou se existem dificuldades que se afastam significativamente do que seria expectável.</p>
-            <p>Esta informação é importante porque algumas alterações cognitivas podem fazer parte do envelhecimento normal, enquanto outras podem justificar investigação clínica adicional.</p>
-            <p>Com base nessa análise é elaborado um relatório neuropsicológico, que integra os principais resultados e a sua interpretação clínica.</p>
-            <h2>O que o relatório descreve</h2>
-            <p>O relatório de avaliação neuropsicológica apresenta uma caracterização detalhada do funcionamento cognitivo, de acordo com a problemática clínica que motivou a avaliação.</p>
-            <p>Os resultados são interpretados tendo em consideração factores relevantes como a idade, escolaridade e o contexto clínico, permitindo perceber quais as capacidades que se encontram dentro do esperado, quais poderão apresentar alterações e a relevância dessas alterações no contexto da avaliação. Sempre que adequado, o relatório inclui também orientações sobre os próximos passos, tendo em conta os resultados obtidos.</p>
-            <p>A entrega do relatório é feita até 5 dias úteis, por e-mail, presencialmente ou por CTT, de acordo com a opção mais conveniente.</p>
-            <p>A avaliação neuropsicológica é um exame complementar de diagnóstico e deve ser interpretada em articulação com a informação clínica disponível. Não substitui a avaliação ou o diagnóstico médico.</p>
-            <h2>Duração e Preço</h2>
-            <ul class="table-list">
-                <li><i class="lni lni-checkmark-circle"></i> <strong>Duração:</strong> cerca de 2 horas</li>
-                <li><i class="lni lni-checkmark-circle"></i> <strong>Preço:</strong> desde 185€</li>
-                <li><i class="lni lni-checkmark-circle"></i> <strong>Relatório:</strong> incluído</li>
+            <p>É particularmente útil quando estas alterações começam a interferir com atividades do dia a dia, como gerir medicação, cozinhar, conduzir ou organizar tarefas.</p>
+            <p>A avaliação pode também ser realizada para caracterizar o funcionamento cognitivo atual e acompanhar a sua evolução ao longo do tempo, nomeadamente quando existe uma doença neurológica ou outra condição clínica relevante.</p>
+            <h2>Como é feita a avaliação?</h2>
+            <p>O processo divide-se essencialmente em três momentos:</p>
+            <h3>1. Consulta presencial</h3>
+            <ul>
+                <li><strong>Entrevista clínica:</strong> É recolhida informação sobre as dificuldades sentidas, o seu início e evolução, antecedentes clínicos e outras informações relevantes para a interpretação dos resultados. Sempre que possível, a presença de um familiar ou pessoa próxima é bem-vinda para complementar a informação.</li>
+                <li><strong>Testes neuropsicológicos:</strong> Aplicação de testes práticos de papel e lápis ajustados a cada pessoa, avaliando áreas como memória, atenção, raciocínio e velocidade de processamento.</li>
+                <li><strong>Esclarecimento de dúvidas:</strong> Durante a avaliação existe também espaço para esclarecer dúvidas sobre o processo, os procedimentos realizados e os passos seguintes.</li>
             </ul>
+            <h3>2. Análise e Relatório</h3>
+            <ul>
+                <li>Os resultados da avaliação neuropsicológica são interpretados tendo em consideração valores de referência ajustados à idade e escolaridade, permitindo compreender se o desempenho está dentro do esperado para a pessoa ou se existem dificuldades que se afastam significativamente do que seria expectável.</li>
+                <li>É elaborado um <strong>relatório neuropsicológico</strong>, com a caracterização detalhada das capacidades preservadas e das dificuldades identificadas, incluindo orientações para os passos seguintes.</li>
+            </ul>
+            <h3>3. Entrega dos Resultados</h3>
+            <ul>
+                <li>A entrega do relatório é feita em até <strong>5 dias úteis</strong>, por e-mail, presencialmente ou por CTT, de acordo com a sua preferência.</li>
+            </ul>
+            <h2>Duração e Preço</h2>
+            <p><strong>Duração:</strong> cerca de 2 horas</p>
+            <p><strong>Preço:</strong> desde 185€</p>
+            <p><strong>Relatório:</strong> incluído</p>
             <p>O preço inclui a avaliação neuropsicológica, a análise e interpretação dos resultados, a elaboração do relatório e a orientação dos próximos passos.</p>
             <p>O valor pode variar consoante o local de realização. O preço aplicável deverá ser confirmado no momento da marcação, de acordo com o local escolhido.</p>
             <h2>Onde realizar</h2>
@@ -1037,19 +1085,19 @@ def main():
             <h2>O que pode ser trabalhado</h2>
             <p>De acordo com as necessidades e objectivos de cada pessoa, podem ser trabalhadas diferentes capacidades cognitivas, nomeadamente:</p>
             <ul class="table-list">
-                <li><i class="lni lni-checkmark-circle"></i> <strong>Memória</strong> — retenção e evocação de informação;</li>
-                <li><i class="lni lni-checkmark-circle"></i> <strong>Atenção</strong> — capacidade de manter, seleccionar e alternar a atenção;</li>
-                <li><i class="lni lni-checkmark-circle"></i> <strong>Linguagem</strong> — acesso às palavras, compreensão e expressão;</li>
-                <li><i class="lni lni-checkmark-circle"></i> <strong>Raciocínio</strong> — análise de informação e resolução de problemas;</li>
-                <li><i class="lni lni-checkmark-circle"></i> <strong>Funções executivas</strong> — planeamento, organização, flexibilidade e controlo da acção;</li>
-                <li><i class="lni lni-checkmark-circle"></i> <strong>Velocidade de processamento</strong> — rapidez com que a informação é compreendida e utilizada.</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Memória</strong>: retenção e evocação de informação;</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Atenção</strong>: capacidade de manter, seleccionar e alternar a atenção;</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Linguagem</strong>: acesso às palavras, compreensão e expressão;</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Raciocínio</strong>: análise de informação e resolução de problemas;</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Funções executivas</strong>: planeamento, organização, flexibilidade e controlo da acção;</li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Velocidade de processamento</strong>: rapidez com que a informação é compreendida e utilizada.</li>
             </ul>
             <p>O objectivo é trabalhar as capacidades cognitivas de forma orientada e funcional, procurando, sempre que possível, estabelecer uma relação entre as actividades realizadas e as exigências do dia a dia.</p>
             <h2>Duração e preço</h2>
             <ul class="table-list">
-                <li><i class="lni lni-checkmark-circle"></i> <strong>Duração:</strong> 50 minutos</li>
-                <li><i class="lni lni-checkmark-circle"></i> <strong>Formato:</strong> acompanhamento individual</li>
-                <li><i class="lni lni-checkmark-circle"></i> <strong>Preço:</strong> de acordo com a tabela de honorários aplicável no Hospital Lusíadas Braga</li>
+                <li><strong>Duração:</strong> 50 minutos</li>
+                <li><strong>Formato:</strong> acompanhamento individual</li>
+                <li><strong>Preço:</strong> de acordo com a tabela de honorários aplicável no Hospital Lusíadas Braga</li>
             </ul>
             <p>A frequência do acompanhamento é definida em conjunto, de acordo com as necessidades e objectivos da pessoa, e pode ser ajustada ao longo do tempo.</p>
             <p>O preço deverá ser confirmado directamente com o Hospital Lusíadas Braga no momento da marcação, de acordo com as condições aplicáveis.</p>
@@ -1071,43 +1119,53 @@ def main():
         service_key="estimulacao",
     )
 
+    estimulacao_braga_page()
+
     page(
         "familiares",
-        "Avaliação neuropsicológica para pais e familiares | Vera Fernandes",
-        "Pode marcar uma avaliação neuropsicológica para o pai, a mãe ou outro familiar. Informação para filhos e cuidadores em Braga, Barcelos, Guimarães e Porto.",
+        "Informação para pais e familiares | Vera Fernandes",
+        "Pode agendar uma avaliação neuropsicológica para o pai, a mãe ou outro familiar. Informação para filhos e cuidadores em Braga, Barcelos, Guimarães e Porto.",
         f"{SITE}/familiares/",
         [("Início", f"{SITE}/"), ("Para familiares", f"{SITE}/familiares/")],
         section(
-            "Avaliação neuropsicológica para pais e familiares",
-            "Para quem marca",
+            "Informação para pais e familiares",
+            "Para quem agenda",
             f"""
         <div class="row"><div class="col-lg-8 offset-lg-2">
-            <p>Se observou alterações de memória, comportamento ou autonomia no pai, na mãe ou noutro familiar, pode pedir informação mesmo que a própria pessoa não reconheça as dificuldades.</p>
-            <p>A avaliação não estabelece sozinha um diagnóstico médico. Caracteriza o funcionamento cognitivo e produz um relatório que pode ser útil para o médico e para decidir os próximos passos.</p>
-            <p>É aconselhável que a pessoa avaliada vá acompanhada na primeira parte da consulta. A marcação pode ser feita por um familiar.</p>
+            <p>Se observou alterações de memória, comportamento ou autonomia no pai, na mãe ou noutro familiar, pode agendar uma avaliação neuropsicológica, mesmo que a própria pessoa não reconheça essas dificuldades.</p>
+            <p>Geralmente, o agendamento surge após uma consulta médica de especialidade, como a Neurologia ou a Psiquiatria. Embora não seja necessária uma prescrição médica para que possa realizar uma avaliação neuropsicológica, é muito frequente que os médicos a solicitem em conjunto com outros exames.</p>
+            <p>A avaliação caracteriza o funcionamento cognitivo no contexto da história daquela pessoa e o relatório final é uma ferramenta para o médico fechar o diagnóstico e definir os próximos passos.</p>
+
+            <h2>Como abordar a consulta com o seu familiar sem gerar resistência</h2>
+            <p>Nem sempre o seu familiar terá perceção das suas próprias dificuldades ou achará a consulta necessária. Falar sobre falhas de memória ou envelhecimento pode provocar uma atitude defensiva, medo ou negação. O objetivo é apresentar a consulta de forma natural, segura e acolhedora:</p>
+            <ul class="table-list tip-list">
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Foque no bem-estar e prevenção:</strong> Evite frases como «estás muito esquecido» ou «precisas de ir ver a tua cabeça». Prefira enquadrar a consulta como um rastreio de rotina ou uma verificação de saúde geral, tal como fazer análises de sangue.
+                    <span class="tip-example"><em>Exemplo:</em> «Acho que seria ótimo fazermos um check-up geral à memória e ao raciocínio para garantirmos que está tudo bem e percebermos como podes manter a tua autonomia.»</span>
+                </li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Valide as queixas do próprio:</strong> Se o seu familiar se queixa pontualmente de cansaço, ansiedade ou com algumas falhas de memória, use essa preocupação como ponto de partida.
+                    <span class="tip-example"><em>Exemplo:</em> «Como me disseste que te tens sentido mais cansado e esquecido ultimamente, marquei uma consulta especializada para percebermos o que se passa e como te podemos ajudar.»</span>
+                </li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Assuma a consulta como uma decisão partilhada:</strong> Mostre que estará presente para apoiar e que o processo é tranquilo e sem julgamentos.
+                    <span class="tip-example"><em>Exemplo:</em> «Eu vou contigo. Ficamos juntos na primeira parte para explicar o que tem acontecido e depois fazes alguns exercícios para perceber melhor o funcionamento do teu cérebro.»</span>
+                </li>
+                <li><i class="lni lni-checkmark-circle"></i> <strong>Se houver muita resistência, apoie-se na recomendação médica:</strong> Muitas vezes, a palavra de um profissional de saúde retira o peso do conflito familiar.
+                    <span class="tip-example"><em>Exemplo:</em> «O médico achou que seria boa ideia fazermos esta avaliação para completar o estudo e ter a certeza do melhor caminho a seguir.»</span>
+                </li>
+            </ul>
+
+            <h2>O seu papel como acompanhante</h2>
+            <p>É muito importante que a pessoa avaliada vá acompanhada. Na primeira parte da consulta, a sua presença é essencial: o seu relato sobre as rotinas e as mudanças observadas no dia a dia ajuda a construir um quadro rigoroso de toda a situação que a própria pessoa nem sempre consegue detalhar.</p>
+            <p>Após essa recolha de informação inicial, a avaliação decorre de forma individual com a pessoa, ao seu próprio ritmo e num ambiente calmo e respeitoso.</p>
             {cta()}
         </div></div>""",
         ),
-        [
-            (
-                "Posso marcar uma avaliação para o meu pai ou a minha mãe?",
-                "Sim. Um familiar pode pedir informação e marcar.",
-            ),
-            (
-                "A pessoa tem de querer vir?",
-                "A avaliação realiza-se com o paciente. Pode esclarecer dúvidas antes de marcar, inclusive por WhatsApp.",
-            ),
-            (
-                "O relatório serve para levar ao médico?",
-                "Sim. O relatório descreve o funcionamento cognitivo e é entregue até 4 dias úteis.",
-            ),
-        ],
+        [],
         related=[
             ("O que acontece no dia da avaliação?", "/avaliacao-neuropsicologica/"),
-            ("Memória e envelhecimento", "/memoria-e-envelhecimento/"),
-            ("Onde realizar?", "/avaliacao-neuropsicologica/braga/"),
-            ("Como marcar?", "/agendar/"),
+            ("Como agendar?", "/agendar/"),
+            ("Será só da idade?", "/memoria-e-envelhecimento/"),
         ],
+        related_heading="Tópicos relacionados",
     )
 
     page(
@@ -1116,24 +1174,17 @@ def main():
         "Vera Fernandes, neuropsicóloga em Portugal, OPP 21502, especialidade avançada em neuropsicologia. Braga, Barcelos, Guimarães e Porto. Não confundir com homónimas noutros países.",
         f"{SITE}/sobre/",
         [("Início", f"{SITE}/"), ("Sobre", f"{SITE}/sobre/")],
-        section(
+        sobre_section(
             "Vera Fernandes, neuropsicóloga",
             "Sobre",
             f"""
-        <div class="row align-items-start" style="margin-top: 2rem;">
-            <div class="col-lg-5"><img draggable="false" src="/assets/images/vera2.webp" alt="Vera Fernandes, neuropsicóloga — foto de perfil"></div>
-            <div class="col-lg-7">
                 <p>Membro efetivo da Ordem dos Psicólogos Portugueses, cédula profissional n.º 21502</p>
-                <ul class="table-list">
+                <ul class="table-list sobre-credentials">
                     <li><i class="lni lni-checkmark-circle"></i> Especialidade Geral de Psicologia Clínica e da Saúde</li>
                     <li><i class="lni lni-checkmark-circle"></i> Especialidade Avançada em Neuropsicologia</li>
                 </ul>
                 <p>Prática clínica dedicada à avaliação neuropsicológica de adultos e idosos, com particular foco nas alterações cognitivas associadas ao envelhecimento, demências e outras doenças neurodegenerativas, bem como a diferentes condições neurológicas e psiquiátricas. A avaliação permite compreender o funcionamento cognitivo, bem como os aspetos emocionais e comportamentais, proporcionando uma visão mais abrangente das dificuldades apresentadas e do seu impacto no quotidiano, contribuindo para a orientação clínica.</p>
                 <p>Na área do sono, intervenção psicológica dirigida à insónia, com formação específica em Terapia Cognitivo-Comportamental para a Insónia (TCC-I), uma abordagem de primeira linha para o tratamento da insónia. A intervenção centra-se na identificação e modificação dos fatores que contribuem para a manutenção das dificuldades de sono, promovendo padrões de sono mais regulares e reparadores.</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2">
                 <h2>Experiência Clínica</h2>
                 <p>Experiência na realização de avaliação neuropsicológica de adultos e idosos em contexto hospitalar público, no Hospital de Braga (ULS Braga).</p>
                 <p>Prática clínica independente em diferentes clínicas privadas, incluindo a colaboração com o <a href="https://www.cnscampus.com/equipa/vera-fernandes/" target="_blank" rel="noopener">CNS – Campus Neurológico</a> e o <a href="https://www.lusiadas.pt/corpo-clinico/dra-vera-fernandes-0" target="_blank" rel="noopener">Hospital Lusíadas Braga</a>.</p>
@@ -1145,11 +1196,9 @@ def main():
                 <p>Docente no Instituto CRIAP, com colaborações pontuais em instituições de ensino superior.</p>
                 <p>Dinamização de sessões de formação e workshops dirigidos a profissionais de saúde e cuidadores.</p>
                 <h2>Formação Académica</h2>
-                <p><strong>Mestrado Integrado em Psicologia Clínica e da Saúde</strong><br>Faculdade de Psicologia e de Ciências da Educação da Universidade do Porto.</p>
-                <p><a href="https://www.linkedin.com/in/vera-fernandes/" target="_blank" rel="noopener">Percurso profissional completo</a></p>
-                {cta()}
-            </div>
-        </div>""",
+                <p>Mestrado Integrado em Psicologia Clínica e da Saúde<br>Faculdade de Psicologia e de Ciências da Educação da Universidade do Porto.</p>
+                <p><a href="https://www.linkedin.com/in/vera-fernandes/" target="_blank" rel="noopener">Ver perfil completo no LinkedIn</a></p>
+                {cta()}""",
         ),
         [],
         related=[
@@ -1166,49 +1215,9 @@ def main():
         related_heading="Tópicos relacionados",
     )
 
-    cards = "".join(venue_card(v, booking=True) for v in VENUES)
-    page(
-        "marcar",
-        "Agendar | Vera Fernandes",
-        "Agendar consultas de neuropsicologia presencial em Braga, Barcelos, Guimarães e Porto. Vera Fernandes, OPP 21502.",
-        f"{SITE}/agendar/",
-        [("Início", f"{SITE}/"), ("Agendar", f"{SITE}/agendar/")],
-        section(
-            "Consultas de neuropsicologia",
-            "Agendar",
-            f'''
-        <div class="booking-step">
-            <h3>Qual o serviço?</h3>
-            <div class="city-chips">
-                <button type="button" class="city-chip is-active" data-book-service="avaliacao">Avaliação neuropsicológica</button>
-                <button type="button" class="city-chip" data-book-service="estimulacao">Estimulação cognitiva</button>
-            </div>
-        </div>
-        <div id="booking-cities" class="booking-step">
-            <h3>Onde pretende realizar?</h3>
-            <div class="city-chips">
-                <button type="button" class="city-chip" data-book-city="braga">Braga</button>
-                <button type="button" class="city-chip" data-book-city="barcelos">Barcelos</button>
-                <button type="button" class="city-chip" data-book-city="guimaraes">Guimarães</button>
-                <button type="button" class="city-chip" data-book-city="porto">Porto</button>
-            </div>
-        </div>
-        <div id="booking-venues" class="booking-venues localizacao">
-            <div class="row">{cards}</div>
-        </div>
-        <p id="booking-empty" hidden>A estimulação cognitiva está indicada no Hospital Lusíadas Braga. Escolha Braga para ver esse local, ou seleccione avaliação neuropsicológica para os outros concelhos.</p>
-        <p id="booking-doubt-presencial">Se ainda tem dúvidas, clique em <a href="{WA}" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>.</p>''',
-            hid="inicio",
-            extra_class=" booking-page",
-        ),
-        faqs=None,
-        related=[
-            ("Será só da idade ou devo preocupar-me?", "/memoria-e-envelhecimento/"),
-            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
-            ("E se quiser agendar para um familiar?", "/familiares/"),
-        ],
-        related_heading="Tópicos relacionados",
-        page_kind="booking",
+    write_legacy_redirect("marcar", "/agendar/", "Agendar consulta")
+    write_legacy_redirect(
+        "rastreiomemoria", "/rastreio-memoria/", "Rastreio de memória"
     )
 
     for slug, label in [
@@ -1219,77 +1228,169 @@ def main():
     ]:
         city_page(slug, label)
 
-    problem_page(
+    page(
         "memoria-e-envelhecimento",
-        "Memória e envelhecimento | Avaliação neuropsicológica",
-        "Memória e envelhecimento",
-        "Esquecimentos podem fazer parte do envelhecimento esperado. Também podem justificar uma caracterização mais detalhada do funcionamento cognitivo. A avaliação neuropsicológica descreve o perfil actual; não substitui o diagnóstico médico.",
-        "Quando os esquecimentos de conversas ou recados recentes se repetem, quando alguém próximo também reparou, ou quando passam a interferir com o dia-a-dia.",
-        "O relatório compara funções como memória e atenção com o esperado para a idade e escolaridade, e pode ajudar a decidir se faz sentido um acompanhamento médico ou uma reavaliação posterior.",
+        "Será só da idade? | Vera Fernandes",
+        "Esquecer nomes ocasionalmente ou demorar mais a encontrar uma palavra podem fazer parte do envelhecimento típico. Saiba quando uma avaliação neuropsicológica faz sentido.",
+        f"{SITE}/memoria-e-envelhecimento/",
         [
-            (
-                "O esquecimento aos 65 anos é sempre demência?",
-                "Não. A avaliação descreve o funcionamento cognitivo. O diagnóstico médico, quando indicado, cabe ao médico.",
-            ),
-            (
-                "Um familiar pode marcar?",
-                "Sim. Muitas marcações são feitas por um filho ou uma filha.",
-            ),
+            ("Início", f"{SITE}/"),
+            ("Memória e envelhecimento", f"{SITE}/memoria-e-envelhecimento/"),
         ],
+        section(
+            "Será só da idade?",
+            "Memória e envelhecimento",
+            f"""
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <p>Esquecer nomes ocasionalmente, demorar mais tempo a encontrar uma palavra ou perder o fio à meada perante momentos de cansaço podem fazer parte do envelhecimento típico. No entanto, quando as falhas de memória se tornam mais frequentes ou causam apreensão, é natural surgir a dúvida: será apenas do processo normal de envelhecimento ou justifica uma investigação mais detalhada?</p>
+                <p>A avaliação neuropsicológica permite caracterizar detalhadamente o funcionamento cognitivo atual. Descreve o perfil de pontos fortes e pontos fracos, complementando o diagnóstico clínico realizado pelo médico.</p>
+
+                <h2>Exemplos de Sinais de Alerta</h2>
+                <p>A linha entre o envelhecimento expectável e a necessidade de investigação nem sempre é evidente. Pode fazer sentido ponderar uma avaliação quando observa sinais como:</p>
+                <ul class="table-list">
+                    <li><i class="lni lni-checkmark-circle"></i> Fazer a mesma pergunta várias vezes na mesma conversa ou repetir sistematicamente o assunto das histórias que conta;</li>
+                    <li><i class="lni lni-checkmark-circle"></i> Esquecer recados e compromissos recentes importantes, como não estar preparado para sair à hora combinada para uma consulta ou esquecer que o filho avisou que não iria almoçar em casa;</li>
+                    <li><i class="lni lni-checkmark-circle"></i> Sentir desorientação ou hesitação invulgar em trajetos habituais, como o caminho para a farmácia da zona ou o regresso a casa;</li>
+                    <li><i class="lni lni-checkmark-circle"></i> Trocar palavras com frequência, usar termos de substituição como «isto», «aquilo», «o coiso», assim como esquecer nomes de objetos do dia a dia;</li>
+                    <li><i class="lni lni-checkmark-circle"></i> Guardar pertences em locais invulgares (como chaves dentro do frigorífico ou o comando na despensa) sem conseguir reconstituir os passos para os encontrar;</li>
+                    <li><i class="lni lni-checkmark-circle"></i> Revelar uma dificuldade nova e invulgar em gerir a medicação habitual, em utilizar o multibanco ou a cozinhar receitas conhecidas;</li>
+                    <li><i class="lni lni-checkmark-circle"></i> Perceber que familiares, amigos ou colegas de trabalho começam a notar e a comentar alterações no desempenho ou no comportamento.</li>
+                </ul>
+
+                <h2>O que a avaliação neuropsicológica acrescenta</h2>
+                <p>Ao contrário de testes de rastreio rápidos, a avaliação neuropsicológica é um processo aprofundado que utiliza instrumentos aferidos e padronizados:</p>
+                <p><strong>Comparação rigorosa:</strong> Compara o desempenho em áreas como a memória, atenção, linguagem e funções executivas com o perfil esperado para a idade e a escolaridade da pessoa.</p>
+                <p><strong>Clareza objetiva:</strong> Ajuda a diferenciar entre alterações benignas (associadas à idade, ansiedade ou cansaço) e sinais iniciais de declínio cognitivo associado a doenças neurodegenerativas.</p>
+                <p><strong>Orientação de passos futuros:</strong> Fornece um relatório detalhado que auxilia o médico assistente (Neurologia, Psiquiatria ou Medicina Geral e Familiar) nas decisões clínicas, na definição de estratégias de intervenção ou no agendamento de uma reavaliação posterior.</p>
+
+                <h2>Próximo Passo</h2>
+                <p>Se estes exemplos se aproximam do que tem observado em si ou num familiar, o passo seguinte consiste em compreender como funciona o <a href="/avaliacao-neuropsicologica/">processo de avaliação</a>. A realização de uma <a href="/rastreio-memoria/">triagem</a> prévia ajuda a clarificar se a avaliação é o procedimento mais indicado para o seu caso neste momento.</p>
+                <p><em>Nota:</em> A triagem prévia é um instrumento de orientação inicial, que não constitui um diagnóstico médico nem substitui uma consulta de avaliação neuropsicológica.</p>
+                {cta()}
+            </div>
+        </div>""",
+        ),
+        [],
         related=[
-            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
-            ("É para um familiar?", "/familiares/"),
-            ("Quando a dúvida é maior", "/demencia/"),
-            ("Como marcar?", "/agendar/"),
+            ("Posso agendar para um familiar?", "/familiares/"),
+            ("Como agendar?", "/agendar/"),
+            ("Saiba mais sobre demência", "/demencia/"),
         ],
+        related_heading="Tópicos relacionados",
+        condition_slug="memoria-e-envelhecimento",
+        service_key="avaliacao",
     )
-    problem_page(
+    page(
         "demencia",
-        "Avaliação neuropsicológica e demência | Vera Fernandes",
-        "Avaliação cognitiva e demência",
-        "A avaliação neuropsicológica é um exame complementar usado para caracterizar o perfil cognitivo quando há suspeita de demência ou para acompanhar alterações ao longo do tempo.",
-        "Quando existem queixas de memória, linguagem ou autonomia, ou quando um médico pede o exame para auxiliar o diagnóstico diferencial.",
-        "O relatório descreve o funcionamento cognitivo actual e pode ser integrado na avaliação médica. Não estabelece sozinho o diagnóstico de demência.",
-        [
-            (
-                "A avaliação diagnostica demência?",
-                "Não. É um exame complementar. O diagnóstico médico, quando existir, é da responsabilidade do médico.",
-            ),
-            (
-                "Posso marcar para o meu pai ou a minha mãe?",
-                "Sim. Um familiar pode pedir informação e marcar.",
-            ),
-        ],
+        "O que é a demência? | Vera Fernandes",
+        "A demência não é uma doença única, mas um conjunto de sintomas que afetam memória, raciocínio e autonomia. Não faz parte do envelhecimento normal.",
+        f"{SITE}/demencia/",
+        [("Início", f"{SITE}/"), ("Demência", f"{SITE}/demencia/")],
+        section(
+            "O que é a demência?",
+            "Demência",
+            f"""
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <p>A demência não é uma doença única, mas sim um termo geral utilizado para descrever um conjunto de sintomas que afetam a memória, o raciocínio, a linguagem e a capacidade de realizar tarefas do dia a dia. Apesar de ser mais frequente em idades avançadas, a demência <strong>não faz parte do envelhecimento normal ou expectável.</strong></p>
+
+                <h2>Existem diferentes tipos de demência</h2>
+                <p>A demência pode ser causada por diferentes condições neurológicas ou médicas, cada uma com <strong>características e formas de evolução distintas</strong>:</p>
+                <ul class="table-list">
+                    <li><i class="lni lni-checkmark-circle"></i> <strong>Doença de Alzheimer:</strong> É a causa mais frequente de demência. Carateriza-se tipicamente por uma perda progressiva da memória recente e dificuldade em reter novas informações.</li>
+                    <li><i class="lni lni-checkmark-circle"></i> <strong>Demência Vascular:</strong> Causada por alterações na circulação sanguínea no cérebro (como pequenos AVCs), podendo apresentar um declínio em degraus, com períodos de estabilização intercalados com agravamentos.</li>
+                    <li><i class="lni lni-checkmark-circle"></i> <strong>Demência por Corpos de Lewy:</strong> Frequentemente associada a flutuações na atenção, alucinações visuais e alterações motoras semelhantes às da Doença de Parkinson.</li>
+                    <li><i class="lni lni-checkmark-circle"></i> <strong>Demência Frontotemporal:</strong> Afeta sobretudo as regiões do cérebro responsáveis pelo comportamento, personalidade e linguagem, podendo surgir em idades mais jovens.</li>
+                    <li><i class="lni lni-checkmark-circle"></i> <strong>Causas reversíveis ou secundárias:</strong> Quadros de apatia ou falhas cognitivas semelhantes ao que se observa nas outras demências podem ser causados por depressão, alterações na tiróide, défices vitamínicos ou efeitos secundários de medicação, daí a importância de um estudo rigoroso.</li>
+                </ul>
+                <p>A <strong>avaliação neuropsicológica</strong> é um exame complementar fundamental nestes quadros. Permite descrever com detalhe o perfil de funcionamento cerebral, ajudando a identificar quais as funções preservadas e quais as afetadas. É um exame baseado em entrevistas, questionários e tarefas práticas, totalmente não invasivo (não recorre a máquinas nem agulhas) e indolor. Todo o processo é conduzido com proximidade e adaptado ao ritmo de cada pessoa, num ambiente tranquilo e sem a pressão de uma espécie de exame. O objetivo é simplesmente compreender como a pessoa lida com as exigências do dia a dia, valorizando os seus pontos fortes e identificando onde precisa de apoio.</p>
+
+                <h2>Quando faz sentido procurar uma avaliação?</h2>
+                <p>Pode ser indicado agendar uma avaliação neuropsicológica quando:</p>
+                <p><strong>Existem queixas persistentes:</strong> Se observam alterações progressivas na memória recente, na orientação, na linguagem, no raciocínio ou no planeamento do dia a dia;</p>
+                <p><strong>Há impacto na autonomia:</strong> Se apresenta uma dificuldade crescente em gerir tarefas habituais, como tomar a medicação, gerir o dinheiro, fazer compras ou utilizar eletrodomésticos;</p>
+                <p><strong>Surgem alterações de comportamento:</strong> Mudanças no humor, apatia, isolamento social, desinibição (ter «menos filtro» nas atitudes ou palavras) ou alterações invulgares na personalidade;</p>
+                <p><strong>Por solicitação médica:</strong> Quando o médico assistente necessita de um exame aprofundado para apoiar o diagnóstico diferencial (por exemplo, diferenciar entre depressão e demência inicial) ou para definir uma linha de base antes de iniciar um tratamento.</p>
+
+                <h2>O que a avaliação neuropsicológica acrescenta</h2>
+                <p>Ao contrário de testes de rastreio breves, a avaliação neuropsicológica oferece um estudo aprofundado e individualizado:</p>
+                <ul class="table-list">
+                    <li><i class="lni lni-checkmark-circle"></i> Identifica com precisão as funções cognitivas preservadas e as que apresentam declínio, comparando os resultados com o esperado para a idade e escolaridade da pessoa.</li>
+                    <li><i class="lni lni-checkmark-circle"></i> Fornece um relatório clínico detalhado que auxilia o médico na identificação do tipo provável de demência ou determinação da gravidade da condição.</li>
+                    <li><i class="lni lni-checkmark-circle"></i> Ajuda a compreender o significado dos esquecimentos ou comportamentos no quotidiano, permitindo que a família adapte o ambiente, gira a rotina diária e promova a qualidade de vida.</li>
+                    <li><i class="lni lni-checkmark-circle"></i> Serve de base para a definição de estratégias de estimulação e para monitorizar a evolução das funções cognitivas ao longo do tempo.</li>
+                </ul>
+
+                <h2>Próximo Passo</h2>
+                <p>Se esta descrição se aproxima do que tem observado em si ou num familiar, o passo seguinte consiste em compreender como funciona o <a href="/avaliacao-neuropsicologica/">processo de avaliação</a>. A realização de uma <a href="/rastreio-memoria/">triagem</a> prévia ajuda a clarificar se a avaliação é o procedimento mais indicado para o seu caso neste momento.</p>
+                <p><em>Nota:</em> A triagem prévia é um instrumento de orientação inicial, que não constitui um diagnóstico médico nem substitui uma consulta de avaliação neuropsicológica.</p>
+                {cta()}
+            </div>
+        </div>""",
+        ),
+        [],
         related=[
-            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
-            ("Informação para familiares", "/familiares/"),
-            ("Doença de Alzheimer", "/alzheimer/"),
-            ("Como marcar?", "/agendar/"),
+            ("Posso agendar para um familiar?", "/familiares/"),
+            ("Como agendar?", "/agendar/"),
+            ("Saiba mais sobre Alzheimer", "/alzheimer/"),
         ],
+        related_heading="Tópicos relacionados",
+        condition_slug="demencia",
+        service_key="avaliacao",
     )
-    problem_page(
+    page(
         "alzheimer",
-        "Avaliação neuropsicológica e doença de Alzheimer | Vera Fernandes",
-        "Avaliação neuropsicológica e doença de Alzheimer",
-        "A doença de Alzheimer é uma das situações em que a caracterização cognitiva pode ser pedida como exame complementar. Vera Fernandes participa em investigação nesta área enquanto membro de equipa de ensaios clínicos.",
-        "Quando há queixas de memória ou quando o médico solicita avaliação para auxiliar o diagnóstico ou o seguimento.",
-        "A avaliação descreve o perfil neuropsicológico actual e produz um relatório até 4 dias úteis. Não promete resultados terapêuticos.",
+        "Avaliação Neuropsicológica e Doença de Alzheimer | Vera Fernandes",
+        "A Doença de Alzheimer é a causa mais frequente de demência. A avaliação neuropsicológica ajuda a caracterizar o funcionamento cognitivo e a apoiar o diagnóstico diferencial.",
+        f"{SITE}/alzheimer/",
         [
-            (
-                "Serve para confirmar Alzheimer?",
-                "A avaliação caracteriza o funcionamento cognitivo e auxilia o médico. Não substitui a consulta médica.",
-            ),
-            (
-                "Há relatório?",
-                "Sim. O relatório é entregue até 4 dias úteis.",
-            ),
+            ("Início", f"{SITE}/"),
+            ("Doença de Alzheimer", f"{SITE}/alzheimer/"),
         ],
+        section(
+            "Avaliação Neuropsicológica e Doença de Alzheimer",
+            "Alzheimer",
+            extra_class=" page-content--justify",
+            html=f"""
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <p>A <strong>Doença de Alzheimer</strong> é uma doença neurodegenerativa e a causa mais frequente de demência no adulto e no idoso. Caracteriza-se pela perda progressiva de neurónios em regiões cerebrais fulcrais para a memória, linguagem, orientação e capacidade de planeamento.</p>
+                <p>Nas fases iniciais, as alterações podem ser subtis e facilmente confundidas com o envelhecimento normal ou com quadro de ansiedade e depressão. Contudo, identificar precocemente os primeiros sinais de declínio cognitivo é fundamental: permite iniciar estratégias de apoio atempadas, planear o futuro com autonomia e tomar decisões terapêuticas informadas.</p>
+                <p>A avaliação neuropsicológica surge neste contexto como um <strong>exame complementar de diagnóstico essencial</strong>, permitindo caracterizar com detalhe o funcionamento cerebral e distinguir se as falhas observadas correspondem ao envelhecimento expetável, a um Défice Cognitivo Ligeiro (DCL) ou a uma fase inicial da Doença de Alzheimer.</p>
+
+                <h2>Quando faz sentido procurar uma avaliação?</h2>
+                <p>A avaliação neuropsicológica é indicada em duas situações principais:</p>
+                <p><strong>Surgimento de queixas cognitivas:</strong> Quando a própria pessoa ou a sua família notam falhas de memória para informações mais recentes (ex.: repetir as mesmas perguntas, esquecer compromissos), dificuldade em encontrar palavras, desorientação no tempo ou no espaço, assim como perda de capacidade a gerir o dia a dia.</p>
+                <p><strong>Por solicitação médica:</strong> Quando o médico (Neurologista, Psiquiatra, Médico de Família ou Geriatra) solicita um estudo detalhado do perfil cognitivo para auxiliar o diagnóstico diferencial de demência ou para acompanhar a evolução clínica.</p>
+
+                <h2>O que a avaliação neuropsicológica acrescenta</h2>
+                <p>A caracterização cognitiva vai além de um simples rastreio e permite:</p>
+                <ul class="table-list">
+                    <li><i class="lni lni-checkmark-circle"></i> <strong>Descrever o perfil cognitivo atual:</strong> Identificar detalhadamente quais as funções preservadas e quais as que apresentam compromisso (memória episódica, atenção, funções executivas, linguagem).</li>
+                    <li><i class="lni lni-checkmark-circle"></i> <strong>Produção de relatório clínico:</strong> Emissão de um relatório neuropsicológico detalhado, entregue num prazo até 5 dias úteis após a avaliação.</li>
+                    <li><i class="lni lni-checkmark-circle"></i> <strong>Apoiar o diagnóstico médico:</strong> Fornecer dados quantitativos e qualitativos rigorosos que auxiliam o médico na distinção entre Alzheimer e outros tipos de demência ou perturbações do humor.</li>
+                </ul>
+
+                <h2>Próximo passo</h2>
+                <p>Se esta descrição se aproxima do que tem observado em si ou num familiar, o passo seguinte consiste em compreender como funciona o <a href="/avaliacao-neuropsicologica/">processo de avaliação</a>. A realização de uma <a href="/rastreio-memoria/">triagem</a> prévia ajuda a clarificar se a avaliação é o procedimento mais indicado para o seu caso neste momento.</p>
+                <p><em>Nota:</em> A triagem prévia é um instrumento de orientação inicial, que não constitui um diagnóstico médico nem substitui uma consulta de avaliação neuropsicológica.</p>
+                {cta(label="Agendar avaliação")}
+            </div>
+        </div>""",
+        ),
+        [],
         related=[
-            ("O que inclui a avaliação?", "/avaliacao-neuropsicologica/"),
-            ("Informação para familiares", "/familiares/"),
-            ("Avaliação e demência", "/demencia/"),
-            ("Como marcar?", "/agendar/"),
+            (
+                "Como funciona a avaliação neuropsicológica?",
+                "/avaliacao-neuropsicologica/",
+            ),
+            ("Será Alzheimer o mesmo que demência?", "/demencia/"),
+            ("Posso agendar para um familiar?", "/familiares/"),
         ],
+        related_heading="Tópicos Relacionados",
+        condition_slug="alzheimer",
+        service_key="avaliacao",
     )
     problem_page(
         "avc",
@@ -1385,46 +1486,121 @@ def main():
         ],
     )
 
+    page(
+        "consulta-do-sono",
+        "Consulta de Psicologia do Sono | Vera Fernandes",
+        "Consulta de psicologia do sono online para adultos com dificuldades de sono, com base na TCC-I. Vera Fernandes, OPP 21502.",
+        f"{SITE}/consulta-do-sono/",
+        [
+            ("Início", f"{SITE}/"),
+            ("Psicologia do Sono", f"{SITE}/psicologia-do-sono/"),
+            ("Consulta do sono", f"{SITE}/consulta-do-sono/"),
+        ],
+        section(
+            "Psicologia do Sono",
+            "Consulta online",
+            extra_class=" page-content--justify",
+            html=f"""
+        <div class="row"><div class="col-lg-8 offset-lg-2">
+            <p>A consulta de Psicologia do Sono é um acompanhamento especializado, realizado <strong>online</strong>, dirigido a adultos que enfrentam dificuldades persistentes com o sono.</p>
+            <p>Esta intervenção baseia-se na Terapia Cognitivo-Comportamental para a Insónia (TCC-I), que é uma abordagem estruturada e cientificamente reconhecida como o tratamento de primeira linha para a insónia. O objetivo é identificar e reestruturar os fatores, pensamentos, comportamentos e rotinas que perpetuam os problemas de sono de forma a:</p>
+            <ul class="table-list">
+                <li><i class="lni lni-checkmark-circle"></i> melhorar a qualidade e quantidade do sono</li>
+                <li><i class="lni lni-checkmark-circle"></i> melhorar o impacto da insónia durante o dia</li>
+            </ul>
+            <h2>Quando é indicada?</h2>
+            <p>Esta consulta destina-se a adultos que experienciam:</p>
+            <ul class="table-list">
+                <li><i class="lni lni-checkmark-circle"></i> Dificuldade em adormecer ou sensação de demorar muito tempo a "desligar";</li>
+                <li><i class="lni lni-checkmark-circle"></i> Despertares frequentes durante a noite ou acordar demasiado cedo sem conseguir voltar a adormecer;</li>
+                <li><i class="lni lni-checkmark-circle"></i> Ansiedade ou hiperativação ao deitar como "sentir a cabeça a 1000" ou receio de não conseguir dormir;</li>
+                <li><i class="lni lni-checkmark-circle"></i> Sensação de sono não reparador, acordando com cansaço físico, mental ou falta de energia;</li>
+                <li><i class="lni lni-checkmark-circle"></i> Impacto no dia a dia, como fadiga, irritabilidade, menor rendimento ou dificuldades de concentração;</li>
+                <li><i class="lni lni-checkmark-circle"></i> Horários de sono desregulados ou dificuldade em manter uma rotina consistente;</li>
+                <li><i class="lni lni-checkmark-circle"></i> Vontade de reduzir ou eliminar medicação para dormir (processo realizado sempre em articulação médica).</li>
+            </ul>
+            <h2>Como funciona o acompanhamento?</h2>
+            <p>O processo de intervenção é estruturado e personalizado, desenrolando-se em <strong>três etapas principais</strong>:</p>
+            <h3>1. Avaliação Inicial</h3>
+            <ul>
+                <li>Mapeamento detalhado dos seus hábitos, rotinas, histórico do problema e fatores que estão a interferir com o descanso.</li>
+                <li>Utilização de diários de sono e questionários validados para compreender o seu padrão de sono real.</li>
+            </ul>
+            <h3>2. Intervenção e Estratégias Práticas (TCC-I)</h3>
+            <ul>
+                <li>Implementação de técnicas comportamentais para recondicionar a associação entre a cama e o sono.</li>
+                <li>Estratégias cognitivas para gerir a ansiedade e os pensamentos ruminativos na hora de deitar.</li>
+                <li>Ajuste de hábitos de higiene do sono e regulação do ritmo circadiano.</li>
+            </ul>
+            <h3>3. Consolidação e Prevenção de Recaídas</h3>
+            <ul>
+                <li>Acompanhamento da evolução dos indicadores de sono.</li>
+                <li>Definição de ferramentas autónomas para manter os ganhos a longo prazo e gerir eventuais noites piores no futuro.</li>
+            </ul>
+            <h2>Duração e Preço</h2>
+            <ul class="table-list">
+                <li><strong>Formato:</strong> Online (via videochamada individual e segura)</li>
+                <li><strong>Duração da consulta:</strong> 50 minutos</li>
+                <li><strong>Preço:</strong> 45€ por consulta</li>
+            </ul>
+            <p>O valor inclui a consulta individual online, a análise dos diários de sono e o envio de materiais de apoio práticos entre sessões, quando aplicável.</p>
+            <h2>Onde realizar</h2>
+            <p>As consultas são realizadas <strong>exclusivamente em formato online</strong>, permitindo fazer todo o acompanhamento com total comodidade, privacidade e no conforto do seu espaço, sem necessidade de deslocações.</p>
+            {cta(sono=True)}
+        </div></div>""",
+        ),
+        [],
+        related=[
+            ("Saber mais sobre TCC-i", "/TCC-i/"),
+            ("Como posso agendar?", "/agendar/?servico=sono"),
+            ("Será um problema de memória ou de sono?", "/sono-e-memoria/"),
+        ],
+        related_heading="Tópicos Relacionados",
+        lane="sono",
+        service_key="sono",
+    )
+
     write_sono_funnel_page()
 
     page(
         "sono-e-memoria",
-        "Sono e memória | Vera Fernandes",
-        "Se a dúvida é entre dificuldades de sono e queixas de memória, esta página ajuda a escolher o caminho. Vera Fernandes, OPP 21502.",
+        "Memória e Sono: Por onde começar? | Vera Fernandes",
+        "O sono e a cognição influenciam-se mutuamente. Esta página ajuda a escolher entre consulta de psicologia do sono e avaliação neuropsicológica.",
         f"{SITE}/sono-e-memoria/",
         [("Início", f"{SITE}/"), ("Sono e memória", f"{SITE}/sono-e-memoria/")],
         section(
-            "Sono e memória",
-            "Escolher o caminho",
-            """
+            "Memória e Sono: Por onde começar?",
+            "Orientação clínica",
+            extra_class=" page-content--justify",
+            html="""
         <div class="row"><div class="col-lg-8 offset-lg-2">
-            <p>Sono mau e falhas de memória podem aparecer juntos. São, neste site, dois serviços diferentes. Escolha o que descreve melhor a situação principal.</p>
-            <h2>A queixa principal é o sono</h2>
-            <p>Não está a conseguir dormir, ou acorda sem recuperação, e procura uma consulta de psicologia do sono. É online, para adultos (18+).</p>
-            <p><a href="/psicologia-do-sono/" class="btn">Psicologia do sono</a></p>
-            <h2>A queixa principal é a memória ou a cognição</h2>
-            <p>Esquecimentos, atenção, linguagem ou autonomia no dia-a-dia, para si ou para um familiar. O caminho é a avaliação neuropsicológica, presencial, em Braga, Barcelos, Guimarães ou Porto.</p>
-            <p><a href="/neuropsicologia/" class="btn">Memória e cognição</a></p>
-            <p>Vera Fernandes, neuropsicóloga em Portugal, OPP 21502.</p>
+            <p>O sono e a cognição influenciam-se mutuamente. Dormimos pior quando estamos preocupados com a memória, e a falta de um sono reparador afeta diretamente a atenção, a concentração e a retenção de informação no dia a dia. Para identificar a resposta mais adequada à sua situação ou à de um familiar é importante definir qual é a queixa com maior impacto no seu bem-estar ou na sua rotina diária.</p>
+
+            <h2>Se a queixa principal é o sono</h2>
+            <p>Se a dificuldade está em adormecer, em manter um sono contínuo, se acorda sistematicamente com sensação de cansaço ou se tem rotinas de sono desreguladas, a indicação é a <a href="/consulta-do-sono/">Consulta de Psicologia do Sono</a>. Este acompanhamento é realizado em formato online e destina-se a adultos.</p>
+
+            <h2>Se a queixa principal é a memória ou o funcionamento cognitivo</h2>
+            <p>Quando a principal preocupação envolver esquecimentos frequentes, dificuldades na linguagem, falta de atenção, desorientação, alterações no comportamento, perda de autonomia na realização de tarefas do quotidiano, a indicação é a <a href="/avaliacao-neuropsicologica/">Avaliação Neuropsicológica</a>. Trata-se de um exame complementar de diagnóstico realizado presencialmente em <a href="/avaliacao-neuropsicologica/braga/">Braga</a>, <a href="/avaliacao-neuropsicologica/barcelos/">Barcelos</a>, <a href="/avaliacao-neuropsicologica/guimaraes/">Guimarães</a> ou <a href="/avaliacao-neuropsicologica/porto/">Porto</a>.</p>
+
+            <h2>Ainda com dúvidas sobre qual a opção indicada para si ou para um familiar?</h2>
+            <p>Pode consultar mais informações sobre o modo de funcionamento da <a href="/avaliacao-neuropsicologica/">Avaliação Neuropsicológica</a> e da <a href="/consulta-do-sono/">Consulta de Psicologia do Sono</a>.</p>
         </div></div>""",
         ),
-        [
-            (
-                "Posso fazer os dois?",
-                "São consultas diferentes. Comece pela queixa principal. Se mais tarde a outra também fizer sentido, pode marcar essa em separado.",
-            )
-        ],
+        [],
         related=[
-            ("Consulta de psicologia do sono", "/psicologia-do-sono/"),
-            ("Avaliação neuropsicológica", "/avaliacao-neuropsicologica/"),
+            ("O que é a TCC-i", "/TCC-i/"),
+            ("Os esquecimentos serão só da idade?", "/memoria-e-envelhecimento/"),
+            ("Saber mais sobre estimulação cognitiva", "/estimulacao-cognitiva/"),
         ],
+        related_heading="Tópicos Relacionados",
     )
 
     urls = [
         f"{SITE}/",
         f"{SITE}/neuropsicologia/",
-        f"{SITE}/rastreiomemoria/",
+        f"{SITE}/rastreio-memoria/",
         f"{SITE}/psicologia-do-sono/",
+        f"{SITE}/consulta-do-sono/",
         f"{SITE}/sono-e-memoria/",
         f"{SITE}/avaliacao-neuropsicologica/",
         f"{SITE}/avaliacao-neuropsicologica/braga/",

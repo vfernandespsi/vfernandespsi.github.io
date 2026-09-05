@@ -25,8 +25,6 @@ Index Of ccs
 /*======================================
     Normalize CSS
 ========================================*/
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
 html {
   scroll-behavior: smooth;
 }
@@ -35,10 +33,9 @@ body {
   font-family: "Inter", sans-serif;
   font-weight: normal;
   font-style: normal;
-  color: #888;
+  color: #757575;
   overflow-x: hidden;
   font-size: 15px;
-  font-display: swap;
 }
 
 p {
@@ -1167,7 +1164,7 @@ ol {
 
 .button .btn {
   display: inline-block;
-  text-transform: capitalize;
+  text-transform: none;
   font-size: 15px;
   font-weight: 600;
   padding: 13px 30px;
@@ -1917,7 +1914,7 @@ ol {
 
 .navbar-nav .nav-item .sub-menu .nav-item a {
   padding: 0;
-  color: #888;
+  color: #757575;
   display: block;
   width: 100%;
   font-size: 14px;
@@ -2295,7 +2292,7 @@ ol {
 .sobremim .info-one .info-image img {
   width: 100%;
   height: auto;
-  padding-top: 30px;
+  padding-top: 0;
 }
 
 .sobremim .info-one.style2 {
@@ -2345,16 +2342,16 @@ ol {
 }
 
 .sobremim .info-one .info-text .main-icon {
-  height: 60px;
-  width: 60px;
-  line-height: 60px;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
   text-align: center;
   display: block;
   border-radius: 8px;
   color: #fff;
-  font-size: 20px;
+  font-size: 16px;
   background-color: #C39A98;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
 }
 
 
@@ -2362,7 +2359,7 @@ ol {
 .sobremim .info-one .info-text h2 {
   font-size: 30px;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   color: #081828;
   line-height: 42px;
 }
@@ -2457,18 +2454,18 @@ ol {
 }
 
 .consultas .single-feature>i {
-  height: 60px;
-  width: 60px;
-  line-height: 60px;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
   text-align: center;
   background-color: #C39A98;
   color: #fff;
   display: inline-block;
-  font-size: 20px;
-  border-radius: 7px;
+  font-size: 16px;
+  border-radius: 8px;
   -webkit-box-shadow: 0px 4px 6px #0000002a;
   box-shadow: 0px 4px 6px #0000002a;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
 }
 
 .consultas .button .btn i {
@@ -2526,7 +2523,7 @@ ol {
 .consultas .single-feature h3 {
   font-size: 18px;
   font-weight: 500;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .consultas .single-feature p {
@@ -2618,7 +2615,7 @@ ol {
   font-size: 15px;
   color: #fff;
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px),
@@ -3003,12 +3000,11 @@ ol {
 }
 
 .localizacao .single-team .image img {
-  /*width: 100vw;
-  height: 300px;*/
-  width: 100vw;
-  aspect-ratio: 1.777;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   height: auto;
+  display: block;
 }
 
 .localizacao .single-team .content {
@@ -3026,7 +3022,7 @@ ol {
 .localizacao .single-team .text h4 {
   font-size: 14px;
   font-weight: normal;
-  color: #888;
+  color: #757575;
 }
 
 .localizacao .single-team .text h5 {
@@ -3258,7 +3254,7 @@ ol {
 }
 
 .contact-us .contact-info .single-info ul li a {
-  color: #888;
+  color: #757575;
   font-weight: 500;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
@@ -3526,7 +3522,7 @@ ol {
 .error-area .error-content p {
   font-weight: 400;
   margin-bottom: 40px;
-  color: #888;
+  color: #757575;
 }
 
 

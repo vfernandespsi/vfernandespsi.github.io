@@ -6,7 +6,7 @@ window.VF = {
       slug: "papel-psicologo-doencas-neurologicas",
       title: "Qual é o papel do psicólogo nas doenças neurológicas e neurodegenerativas?",
       excerpt:
-        "Desde a avaliação cognitiva precoce ao apoio a familiares e cuidadores: o que faz a neuropsicologia clínica nas doenças neurológicas.",
+        "Descubra a importância do acompanhamento neuropsicológico no apoio ao paciente e na orientação da família.",
       date: "2026-08-31",
       published: true
     },
@@ -14,7 +14,7 @@ window.VF = {
       slug: "demencia-quando-procurar-avaliacao-neuropsicologica",
       title: "Demência: quando procurar uma avaliação neuropsicológica?",
       excerpt:
-        "Esquecimentos, desorientação ou alterações de comportamento podem justificar avaliação. Saiba quando procurar esclarecimento.",
+        "Saiba como identificar as alterações de memória e a importância de agendar uma avaliação especializada.",
       date: "2026-08-24",
       published: true
     }

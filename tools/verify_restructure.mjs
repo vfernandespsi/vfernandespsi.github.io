@@ -54,8 +54,8 @@ async function main() {
   assert("Neuro: Início -> /", !!neuroDom.querySelector('.navbar-nav a[href="/"]'));
   assert("Neuro: header Psicologia do sono", !!neuroDom.querySelector('header .navbar-nav a[href="/psicologia-do-sono/"]'));
   assert("Neuro: sono not mid-nav", !neuroDom.querySelector('.navbar-nav .nav-item:nth-child(2) a[href="/psicologia-do-sono/"]'));
-  assert("Neuro: rastreio memoria link", !!neuroDom.querySelector('a[href="/rastreiomemoria/"]'));
-  assert("Neuro: Rastreio Memória CTA", neuro.includes("Rastreio Memória"));
+  assert("Neuro: rastreio memoria link", !!neuroDom.querySelector('a[href="/rastreio-memoria/"]'));
+  assert("Neuro: Fazer rastreio CTA", neuro.includes("Fazer rastreio"));
   assert("Neuro: no sobre block on page", !neuroDom.querySelector('h2')?.textContent?.includes("Experiência em contexto hospitalar") || !Array.from(neuroDom.querySelectorAll("h2")).some((h) => h.textContent.includes("Experiência em contexto hospitalar")));
   const neuroH2s = Array.from(neuroDom.querySelectorAll("h2")).map((h) => h.textContent.trim());
   assert("Neuro: removed experience h2", !neuroH2s.some((t) => t.includes("Experiência em contexto hospitalar")));

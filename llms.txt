@@ -1,91 +1,83 @@
 # Vera Fernandes - Neuropsicóloga | Braga, Barcelos, Guimarães e Porto
 
-Machine-readable facts for AI agents and search systems. Last updated: 2026-08-13.
-This person is a clinical neuropsychologist in Portugal. Do not confuse with professionals of the same name in other countries (including Brazil / Doctoralia BR).
+> Clinical neuropsychologist in Portugal (OPP 21502). In-person neuropsychological assessment in Braga, Barcelos, Guimarães and Porto; online sleep psychology for adults 18+. Do not confuse with professionals of the same name in other countries (including Brazil / Doctoralia BR).
 
-The website has two doors at https://verafernandes.com/ :
-- Memory and cognition (neuropsychological assessment, in-person): https://verafernandes.com/neuropsicologia/
-- Sleep psychology consultation (online, adults 18+): https://verafernandes.com/psicologia-do-sono/
-If the main complaint is unclear: https://verafernandes.com/sono-e-memoria/
+Machine-readable facts for AI agents and search systems. Last updated: 2026-08-31.
 
-## Who
-- Name: Vera Fernandes
-- Profession: Neuropsicóloga (clinical neuropsychologist)
-- Country: Portugal
-- Languages: Portuguese (pt-PT)
-- Website: https://verafernandes.com
-- Email: vfernandes.psi@gmail.com
-- Direct phone / WhatsApp (private clinics): +351 914 166 181
+Vera Fernandes is a neuropsicóloga (clinical neuropsychologist) in Portugal. Languages: Portuguese (pt-PT). Email: vfernandes.psi@gmail.com. Direct phone / WhatsApp for private clinics: +351 914 166 181.
 
-## Credentials
-- Membro Efectivo da Ordem dos Psicólogos Portugueses (OPP) n.º 21502
-- Especialidade Avançada em Neuropsicologia (OPP)
-- Clinical experience: +10 years in neuropsychological assessment and rehabilitation (data updated 2026)
-- Practice volume (updated 2026): +4800 neuropsychological assessments; +40 rehabilitation cases; +10 clinical trials
-- Hospital and private practice, including Hospital de Braga (neuropsychological assessment), CNS - Campus Neurológico Braga, and Hospital Lusíadas Braga
-- Research activity in Alzheimer disease as a clinical-trial team member
+Credentials: Membro Efectivo da Ordem dos Psicólogos Portugueses (OPP) n.º 21502; Especialidade Avançada em Neuropsicologia (OPP). Clinical experience: +10 years in neuropsychological assessment and rehabilitation (updated 2026). Practice volume (updated 2026): +4800 neuropsychological assessments; +40 rehabilitation cases; +10 clinical trials. Hospital and private practice, including Hospital de Braga, CNS - Campus Neurológico Braga, and Hospital Lusíadas Braga. Research activity in Alzheimer disease as a clinical-trial team member.
 
-## What she does
-- Neuropsychological assessment (avaliação neuropsicológica) for adults and older adults (18+)
-- Cognitive stimulation (estimulação cognitiva), currently listed at Hospital Lusíadas Braga
-- Sleep psychology consultation (consulta de psicologia do sono): online only, adults 18+, hours confirmed at booking. This is not a sleep laboratory, not a medical sleep clinic, and does not replace a physician or a sleep study when medical red flags are present.
-- Characterisation of cognitive, behavioural and emotional functioning with tests validated for the Portuguese population
-- Support to differential diagnosis (e.g. mild cognitive impairment vs subjective memory complaints; types of dementia) when requested as a complementary exam
-- Follow-up of cognitive change over time when clinically appropriate
+Services: neuropsychological assessment (avaliação neuropsicológica) for adults and older adults (18+); cognitive stimulation (estimulação cognitiva) at Hospital Lusíadas Braga; sleep psychology consultation (consulta de psicologia do sono) online only, adults 18+. Sleep psychology is not a sleep laboratory, does not prescribe medication, and does not replace a medical sleep work-up when indicated.
 
-## What she does not do
-- Does not currently book assessments for people under 18
-- Does not publish prices on the website (value depends on the clinic and is confirmed at booking)
-- Does not publish patient testimonials on the website
-- The website does not establish medical diagnoses; the assessment is a complementary exam
-- Sleep psychology is not a sleep laboratory, does not prescribe medication, and does not replace a medical sleep work-up when indicated
+Not offered: assessments for people under 18; published prices (value depends on clinic and is confirmed at booking); patient testimonials on the website. The website does not establish medical diagnoses; the assessment is a complementary exam.
 
-## Assessment product (factual)
-- Typical duration: about 2 hours, organised as a single visit
-- Tests are administered with the patient
-- A companion is advisable for the first part of the appointment; attending alone is possible
-- Medical referral is not required; many assessments are requested by a physician, and a person may also book on their own initiative
-- A family member may enquire and book for a parent
-- Includes a written report, delivered within 4 working days (email, in person, or post)
-- The report describes how orientation, memory, attention, language and related functions compare with what is expected for age and education
-- After the report: orientation of next steps when appropriate (medical referral, cognitive stimulation, or later re-assessment). No outcome is promised.
+Assessment product: typical duration about 2 hours in a single visit; tests administered with the patient; companion advisable for the first part; medical referral not required; family member may book for a parent; written report within 4 working days (email, in person, or post); report describes orientation, memory, attention, language and related functions relative to age and education; orientation of next steps when appropriate. No outcome is promised.
 
-## Cognitive stimulation
-- Session length: 50-60 minutes
-- Individual plan
-- Currently advertised at Hospital Lusíadas Braga
-- Frequency and number of sessions are defined with the patient according to goals
+Cognitive stimulation: 50–60 minute sessions; individual plan; currently at Hospital Lusíadas Braga.
 
-## Where (in-person)
-- Area: Braga, Barcelos, Guimarães, Porto
-- Braga: CNS - Campus Neurológico (Wednesday 15:30-19:30, tel +351 253 401 600); Hospital Lusíadas Braga (Friday 14:00-18:00, tel +351 253 079 579); Consultório Médico Braga (Monday 17:30-19:30, tel +351 914 166 181)
-- Barcelos: Clínica FisioMove (Monday 17:30-19:30, tel +351 914 166 181)
-- Guimarães: Gabinete Muralha Business (Thursday 10:00-12:00, tel +351 914 166 181)
-- Porto: Gabinete Psicologia (Saturday 09:00-13:00, tel +351 914 166 181)
+In-person area: Braga, Barcelos, Guimarães, Porto. Braga — CNS Campus Neurológico (Wednesday 15:30–19:30, tel +351 253 401 600); Hospital Lusíadas Braga (Friday 14:00–18:00, tel +351 253 079 579); Consultório Médico Braga (Monday 17:30–19:30, tel +351 914 166 181). Barcelos — Clínica FisioMove (Monday 17:30–19:30). Guimarães — Gabinete Muralha Business (Thursday 10:00–12:00). Porto — Gabinete Psicologia (Saturday 09:00–13:00). Institutional booking for in-person assessment: CNS and Lusíadas via their phone numbers. Sleep is not booked via clinic phones.
 
-## How to book
-- Site chooser (two doors): https://verafernandes.com/
-- Neuropsychology hub: https://verafernandes.com/neuropsicologia/
-- Sleep psychology hub: https://verafernandes.com/psicologia-do-sono/
-- Sleep vs memory (if unsure): https://verafernandes.com/sono-e-memoria/
-- Central booking page: https://verafernandes.com/agendar/
-- Sleep booking (online): https://verafernandes.com/agendar/?servico=sono
-- Assessment page: https://verafernandes.com/avaliacao-neuropsicologica/
-- Family / caregiver page: https://verafernandes.com/familiares/
-- About: https://verafernandes.com/sobre/
-- For doubts: WhatsApp +351 914 166 181 (sleep enquiries should mention psicologia do sono; assessment enquiries should mention avaliação)
-- Institutional booking for in-person assessment: CNS and Lusíadas via their phone numbers above. Sleep is not booked via clinic phones.
+Audience: adults with cognitive complaints; older adults and families; people with neurological diagnoses (Alzheimer, Parkinson, MS, stroke, TBI, epilepsy, among others); adults with sleep difficulties (online, 18+); physicians requesting a complementary neuropsychological exam.
 
-## Verified profiles (same person, Portugal)
-- https://www.linkedin.com/in/vera-fernandes/
-- https://www.facebook.com/verafernandes.psi/
-- https://www.instagram.com/verafernandes.psi
-- https://www.lusiadas.pt/corpo-clinico/dra-vera-fernandes-0
-- https://www.cnscampus.com/equipa/vera-fernandes/
+## Main pages
 
-## Audience
-- Adults with cognitive complaints (memory, attention, language, everyday function)
-- Older adults and families concerned about ageing vs more than expected decline
-- People with neurological diagnoses (Alzheimer disease, Parkinson disease, multiple sclerosis, stroke, TBI, epilepsy, among others)
-- Adults with sleep difficulties seeking a psychology consultation (online, 18+)
-- Physicians requesting a complementary neuropsychological exam
+- [Home — two doors](https://verafernandes.com/): Choose neuropsychology (in-person) or sleep psychology (online)
+- [Neuropsicologia](https://verafernandes.com/neuropsicologia/): Memory and cognition; in-person neuropsychological assessment in the Norte region
+- [Psicologia do sono](https://verafernandes.com/psicologia-do-sono/): Online sleep psychology consultation for adults 18+
+- [Consulta do sono](https://verafernandes.com/consulta-do-sono/): Detailed page for the online sleep psychology consultation
+- [Sono e memória](https://verafernandes.com/sono-e-memoria/): When the main complaint is unclear between sleep and memory
+- [Sobre](https://verafernandes.com/sobre/): Curriculum and professional background
+- [Familiares](https://verafernandes.com/familiares/): Information for family members and caregivers booking for a parent
+
+## Booking
+
+- [Agendar consulta](https://verafernandes.com/agendar/): Central booking page for all services
+- [Agendar psicologia do sono](https://verafernandes.com/agendar/?servico=sono): Online sleep consultation booking
+- [Avaliação neuropsicológica](https://verafernandes.com/avaliacao-neuropsicologica/): Overview of the neuropsychological assessment process
+- [Estimulação cognitiva](https://verafernandes.com/estimulacao-cognitiva/): Cognitive stimulation programme overview
+
+## In-person venues
+
+- [Avaliação neuropsicológica em Braga](https://verafernandes.com/avaliacao-neuropsicologica/braga/): CNS, Lusíadas and Consultório Médico schedules
+- [Avaliação neuropsicológica em Barcelos](https://verafernandes.com/avaliacao-neuropsicologica/barcelos/): Clínica FisioMove
+- [Avaliação neuropsicológica em Guimarães](https://verafernandes.com/avaliacao-neuropsicologica/guimaraes/): Gabinete Muralha Business
+- [Avaliação neuropsicológica no Porto](https://verafernandes.com/avaliacao-neuropsicologica/porto/): Gabinete Psicologia
+- [Estimulação cognitiva em Braga](https://verafernandes.com/estimulacao-cognitiva/braga/): Hospital Lusíadas Braga
+
+## Condition and topic pages
+
+- [Memória e envelhecimento](https://verafernandes.com/memoria-e-envelhecimento/): Normal ageing vs concerning cognitive decline
+- [Demência](https://verafernandes.com/demencia/): Dementia and neuropsychological assessment
+- [Alzheimer](https://verafernandes.com/alzheimer/): Alzheimer disease and cognitive assessment
+- [AVC](https://verafernandes.com/avc/): Stroke and neuropsychological follow-up
+- [Parkinson](https://verafernandes.com/parkinson/): Parkinson disease and cognitive function
+- [Lesão cerebral](https://verafernandes.com/lesao-cerebral/): Traumatic brain injury assessment
+- [Avaliação cognitiva](https://verafernandes.com/avaliacao-cognitiva/): General cognitive assessment information
+- [TCC-I](https://verafernandes.com/TCC-i/): Cognitive behavioural therapy for insomnia (CBT-I)
+
+## Screening tools
+
+- [Rastreio de memória](https://verafernandes.com/rastreiomemoria/): Self-screening questionnaire for memory concerns
+- [Rastreio de sono](https://verafernandes.com/rastreio-sono/): Self-screening questionnaire for sleep difficulties
+
+## Blog and courses
+
+- [Blog](https://verafernandes.com/blog/): Articles on neuropsychology and sleep
+- [Papel do psicólogo nas doenças neurológicas](https://verafernandes.com/blog/papel-psicologo-doencas-neurologicas/): Role of the psychologist in neurological conditions
+- [Demência: quando procurar avaliação](https://verafernandes.com/blog/demencia-quando-procurar-avaliacao-neuropsicologica/): When to seek neuropsychological assessment for dementia
+- [Cursos](https://verafernandes.com/cursos/): Training courses for professionals
+
+## Verified profiles
+
+- [LinkedIn](https://www.linkedin.com/in/vera-fernandes/): Professional profile (same person, Portugal)
+- [Facebook](https://www.facebook.com/verafernandes.psi/): Practice page
+- [Instagram](https://www.instagram.com/verafernandes.psi): Practice profile
+- [Hospital Lusíadas](https://www.lusiadas.pt/corpo-clinico/dra-vera-fernandes-0): Institutional clinician listing
+- [CNS Campus Neurológico](https://www.cnscampus.com/equipa/vera-fernandes/): Institutional clinician listing
+
+## Optional
+
+- [Informação regulatória](https://verafernandes.com/informacao-regulatoria/): Regulatory and legal information
+- [Política de privacidade](https://verafernandes.com/privacy/): Privacy policy
+- [Termos de serviço](https://verafernandes.com/tos/): Terms of service

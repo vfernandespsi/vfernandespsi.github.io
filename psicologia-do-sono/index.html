@@ -660,12 +660,20 @@
 }
     </script>
   <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico" />
-  <link rel="stylesheet" href="/assets/css/animate.css">
+  <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/fonts.css">
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
   <link rel="stylesheet" href="/assets/css/main.css">
   <link rel="stylesheet" href="/assets/css/funnel.css">
-  <link rel="stylesheet" href="/assets/css/consent.css">
+  <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/assets/css/consent.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/assets/css/animate.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
+    <link rel="stylesheet" href="/assets/css/consent.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+  </noscript>
 </head>
 
 <body>
@@ -765,43 +773,14 @@
           </div>
           <div class="col-lg-6 col-md-12 col-12">
             <div class="info-text wow fadeInRight" data-wow-delay=".5s">
-              <div class="main-icon"><i class="lni lni-xl lni-night"></i></div>
-              <h2>A qualidade do sono afecta o equilíbrio físico, emocional e a energia do dia a dia.</h2>
+              <div class="info-text-head">
+                <div class="main-icon"><i class="lni lni-xl lni-night"></i></div>
+                <h2>A qualidade do sono afecta o equilíbrio físico, emocional e a energia do dia a dia.</h2>
+              </div>
               <p>Através da avaliação e da intervenção especializada, como a Terapia Cognitivo-Comportamental para a
                 Insónia (TCC-I), é possível identificar os padrões de descanso, perceber o que mantém a dificuldade em
                 dormir e reestruturar hábitos. Esta abordagem tem especial utilidade na gestão da insónia crónica e na
                 redução do impacto de um sono inadequado na qualidade de vida.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="tcc-i" class="sobremim section">
-    <div class="container">
-      <div class="info-one">
-        <div class="row align-items-center">
-          <div class="col-lg-6 col-md-12 col-12">
-            <div class="info-text wow fadeInLeft" data-wow-delay=".3s">
-              <div class="main-icon"><i class="lni lni-xl lni-bulb"></i></div>
-              <h2>Procura uma solução duradoura para a insónia?</h2>
-              <p>É frequente sentir frustração quando o sono depende de comprimidos ou quando as estratégias habituais
-                deixam de funcionar. A Terapia Cognitivo-Comportamental para a insónia (TCC-i) é a abordagem de
-                primeira linha recomendada cientificamente para tratar a insónia, focando-se em reestruturar os
-                pensamentos e comportamentos que dificultam o sono.</p>
-              <div class="button">
-                <a href="/TCC-i/" class="btn">Saber mais sobre TCC-i</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-12 col-12">
-            <div class="info-image wow fadeInRight" data-wow-delay=".5s">
-              <div class="single-photo">
-                <img draggable="false" loading="lazy" src="/assets/images/seccao-tcci-sono.jpg"
-                  alt="Adulto a dormir descansado — Terapia Cognitivo-Comportamental para a Insónia (TCC-i)"
-                  width="1200" height="800" decoding="async">
-              </div>
             </div>
           </div>
         </div>
@@ -841,9 +820,42 @@
               </ul>
             </div>
             <div class="button">
-              <a href="/TCC-i/" class="btn">Saber mais</a>
+              <a href="/consulta-do-sono/" class="btn">Saber mais</a>
               <a href="/agendar/?servico=sono" class="btn btn-alt" data-track="marcar"
                 data-track-location="consultas">Agendar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tcc-i" class="sobremim section">
+    <div class="container">
+      <div class="info-one">
+        <div class="row align-items-center">
+          <div class="col-lg-6 col-md-12 col-12 order-lg-1 order-2">
+            <div class="info-text wow fadeInLeft" data-wow-delay=".3s">
+              <div class="info-text-head">
+                <div class="main-icon"><i class="lni lni-xl lni-bulb"></i></div>
+                <h2>Procura uma solução duradoura para a insónia?</h2>
+              </div>
+              <p>É frequente sentir frustração quando o sono depende de comprimidos ou quando as estratégias habituais
+                deixam de funcionar. A Terapia Cognitivo-Comportamental para a insónia (TCC-i) é a abordagem de
+                primeira linha recomendada cientificamente para tratar a insónia, focando-se em reestruturar os
+                pensamentos e comportamentos que dificultam o sono.</p>
+              <div class="button">
+                <a href="/TCC-i/" class="btn">Saber mais sobre TCC-i</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 col-12 order-lg-2 order-1">
+            <div class="info-image wow fadeInRight" data-wow-delay=".5s">
+              <div class="single-photo">
+                <img draggable="false" loading="lazy" src="/assets/images/seccao-tcci-sono.jpg"
+                  alt="Adulto a dormir descansado — Terapia Cognitivo-Comportamental para a Insónia (TCC-i)"
+                  width="1200" height="800" decoding="async">
+              </div>
             </div>
           </div>
         </div>
@@ -1039,12 +1051,16 @@
                 </a>
               </div>
               <ul class="social">
-                <li><a href="https://www.facebook.com/verafernandes.psi/"><i class="lni lni-facebook-filled"></i></a>
+                <li><a href="https://www.facebook.com/verafernandes.psi/" aria-label="Facebook"><i
+                      class="lni lni-facebook-filled"></i></a>
                 </li>
-                <li><a href="https://www.instagram.com/verafernandes.psi"><i class="lni lni-instagram"></i></a></li>
-                <li><a href="https://www.linkedin.com/in/vera-fernandes/"><i class="lni lni-linkedin-original"></i></a>
+                <li><a href="https://www.instagram.com/verafernandes.psi" aria-label="Instagram"><i
+                      class="lni lni-instagram"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/vera-fernandes/" aria-label="LinkedIn"><i
+                      class="lni lni-linkedin-original"></i></a>
                 </li>
-                <li><a href="mailto:vfernandes.psi@gmail.com"><i class="lni lni-envelope"></i></a></li>
+                <li><a href="mailto:vfernandes.psi@gmail.com" aria-label="Enviar email"><i
+                      class="lni lni-envelope"></i></a></li>
               </ul>
             </div>
           </div>
@@ -1068,7 +1084,9 @@
                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
-                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false" src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a></li>
+                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false"
+                          src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a>
+                    </li>
                   </ul>
                 </div>
               </div>

@@ -231,19 +231,17 @@ Author: GrayGrids
         };
     };
 
-    //===== mobile-menu-btn
+    //===== mobile-menu-btn — sync icon state with Bootstrap collapse (sem fechar ao abrir)
     let navbarOpen = document.querySelector(".mobile-menu-btn");
-    if (navbarOpen) {
-        navbarOpen.addEventListener('click', function () {
-            navbarOpen.classList.add("show");
+    let navbarClose = document.querySelector(".navbar-collapse");
+    if (navbarOpen && navbarClose) {
+        navbarClose.addEventListener("show.bs.collapse", function () {
+            navbarOpen.classList.add("active");
+        });
+        navbarClose.addEventListener("hide.bs.collapse", function () {
+            navbarOpen.classList.remove("active");
         });
     }
-    let navbarClose = document.querySelector(".navbar-collapse");
-    document.addEventListener('click', function () {
-        if (navbarClose && navbarClose.classList.contains('show')) {
-            navbarClose.classList.remove('show');
-        }
-    });
 
 
 

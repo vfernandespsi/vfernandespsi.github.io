@@ -43,12 +43,20 @@
 }
   </script>
   <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico" />
-  <link rel="stylesheet" href="/assets/css/animate.css">
+  <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/fonts.css">
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
   <link rel="stylesheet" href="/assets/css/main.css">
   <link rel="stylesheet" href="/assets/css/funnel.css">
-  <link rel="stylesheet" href="/assets/css/consent.css">
+  <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/assets/css/consent.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/assets/css/animate.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
+    <link rel="stylesheet" href="/assets/css/consent.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+  </noscript>
 </head>
 
 <body>
@@ -92,7 +100,7 @@
                 <ul id="nav" class="navbar-nav ms-auto">
                   <li class="nav-item"><a href="/">Início</a></li>
                   <li class="nav-item"><a href="/neuropsicologia/">Neuropsicologia</a></li>
-                  <li class="nav-item"><a href="/psicologia-do-sono/">Psicologia do sono</a></li>
+                  <li class="nav-item"><a href="/psicologia-do-sono/">Psicologia do Sono</a></li>
                   <li class="nav-item"><a href="/blog/">Blog</a></li>
                   <li class="nav-item"><a href="/cursos/">Cursos</a></li>
                 </ul>
@@ -149,12 +157,16 @@
                 </a>
               </div>
               <ul class="social">
-                <li><a href="https://www.facebook.com/verafernandes.psi/"><i class="lni lni-facebook-filled"></i></a>
+                <li><a href="https://www.facebook.com/verafernandes.psi/" aria-label="Facebook"><i
+                      class="lni lni-facebook-filled"></i></a>
                 </li>
-                <li><a href="https://www.instagram.com/verafernandes.psi"><i class="lni lni-instagram"></i></a></li>
-                <li><a href="https://www.linkedin.com/in/vera-fernandes/"><i class="lni lni-linkedin-original"></i></a>
+                <li><a href="https://www.instagram.com/verafernandes.psi" aria-label="Instagram"><i
+                      class="lni lni-instagram"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/vera-fernandes/" aria-label="LinkedIn"><i
+                      class="lni lni-linkedin-original"></i></a>
                 </li>
-                <li><a href="mailto:vfernandes.psi@gmail.com"><i class="lni lni-envelope"></i></a></li>
+                <li><a href="mailto:vfernandes.psi@gmail.com" aria-label="Enviar email"><i
+                      class="lni lni-envelope"></i></a></li>
               </ul>
             </div>
           </div>
@@ -178,7 +190,9 @@
                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
-                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false" src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a></li>
+                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false"
+                          src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a>
+                    </li>
                   </ul>
                 </div>
               </div>

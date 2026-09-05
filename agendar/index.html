@@ -638,12 +638,20 @@
 }
     </script>
   <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico" />
-  <link rel="stylesheet" href="/assets/css/animate.css">
+  <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/fonts.css">
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
   <link rel="stylesheet" href="/assets/css/main.css">
   <link rel="stylesheet" href="/assets/css/funnel.css">
-  <link rel="stylesheet" href="/assets/css/consent.css">
+  <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/assets/css/consent.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/assets/css/animate.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
+    <link rel="stylesheet" href="/assets/css/consent.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+  </noscript>
 </head>
 
 <body>
@@ -687,7 +695,7 @@
 
                   <li class="nav-item"><a href="/">Início</a></li>
                   <li class="nav-item"><a href="/neuropsicologia/">Neuropsicologia</a></li>
-                  <li class="nav-item"><a href="/psicologia-do-sono/">Psicologia do sono</a></li>
+                  <li class="nav-item"><a href="/psicologia-do-sono/">Psicologia do Sono</a></li>
                 </ul>
               </div>
               <div class="button add-list-button">
@@ -713,7 +721,6 @@
         </div>
 
         <div class="booking-step">
-          <h3>Qual o serviço?</h3>
           <div class="city-chips">
             <button type="button" class="city-chip is-active" data-book-service="avaliacao">Avaliação
               neuropsicológica</button>
@@ -923,7 +930,8 @@
             </div>
           </div>
         </div>
-        <p id="booking-empty" hidden>A estimulação cognitiva está indicada no Hospital Lusíadas Braga. Escolha Braga para
+        <p id="booking-empty" hidden>A estimulação cognitiva está indicada no Hospital Lusíadas Braga. Escolha Braga
+          para
           ver esse local, ou seleccione avaliação neuropsicológica para os outros concelhos.</p>
         <p id="booking-doubt-presencial">Se ainda tem dúvidas, clique em <a
             href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica."
@@ -958,12 +966,16 @@
                 </a>
               </div>
               <ul class="social">
-                <li><a href="https://www.facebook.com/verafernandes.psi/"><i class="lni lni-facebook-filled"></i></a>
+                <li><a href="https://www.facebook.com/verafernandes.psi/" aria-label="Facebook"><i
+                      class="lni lni-facebook-filled"></i></a>
                 </li>
-                <li><a href="https://www.instagram.com/verafernandes.psi"><i class="lni lni-instagram"></i></a></li>
-                <li><a href="https://www.linkedin.com/in/vera-fernandes/"><i class="lni lni-linkedin-original"></i></a>
+                <li><a href="https://www.instagram.com/verafernandes.psi" aria-label="Instagram"><i
+                      class="lni lni-instagram"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/vera-fernandes/" aria-label="LinkedIn"><i
+                      class="lni lni-linkedin-original"></i></a>
                 </li>
-                <li><a href="mailto:vfernandes.psi@gmail.com"><i class="lni lni-envelope"></i></a></li>
+                <li><a href="mailto:vfernandes.psi@gmail.com" aria-label="Enviar email"><i
+                      class="lni lni-envelope"></i></a></li>
               </ul>
             </div>
           </div>
@@ -987,7 +999,9 @@
                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
-                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false" src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a></li>
+                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false"
+                          src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a>
+                    </li>
                   </ul>
                 </div>
               </div>

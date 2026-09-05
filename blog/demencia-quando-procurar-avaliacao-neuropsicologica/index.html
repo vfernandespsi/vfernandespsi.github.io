@@ -66,12 +66,20 @@
 }
   </script>
   <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico" />
-  <link rel="stylesheet" href="/assets/css/animate.css">
+  <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/fonts.css">
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
   <link rel="stylesheet" href="/assets/css/main.css">
   <link rel="stylesheet" href="/assets/css/funnel.css">
-  <link rel="stylesheet" href="/assets/css/consent.css">
+  <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/assets/css/consent.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/assets/css/animate.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="/assets/css/LineIcons.2.0.css">
+    <link rel="stylesheet" href="/assets/css/consent.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+  </noscript>
 </head>
 
 <body>
@@ -146,9 +154,9 @@
               comportamento, no estado emocional e na capacidade de realizar as actividades do dia a dia. Existem
               diferentes doenças que podem estar na origem de uma demência, sendo a <a href="/alzheimer/">Doença de
                 Alzheimer</a> uma das causas mais frequentes.</p>
-            <p>Embora seja mais frequente em idade avançada, a demência não é uma consequência normal do envelhecimento.
-              Algumas alterações de memória ou de outras capacidades cognitivas podem fazer parte do envelhecimento
-              normal, enquanto outras podem justificar uma avaliação mais aprofundada.</p>
+            <p>Embora seja mais frequente em idade avançada, a demência <strong>não é uma consequência normal do
+                envelhecimento</strong>. Algumas alterações de memória ou de outras capacidades cognitivas podem fazer
+              parte do envelhecimento normal, enquanto outras podem justificar uma avaliação mais aprofundada.</p>
 
             <h2>Quando procurar ajuda?</h2>
             <p>Esquecimentos frequentes, dificuldade em encontrar palavras, desorientação, maior dificuldade em
@@ -161,16 +169,17 @@
               especializada.</p>
 
             <h2>Qual é o papel da avaliação neuropsicológica?</h2>
-            <p>A <a href="/avaliacao-neuropsicologica/">avaliação neuropsicológica</a> é um exame complementar que
-              permite avaliar diferentes capacidades cognitivas, como a memória, a atenção, a linguagem e as funções
-              executivas, entre outras competências relevantes para o funcionamento diário.</p>
+            <p>A <strong><a href="/avaliacao-neuropsicologica/">avaliação neuropsicológica</a></strong> é um exame
+              complementar que permite avaliar diferentes capacidades cognitivas, como a memória, a atenção, a linguagem
+              e as funções executivas, entre outras competências relevantes para o funcionamento diário.</p>
             <p>Através da entrevista clínica e da aplicação de diferentes provas, é possível compreender quais as
               capacidades que se encontram preservadas e quais apresentam dificuldades, bem como perceber a forma como
               estas alterações se relacionam com as queixas apresentadas e com o funcionamento no quotidiano.</p>
-            <p>A avaliação neuropsicológica pode ter um papel importante no processo de diagnóstico, contribuindo para
-              caracterizar o perfil cognitivo, identificar alterações e acompanhar a sua evolução. No entanto, é apenas
-              uma parte do processo diagnóstico, que pode envolver também a avaliação médica, o exame neurológico,
-              exames de neuroimagem e outros meios complementares de diagnóstico, de acordo com cada situação.</p>
+            <p>A avaliação neuropsicológica pode ter um papel importante no <strong>processo de diagnóstico</strong>,
+              contribuindo para caracterizar o perfil cognitivo, identificar alterações e acompanhar a sua evolução. No
+              entanto, é apenas uma parte do processo diagnóstico, que pode envolver também a avaliação médica, o exame
+              neurológico, exames de neuroimagem e outros meios complementares de diagnóstico, de acordo com cada
+              situação.</p>
             <p>A avaliação neuropsicológica pode ser particularmente útil quando existem dúvidas sobre a origem ou a
               extensão das dificuldades, quando as alterações são ainda ligeiras ou quando é necessário compreender de
               que forma estão a interferir com a autonomia no dia a dia.</p>
@@ -178,11 +187,12 @@
             <h2>E depois da avaliação?</h2>
             <p>A avaliação neuropsicológica não se limita à identificação de dificuldades. Os resultados podem ajudar a
               orientar os passos seguintes, de acordo com as necessidades de cada pessoa.</p>
-            <p>Em algumas situações, poderá ser indicada treino ou <a href="/estimulacao-cognitiva/">estimulação
-                cognitiva</a>, tendo em consideração as capacidades preservadas, as dificuldades identificadas, os
-              interesses e os objectivos da pessoa. Quando necessário, os resultados podem também contribuir para
-              definir estratégias que facilitem a adaptação às alterações identificadas e ao seu impacto no quotidiano.
-            </p>
+            <p>Em algumas situações, poderá ser indicada <strong>treino ou</strong> <strong><a
+                  href="/estimulacao-cognitiva/">estimulação cognitiva</a></strong>, tendo em consideração as
+              capacidades
+              preservadas, as dificuldades identificadas, os interesses e os objectivos da pessoa. Quando necessário,
+              os resultados podem também contribuir para definir estratégias que facilitem a adaptação às alterações
+              identificadas e ao seu impacto no quotidiano.</p>
 
             <h2>O papel da família e dos cuidadores</h2>
             <p>As alterações cognitivas podem ter um impacto significativo não apenas na pessoa, mas também naqueles que
@@ -194,9 +204,10 @@
             <p>Perante alterações cognitivas persistentes, procurar ajuda atempadamente pode ser importante não só para
               compreender o que está a acontecer, mas também para identificar formas de apoiar tanto a pessoa com
               dificuldades cognitivas como a sua família.</p>
-            <p>Este texto é apenas informativo. Não substitui uma consulta médica nem estabelece um diagnóstico. Saiba
-              mais sobre <a href="/demencia/">demência</a>, <a href="/familiares/">informação para familiares</a> ou <a
-                href="/agendar/">marque uma avaliação</a>.</p>
+
+            <p class="article-disclaimer">Este texto é informativo e não substitui uma avaliação por um profissional
+              especializado. Saiba mais sobre <a href="/demencia/">demência</a>, <a href="/familiares/">informação para
+                familiares</a> ou <a href="/agendar/">marque uma avaliação</a>.</p>
           </div>
           <div class="button" style="margin-top: 32px;">
             <a href="/blog/" class="btn btn-alt">Voltar ao blog</a>
@@ -218,12 +229,16 @@
                 </a>
               </div>
               <ul class="social">
-                <li><a href="https://www.facebook.com/verafernandes.psi/"><i class="lni lni-facebook-filled"></i></a>
+                <li><a href="https://www.facebook.com/verafernandes.psi/" aria-label="Facebook"><i
+                      class="lni lni-facebook-filled"></i></a>
                 </li>
-                <li><a href="https://www.instagram.com/verafernandes.psi"><i class="lni lni-instagram"></i></a></li>
-                <li><a href="https://www.linkedin.com/in/vera-fernandes/"><i class="lni lni-linkedin-original"></i></a>
+                <li><a href="https://www.instagram.com/verafernandes.psi" aria-label="Instagram"><i
+                      class="lni lni-instagram"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/vera-fernandes/" aria-label="LinkedIn"><i
+                      class="lni lni-linkedin-original"></i></a>
                 </li>
-                <li><a href="mailto:vfernandes.psi@gmail.com"><i class="lni lni-envelope"></i></a></li>
+                <li><a href="mailto:vfernandes.psi@gmail.com" aria-label="Enviar email"><i
+                      class="lni lni-envelope"></i></a></li>
               </ul>
             </div>
           </div>
@@ -247,7 +262,9 @@
                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
-                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false" src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a></li>
+                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false"
+                          src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a>
+                    </li>
                   </ul>
                 </div>
               </div>
