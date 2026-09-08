@@ -33,7 +33,7 @@ Audience: adults with cognitive complaints; older adults and families; people wi
 ## Booking
 
 - [Agendar consulta](https://verafernandes.com/agendar/): Central booking page for all services
-- [Agendar psicologia do sono](https://verafernandes.com/agendar/?servico=sono): Online sleep consultation booking
+- [Agendar psicologia do sono](https://agendamento.verafernandes.com/): Online sleep consultation booking
 - [Avaliação neuropsicológica](https://verafernandes.com/avaliacao-neuropsicologica/): Overview of the neuropsychological assessment process
 - [Estimulação cognitiva](https://verafernandes.com/estimulacao-cognitiva/): Cognitive stimulation programme overview
 

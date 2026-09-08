@@ -1,6 +1,6 @@
 window.VF = {
   bookingNeuroUrl: "/agendar/",
-  bookingSonoUrl: "/psicologia-do-sono/",
+  bookingSonoUrl: "https://agendamento.verafernandes.com/",
   blogPosts: [
     {
       slug: "papel-psicologo-doencas-neurologicas",
