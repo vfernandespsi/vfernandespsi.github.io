@@ -1,5 +1,9 @@
 # Dependencies / build tooling (must not ship on GitHub Pages)
 node_modules/
+tools/
+tools/tmp-shots/
+__pycache__/
+*.pyc
 
 # Local env / secrets
 .env
