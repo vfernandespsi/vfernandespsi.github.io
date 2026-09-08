@@ -23,7 +23,7 @@ CTA = """
             <div class="col-lg-8 offset-lg-2">
         <div class="button cta-pair" style="margin:24px 0;">
             <a href="/agendar/" class="btn" data-track="marcar">Agendar</a>
-            <a href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica." class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
+            <a href="https://api.whatsapp.com/send?phone=351914166181&text=Tenho%20uma%20d%C3%BAvida%20sobre%20avalia%C3%A7%C3%A3o%20neuropsicol%C3%B3gica." class="btn btn-alt" data-track="whatsapp" rel="noopener noreferrer">Tenho uma dúvida</a>
         </div>
             </div>
         </div>"""

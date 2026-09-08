@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 LRE = (
-    '<li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener">'
+    '<li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener noreferrer">'
     '<img draggable="false" src="/assets/images/misc/livroreclamacoes.png" '
     'alt="Livro de Reclamações Electrónico"></a></li>'
 )

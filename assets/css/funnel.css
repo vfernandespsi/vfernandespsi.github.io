@@ -33,6 +33,10 @@
   gap: var(--vf-cta-gap);
 }
 
+.inicio .hero-content .button.hero-cta-pair {
+  justify-content: flex-start;
+}
+
 .button.cta-pair .btn,
 .button.hero-cta-pair .btn {
   display: inline-flex;
@@ -347,6 +351,12 @@
 
 .footer .vf-consent-link {
   color: inherit;
+  text-decoration: none;
+}
+
+.footer .copyright-text {
+  border: none;
+  border-top: none;
 }
 
 .page-inner .section-title {
@@ -519,6 +529,16 @@
 .page-inner .page-content ul:not(.related-list):not(.table-list) {
   margin: 0 0 1.25em;
   padding-left: 1.25em;
+}
+
+.page-inner .page-content h3+ul:not(.related-list):not(.table-list) {
+  padding-left: 0;
+  list-style-position: inside;
+}
+
+.page-inner .page-content h3+ul:not(.related-list):not(.table-list) li {
+  text-align: left;
+  hyphens: none;
 }
 
 .page-inner .page-content .button {
@@ -1502,13 +1522,12 @@ html.page-sono .consultas .table-content i2 {
 }
 
 html.page-sono .consultas .single-feature a:not(.btn) {
-  color: var(--vf-sono-accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  color: #333;
+  text-decoration: none;
 }
 
 html.page-sono .consultas .single-feature a:not(.btn):hover {
-  color: var(--vf-sono-ref);
+  color: var(--vf-text);
 }
 
 html.page-sono .accordion-button:not(.collapsed) {
@@ -1631,6 +1650,13 @@ html.page-sono .scroll-top:hover {
 
 .sobre-page .sobre-credentials {
   margin-bottom: 2em;
+}
+
+@media (max-width: 767px) {
+  .sobre-page .sobre-credentials li {
+    font-size: 0.9em;
+    line-height: 1.45;
+  }
 }
 
 .sobre-page .sobre-linkedin {
@@ -2763,6 +2789,14 @@ html.page-sono .consultas .single-feature>i {
   border-radius: 10px;
 }
 
+/* Homepage about photo — full image, no crop (beats .sobremim cover rule) */
+.home-about.sobremim .info-one .info-image>.single-photo img {
+  object-fit: contain;
+  max-height: none;
+  height: auto;
+  border-radius: 10px;
+}
+
 /* Slider neuro — proporção natural (como no site anterior) */
 .sobremim .photo-slider .single-photo {
   border-radius: 10px;
@@ -2989,16 +3023,18 @@ html.page-sono .consultas .single-feature>i {
 
   .localizacao .single-team .content>.row>.col {
     margin-top: 10px !important;
+    text-align: center;
   }
 
   .localizacao .single-team .social {
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-content: stretch;
+    justify-items: stretch;
     gap: 8px;
     float: none;
     margin-top: 10px;
-    text-align: left;
+    text-align: center;
   }
 
   .localizacao .single-team .social li {
@@ -3211,8 +3247,17 @@ html.page-sono .consultas .single-feature>i {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: var(--vf-cta-gap);
     margin-top: 20px;
+    width: 100%;
+    text-align: center;
+  }
+
+  #TCC-I .info-text .button.cta-pair {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
   .sobremim .info-text .button .btn,

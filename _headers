@@ -2,6 +2,12 @@
   Link: </sitemap.xml>; rel="sitemap", </llms.txt>; rel="api-catalog", </llms.txt>; rel="service-doc"
   Vary: Accept
   x-markdown-tokens: 650
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; form-action 'self' https://api.whatsapp.com https://wa.me https://us7.list-manage.com https://agendamento.verafernandes.com; upgrade-insecure-requests
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable

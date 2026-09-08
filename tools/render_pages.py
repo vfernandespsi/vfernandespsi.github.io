@@ -115,20 +115,20 @@ VENUES = [
 def venue_card(v, booking=False):
     extra = []
     extra.append(
-        f'<li><a href="{v["tel"]}" data-track="telefone" rel="noopener"><i class="lni lni-xl lni-phone"></i> Ligar</a></li>'
+        f'<li><a href="{v["tel"]}" data-track="telefone" rel="noopener noreferrer"><i class="lni lni-xl lni-phone"></i> Ligar</a></li>'
     )
     extra.append(
-        f'<li><a href="{v["maps"]}" target="_blank" rel="noopener"><i class="lni lni-xl lni-map-marker"></i> Localização</a></li>'
+        f'<li><a href="{v["maps"]}" target="_blank" rel="noopener noreferrer"><i class="lni lni-xl lni-map-marker"></i> Localização</a></li>'
     )
     if v["more"]:
         extra.append(
-            f'<li><a href="{v["more"]}" target="_blank" rel="noopener"><i class="lni lni-xl lni-laptop-phone"></i> Saber mais</a></li>'
+            f'<li><a href="{v["more"]}" target="_blank" rel="noopener noreferrer"><i class="lni lni-xl lni-laptop-phone"></i> Saber mais</a></li>'
         )
     if v["wa"]:
         from urllib.parse import quote
 
         extra.append(
-            f'<li><a href="https://api.whatsapp.com/send?phone=351914166181&text={quote(v["wa"])}" target="_blank" rel="noopener" data-track="whatsapp"><i class="lni lni-xl lni-whatsapp"></i> Tenho uma dúvida</a></li>'
+            f'<li><a href="https://api.whatsapp.com/send?phone=351914166181&text={quote(v["wa"])}" target="_blank" rel="noopener noreferrer" data-track="whatsapp"><i class="lni lni-xl lni-whatsapp"></i> Tenho uma dúvida</a></li>'
         )
     attrs = f'data-city="{v["city"]}"'
     if booking:
@@ -252,7 +252,7 @@ def page(
         </div>
         <div class="button cta-pair" style="margin-top:30px;text-align:center;">
             <a href="{cta_href}" class="btn" data-track="marcar"><i class="lni lni-calendar"></i> {cta_label}</a>
-            <a href="{wa}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
+            <a href="{wa}" class="btn btn-alt" data-track="whatsapp" rel="noopener noreferrer">Tenho uma dúvida</a>
         </div>
     </div>
 </section>'''
@@ -345,8 +345,8 @@ def page(
                             <div class="single-footer f-link">
                                 <h3>Contactos</h3>
                                 <ul>
-                                    <li>Membro Efectivo OPP 21502</li>
-                                    <li>Especialidade Avançada em Neuropsicologia</li>
+                                    <li>Membro Efetivo OPP nº 21502</li>
+                                    <li>Registo ERS nº 33923</li>
                                     <li><a href="mailto:vfernandes.psi@gmail.com">vfernandes.psi@gmail.com</a></li>
                                 </ul>
                             </div>
@@ -359,14 +359,16 @@ def page(
                                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
-                                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false" src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a></li>
+                                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener noreferrer"><img draggable="false" src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        
+        <p class="copyright-text">© 2026 Vera Fernandes · Todos os direitos reservados.</p>
+</div>
     </div>
 </footer>
 <a href="#inicio" class="scroll-top" target="_self"><i class="lni lni-chevron-up"></i></a>
@@ -462,18 +464,18 @@ def cta(sono=False, estimulacao=False, label="Agendar"):
         return f'''
         <div class="button cta-pair" style="margin:24px 0;">
             <a href="/agendar/?servico=sono" class="btn" data-track="marcar">{label}</a>
-            <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
+            <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" rel="noopener noreferrer">Tenho uma dúvida</a>
         </div>'''
     if estimulacao:
         return f'''
         <div class="button cta-pair" style="margin:24px 0;">
             <a href="/agendar/" class="btn" data-track="marcar">{label}</a>
-            <a href="{WA_ESTIMULACAO}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
+            <a href="{WA_ESTIMULACAO}" class="btn btn-alt" data-track="whatsapp" rel="noopener noreferrer">Tenho uma dúvida</a>
         </div>'''
     return f'''
         <div class="button cta-pair" style="margin:24px 0;">
             <a href="/agendar/" class="btn" data-track="marcar">{label}</a>
-            <a href="{WA}" class="btn btn-alt" data-track="whatsapp" rel="noopener">Tenho uma dúvida</a>
+            <a href="{WA}" class="btn btn-alt" data-track="whatsapp" rel="noopener noreferrer">Tenho uma dúvida</a>
         </div>'''
 
 
@@ -672,7 +674,7 @@ def write_sono_funnel_page():
                         <p id="triage-result-text"></p>
                         <div class="button">
                             <a href="#consultas" class="btn page-scroll" data-sono-booking data-track="marcar" data-track-location="triagem"><i class="lni lni-calendar"></i> Marcar consulta</a>
-                            <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" data-track-location="triagem" rel="noopener">Tenho uma dúvida</a>
+                            <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" data-track-location="triagem" rel="noopener noreferrer">Tenho uma dúvida</a>
                         </div>
                     </div>
                 </div>
@@ -715,7 +717,7 @@ def write_sono_funnel_page():
                     </div>
                     <div class="button">
                         <a href="/agendar/?servico=sono" class="btn" data-track="marcar" data-track-location="consultas"><i class="lni lni-calendar"></i> Agendar</a>
-                        <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" data-track-location="consultas" rel="noopener">Tenho uma dúvida</a>
+                        <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" data-track-location="consultas" rel="noopener noreferrer">Tenho uma dúvida</a>
                     </div>
                 </div>
             </div>
@@ -741,7 +743,7 @@ def write_sono_funnel_page():
                 </div>
                 <div class="button cta-pair" style="margin-top:30px;text-align:center;">
                     <a href="/agendar/?servico=sono" class="btn" data-track="marcar" data-track-location="faq"><i class="lni lni-calendar"></i> Agendar</a>
-                    <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" data-track-location="faq" rel="noopener">Tenho uma dúvida</a>
+                    <a href="{WA_SONO}" class="btn btn-alt" data-track="whatsapp" data-track-location="faq" rel="noopener noreferrer">Tenho uma dúvida</a>
                 </div>
             </div>
         </div>
@@ -765,6 +767,7 @@ def write_sono_funnel_page():
                             <li><a href="https://www.linkedin.com/in/vera-fernandes/"><i class="lni lni-linkedin-original"></i></a></li>
                             <li><a href="mailto:vfernandes.psi@gmail.com"><i class="lni lni-envelope"></i></a></li>
                         </ul>
+                        <p class="copyright-text">© 2026 Vera Fernandes · Todos os direitos reservados.</p>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-8 col-12">
@@ -773,8 +776,8 @@ def write_sono_funnel_page():
                             <div class="single-footer f-link">
                                 <h3>Contactos</h3>
                                 <ul>
-                                    <li>Membro Efectivo OPP 21502</li>
-                                    <li>Especialidade Avançada em Neuropsicologia</li>
+                                    <li>Membro Efetivo OPP nº 21502</li>
+                                    <li>Registo ERS nº 33923</li>
                                     <li><a href="mailto:vfernandes.psi@gmail.com">vfernandes.psi@gmail.com</a></li>
                                 </ul>
                             </div>
@@ -787,7 +790,7 @@ def write_sono_funnel_page():
                                     <li><a href="/tos/" target="_self">Termos e Condições</a></li>
                                     <li><a href="/privacy/" target="_self">Política de Privacidade</a></li>
                                     <li><button type="button" class="vf-consent-link" data-vf-open-consent>Cookies</button></li>
-                                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener"><img draggable="false" src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a></li>
+                                    <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener noreferrer"><img draggable="false" src="/assets/images/misc/livroreclamacoes.png" alt="Livro de Reclamações Electrónico"></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -1003,7 +1006,7 @@ def main():
             <h2>Quando é indicada?</h2>
             <p>Esta avaliação destina-se a adultos e idosos e é indicada quando surgem queixas, dificuldades no dia a dia ou necessidade de acompanhamento clínico, nomeadamente perante:</p>
             <ul class="table-list">
-                <li><i class="lni lni-checkmark-circle"></i> dificuldades de memória ou esquecimentos frequentes;</li>
+                <li><i class="lni lni-checkmark-circle"></i> dificuldades de memória frequentes;</li>
                 <li><i class="lni lni-checkmark-circle"></i> dificuldades de atenção ou concentração;</li>
                 <li><i class="lni lni-checkmark-circle"></i> alterações na linguagem, como dificuldade em encontrar palavras ou compreender o que lhe é dito;</li>
                 <li><i class="lni lni-checkmark-circle"></i> dificuldades no raciocínio, organização ou resolução de problemas;</li>
@@ -1105,7 +1108,7 @@ def main():
             <p>A frequência do acompanhamento é definida em conjunto, de acordo com as necessidades e objectivos da pessoa, e pode ser ajustada ao longo do tempo.</p>
             <p>O preço deverá ser confirmado directamente com o Hospital Lusíadas Braga no momento da marcação, de acordo com as condições aplicáveis.</p>
             <h2 id="onde-realizar">Onde realizar</h2>
-            <p>A estimulação cognitiva é realizada presencialmente no <a href="https://www.lusiadas.pt/corpo-clinico/dra-vera-fernandes-0" target="_blank" rel="noopener">Hospital Lusíadas Braga</a>.</p>
+            <p>A estimulação cognitiva é realizada presencialmente no <a href="https://www.lusiadas.pt/corpo-clinico/dra-vera-fernandes-0" target="_blank" rel="noopener noreferrer">Hospital Lusíadas Braga</a>.</p>
             {cta()}
         </div></div>""",
         ),
@@ -1190,17 +1193,17 @@ def main():
                 <p>Na área do sono, intervenção psicológica dirigida à insónia, com formação específica em Terapia Cognitivo-Comportamental para a Insónia (TCC-I), uma abordagem de primeira linha para o tratamento da insónia. A intervenção centra-se na identificação e modificação dos fatores que contribuem para a manutenção das dificuldades de sono, promovendo padrões de sono mais regulares e reparadores.</p>
                 <h2>Experiência Clínica</h2>
                 <p>Experiência na realização de avaliação neuropsicológica de adultos e idosos em contexto hospitalar público, no Hospital de Braga (ULS Braga).</p>
-                <p>Prática clínica independente em diferentes clínicas privadas, incluindo a colaboração com o <a href="https://www.cnscampus.com/equipa/vera-fernandes/" target="_blank" rel="noopener">CNS – Campus Neurológico</a> e o <a href="https://www.lusiadas.pt/corpo-clinico/dra-vera-fernandes-0" target="_blank" rel="noopener">Hospital Lusíadas Braga</a>.</p>
+                <p>Prática clínica independente em diferentes clínicas privadas, incluindo a colaboração com o <a href="https://www.cnscampus.com/equipa/vera-fernandes/" target="_blank" rel="noopener noreferrer">CNS – Campus Neurológico</a> e o <a href="https://www.lusiadas.pt/corpo-clinico/dra-vera-fernandes-0" target="_blank" rel="noopener noreferrer">Hospital Lusíadas Braga</a>.</p>
                 <p>Percurso clínico iniciado em estágios hospitalares no Centro Hospitalar Entre Douro e Vouga e no Hospital de Braga e, posteriormente, consolidado no Serviço de Consulta da Faculdade de Psicologia e de Ciências da Educação da Universidade do Porto (FPCEUP).</p>
                 <h2>Investigação e Formação</h2>
-                <p>Participação como rater em ensaios clínicos internacionais, integrando equipas de investigação clínica dedicadas ao estudo de novos fármacos na Doença de Alzheimer e noutras patologias neurodegenerativas.</p>
+                <p>Participação como <em>rater</em> em ensaios clínicos internacionais, integrando equipas de investigação clínica dedicadas ao estudo de novos fármacos na Doença de Alzheimer e noutras patologias neurodegenerativas.</p>
                 <p>Apresentação de comunicações e trabalhos científicos em congressos nacionais e internacionais de Neurologia e Neuropsicologia.</p>
                 <p>Participação regular em formação clínica especializada, assegurando uma actualização contínua na área clínica.</p>
                 <p>Docente no Instituto CRIAP, com colaborações pontuais em instituições de ensino superior.</p>
                 <p>Dinamização de sessões de formação e workshops dirigidos a profissionais de saúde e cuidadores.</p>
                 <h2>Formação Académica</h2>
                 <p>Mestrado Integrado em Psicologia Clínica e da Saúde<br>Faculdade de Psicologia e de Ciências da Educação da Universidade do Porto.</p>
-                <p><a href="https://www.linkedin.com/in/vera-fernandes/" target="_blank" rel="noopener">Ver perfil completo no LinkedIn</a></p>
+                <p><a href="https://www.linkedin.com/in/vera-fernandes/" target="_blank" rel="noopener noreferrer">Ver perfil completo no LinkedIn</a></p>
                 {cta()}""",
         ),
         [],
@@ -1249,7 +1252,7 @@ def main():
                 <p>Esquecer nomes ocasionalmente, demorar mais tempo a encontrar uma palavra ou perder o fio à meada perante momentos de cansaço podem fazer parte do envelhecimento típico. No entanto, quando as falhas de memória se tornam mais frequentes ou causam apreensão, é natural surgir a dúvida: será apenas do processo normal de envelhecimento ou justifica uma investigação mais detalhada?</p>
                 <p>A avaliação neuropsicológica permite caracterizar detalhadamente o funcionamento cognitivo atual. Descreve o perfil de pontos fortes e pontos fracos, complementando o diagnóstico clínico realizado pelo médico.</p>
 
-                <h2>Exemplos de Sinais de Alerta</h2>
+                <h2>Exemplos de sinais de alerta</h2>
                 <p>A linha entre o envelhecimento expectável e a necessidade de investigação nem sempre é evidente. Pode fazer sentido ponderar uma avaliação quando observa sinais como:</p>
                 <ul class="table-list">
                     <li><i class="lni lni-checkmark-circle"></i> Fazer a mesma pergunta várias vezes na mesma conversa ou repetir sistematicamente o assunto das histórias que conta;</li>
@@ -1267,7 +1270,7 @@ def main():
                 <p><strong>Clareza objetiva:</strong> Ajuda a diferenciar entre alterações benignas (associadas à idade, ansiedade ou cansaço) e sinais iniciais de declínio cognitivo associado a doenças neurodegenerativas.</p>
                 <p><strong>Orientação de passos futuros:</strong> Fornece um relatório detalhado que auxilia o médico assistente (Neurologia, Psiquiatria ou Medicina Geral e Familiar) nas decisões clínicas, na definição de estratégias de intervenção ou no agendamento de uma reavaliação posterior.</p>
 
-                <h2>Próximo Passo</h2>
+                <h2>Próximo passo</h2>
                 <p>Se estes exemplos se aproximam do que tem observado em si ou num familiar, o passo seguinte consiste em compreender como funciona o <a href="/avaliacao-neuropsicologica/">processo de avaliação</a>. A realização de uma <a href="/rastreio-memoria/">triagem</a> prévia ajuda a clarificar se a avaliação é o procedimento mais indicado para o seu caso neste momento.</p>
                 <p><em>Nota:</em> A triagem prévia é um instrumento de orientação inicial, que não constitui um diagnóstico médico nem substitui uma consulta de avaliação neuropsicológica.</p>
                 {cta()}
@@ -1301,13 +1304,13 @@ def main():
                 <h2>Existem diferentes tipos de demência</h2>
                 <p>A demência pode ser causada por diferentes condições neurológicas ou médicas, cada uma com <strong>características e formas de evolução distintas</strong>:</p>
                 <ul class="table-list">
-                    <li><i class="lni lni-checkmark-circle"></i> <strong>Doença de Alzheimer:</strong> É a causa mais frequente de demência. Carateriza-se tipicamente por uma perda progressiva da memória recente e dificuldade em reter novas informações.</li>
+                    <li><i class="lni lni-checkmark-circle"></i> <strong>Doença de Alzheimer:</strong> É a causa mais frequente de demência. Carateriza-se tipicamente por uma perda progressiva da memória recente por dificuldade em reter novas informações.</li>
                     <li><i class="lni lni-checkmark-circle"></i> <strong>Demência Vascular:</strong> Causada por alterações na circulação sanguínea no cérebro (como pequenos AVCs), podendo apresentar um declínio em degraus, com períodos de estabilização intercalados com agravamentos.</li>
                     <li><i class="lni lni-checkmark-circle"></i> <strong>Demência por Corpos de Lewy:</strong> Frequentemente associada a flutuações na atenção, alucinações visuais e alterações motoras semelhantes às da Doença de Parkinson.</li>
                     <li><i class="lni lni-checkmark-circle"></i> <strong>Demência Frontotemporal:</strong> Afeta sobretudo as regiões do cérebro responsáveis pelo comportamento, personalidade e linguagem, podendo surgir em idades mais jovens.</li>
                     <li><i class="lni lni-checkmark-circle"></i> <strong>Causas reversíveis ou secundárias:</strong> Quadros de apatia ou falhas cognitivas semelhantes ao que se observa nas outras demências podem ser causados por depressão, alterações na tiróide, défices vitamínicos ou efeitos secundários de medicação, daí a importância de um estudo rigoroso.</li>
                 </ul>
-                <p>A <strong>avaliação neuropsicológica</strong> é um exame complementar fundamental nestes quadros. Permite descrever com detalhe o perfil de funcionamento cerebral, ajudando a identificar quais as funções preservadas e quais as afetadas. É um exame baseado em entrevistas, questionários e tarefas práticas, totalmente não invasivo (não recorre a máquinas nem agulhas) e indolor. Todo o processo é conduzido com proximidade e adaptado ao ritmo de cada pessoa, num ambiente tranquilo e sem a pressão de uma espécie de exame. O objetivo é simplesmente compreender como a pessoa lida com as exigências do dia a dia, valorizando os seus pontos fortes e identificando onde precisa de apoio.</p>
+                <p>A <strong>avaliação neuropsicológica</strong> é um exame complementar fundamental nestes quadros. Permite descrever com detalhe o perfil de funcionamento cerebral, ajudando a identificar quais as funções preservadas e quais as afetadas. É um exame baseado em entrevista, questionários e tarefas práticas, totalmente não invasivo (não recorre a máquinas nem agulhas) e indolor. Todo o processo é conduzido com proximidade e adaptado ao ritmo de cada pessoa, num ambiente tranquilo e sem a pressão de um teste. O objetivo é simplesmente compreender como a pessoa lida com as exigências do dia a dia, valorizando os seus pontos fortes e identificando onde precisa de apoio.</p>
 
                 <h2>Quando faz sentido procurar uma avaliação?</h2>
                 <p>Pode ser indicado agendar uma avaliação neuropsicológica quando:</p>
@@ -1325,7 +1328,7 @@ def main():
                     <li><i class="lni lni-checkmark-circle"></i> Serve de base para a definição de estratégias de estimulação e para monitorizar a evolução das funções cognitivas ao longo do tempo.</li>
                 </ul>
 
-                <h2>Próximo Passo</h2>
+                <h2>Próximo passo</h2>
                 <p>Se esta descrição se aproxima do que tem observado em si ou num familiar, o passo seguinte consiste em compreender como funciona o <a href="/avaliacao-neuropsicologica/">processo de avaliação</a>. A realização de uma <a href="/rastreio-memoria/">triagem</a> prévia ajuda a clarificar se a avaliação é o procedimento mais indicado para o seu caso neste momento.</p>
                 <p><em>Nota:</em> A triagem prévia é um instrumento de orientação inicial, que não constitui um diagnóstico médico nem substitui uma consulta de avaliação neuropsicológica.</p>
                 {cta()}
@@ -1360,7 +1363,7 @@ def main():
             <div class="col-lg-8 offset-lg-2">
                 <p>A <strong>Doença de Alzheimer</strong> é uma doença neurodegenerativa e a causa mais frequente de demência no adulto e no idoso. Caracteriza-se pela perda progressiva de neurónios em regiões cerebrais fulcrais para a memória, linguagem, orientação e capacidade de planeamento.</p>
                 <p>Nas fases iniciais, as alterações podem ser subtis e facilmente confundidas com o envelhecimento normal ou com quadro de ansiedade e depressão. Contudo, identificar precocemente os primeiros sinais de declínio cognitivo é fundamental: permite iniciar estratégias de apoio atempadas, planear o futuro com autonomia e tomar decisões terapêuticas informadas.</p>
-                <p>A avaliação neuropsicológica surge neste contexto como um <strong>exame complementar de diagnóstico essencial</strong>, permitindo caracterizar com detalhe o funcionamento cerebral e distinguir se as falhas observadas correspondem ao envelhecimento expetável, a um Défice Cognitivo Ligeiro (DCL) ou a uma fase inicial da Doença de Alzheimer.</p>
+                <p>A avaliação neuropsicológica surge neste contexto como um <strong>exame complementar de diagnóstico relevante</strong>, permitindo caracterizar com detalhe o funcionamento cerebral e distinguir se as falhas observadas correspondem ao envelhecimento expetável, a um Défice Cognitivo Ligeiro (DCL) ou a uma fase inicial da Doença de Alzheimer.</p>
 
                 <h2>Quando faz sentido procurar uma avaliação?</h2>
                 <p>A avaliação neuropsicológica é indicada em duas situações principais:</p>
@@ -1561,12 +1564,12 @@ def main():
 
     page(
         "sono-e-memoria",
-        "Memória e Sono: Por onde começar? | Vera Fernandes",
+        "Memória e Sono: por onde começar? | Vera Fernandes",
         "O sono e a cognição influenciam-se mutuamente. Esta página ajuda a escolher entre consulta de psicologia do sono e avaliação neuropsicológica.",
         f"{SITE}/sono-e-memoria/",
         [("Início", f"{SITE}/"), ("Sono e memória", f"{SITE}/sono-e-memoria/")],
         section(
-            "Memória e Sono: Por onde começar?",
+            "Memória e Sono: por onde começar?",
             "Orientação clínica",
             extra_class=" page-content--justify",
             html=f"""
