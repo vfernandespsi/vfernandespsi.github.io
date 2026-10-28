@@ -11,6 +11,9 @@ Author: GrayGrids
         return document.documentElement.classList.contains('page-inner');
     }
 
+    // Hide the preloader once the HTML is parsed instead of waiting for every image.
+    document.addEventListener('DOMContentLoaded', fadeout);
+
     window.onload = function () {
         window.setTimeout(fadeout, 1);
         var header_navbar = document.querySelector(".navbar-area");
